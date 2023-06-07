@@ -3,15 +3,21 @@ package com.example.shopapplication;
 import java.sql.*;
 
 public class DatabaseConnectionJDBC {
-    Connection connection;
+    private final Connection connection;
 
     public DatabaseConnectionJDBC() throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
-        connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+        connection = DriverManager.getConnection("jdbc:sqlite:src/database.db");
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        new DatabaseConnectionJDBC();
+        DatabaseConnectionJDBC database = new DatabaseConnectionJDBC();
+        Statement statement = database.connection.createStatement();
+        ResultSet resultset = statement.executeQuery("SELECT * From Users");
+        while (resultset.next()) {
+            System.out.println(resultset.getString("username"));
+            System.out.println(resultset.getString("password"));
+        }
 
     }
 

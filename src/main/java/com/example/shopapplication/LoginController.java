@@ -10,12 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController extends Application implements Initializable {
@@ -36,7 +38,7 @@ public class LoginController extends Application implements Initializable {
     @FXML
     private Button cancelButton;
     @FXML
-    private Label errorLabel;
+    private Label loginMessageLabel;
     @FXML
     private ComboBox<String> comboBox;
 
@@ -74,20 +76,36 @@ public class LoginController extends Application implements Initializable {
     }
 
     public void login() {
-        if (usernameTextField.getText().equals("") || // if a field is empty
-                (passwordTextField.isVisible() ? passwordTextField.getText().equals("") :
-                        passwordPasswordField.getText().equals(""))) {
-            errorLabel.setText("Enter username and password fields.");
+        if (usernameTextField.getText().equals("") || getPasswordText().equals("")) { // if a field is empty
+            loginMessageLabel.setTextFill(Color.RED);
+            loginMessageLabel.setText("Enter username and password fields.");
 
-        } else {
-            if (validate());
+        } else { // check inputs
+            String username = usernameTextField.getText();
+            String password = getPasswordText();
+            boolean validation = false;
+
+            switch (comboBox.getValue()) { // validate base on combo box value
+                case "User":
+                    validation = Login.validateUserLogin(username, password);
+                    break;
+                case "Seller":
+                    validation = Login.validateSellerLogin(username, password);
+                    break;
+                case "Admin":
+                    validation = Login.validateAdminLogin(username, password);
+                default:
+                    System.out.println(new Exception("combo box selection does not exist."));
+            }
+
+            if (validation) { // if inputs are correct
+                loginMessageLabel.setTextFill(Color.GREEN);
+                loginMessageLabel.setText("Welcome!");
+            } else { // invalid inputs
+                loginMessageLabel.setTextFill(Color.RED);
+                loginMessageLabel.setText("Username or password is invalid.");
+            }
         }
-        System.out.println("LoginController.login");
-
-    }
-
-    private boolean validate() {
-        return false;
     }
 
     public void switchToSignUp() {
@@ -98,7 +116,6 @@ public class LoginController extends Application implements Initializable {
         System.out.println("LoginController.switchToPasswordRestoration");
     }
     public void switchVisibilityIcon() {
-        System.out.println("LoginController.switchVisibilityIcon");
         if (visibilityImageView.getImage() == invisibleIcon) {
             visibilityImageView.setImage(visibleIcon);
             passwordTextField.      setVisible(true);
@@ -112,6 +129,12 @@ public class LoginController extends Application implements Initializable {
             passwordPasswordField.setText(passwordTextField.getText());
         }
 
+    }
+
+    private String getPasswordText() {
+        return passwordTextField.isVisible()
+                ? passwordTextField.getText()
+                : passwordPasswordField.getText();
     }
 
     public static void main(String[] args) {

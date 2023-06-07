@@ -74,9 +74,9 @@
          </opaqueInsets>
       </GridPane>
       <Hyperlink fx:id="forgottenPasswordHyperlink" layoutX="164.0" layoutY="300.0" onAction="#switchToPasswordRestoration" text="Have you forgotten your password?" />
-      <Button fx:id="loginButton" defaultButton="true" layoutX="333.0" layoutY="268.0" mnemonicParsing="false" onAction="#login" text="Log i-n" />
+      <Button fx:id="loginButton" defaultButton="true" layoutX="333.0" layoutY="268.0" mnemonicParsing="false" onAction="#login" text="Log in" />
       <Hyperlink fx:id="createAccountHyperlink" layoutX="164.0" layoutY="324.0" onAction="#switchToSignUp" text="Create an account." />
       <Button fx:id="cancelButton" cancelButton="true" layoutX="390.0" layoutY="268.0" mnemonicParsing="false" onAction="#close" text="Cancel" />
-      <Label fx:id="errorLabel" alignment="CENTER" layoutX="163.0" layoutY="129.0" prefHeight="18.0" prefWidth="278.0" textFill="RED" />
+      <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="163.0" layoutY="129.0" prefHeight="18.0" prefWidth="278.0" textFill="RED" />
    </children>
 </AnchorPane>
