@@ -17,7 +17,6 @@ import javafx.stage.StageStyle;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController extends Application implements Initializable {
@@ -49,7 +48,7 @@ public class LoginController extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String[] roles = {"User", "Seller", "Admin"};
+        String[] roles = {"Customer", "Seller", "Admin"};
         comboBox.setItems(FXCollections.observableArrayList(roles));
         comboBox.setValue(comboBox.getItems().get(0));
 
@@ -83,17 +82,18 @@ public class LoginController extends Application implements Initializable {
         } else { // check inputs
             String username = usernameTextField.getText();
             String password = getPasswordText();
+            Login login = new Login();
             boolean validation = false;
 
             switch (comboBox.getValue()) { // validate base on combo box value
-                case "User":
-                    validation = Login.validateUserLogin(username, password);
+                case "Customer":
+                    validation = login.validateCustomerLogin(username, password);
                     break;
                 case "Seller":
-                    validation = Login.validateSellerLogin(username, password);
+                    validation = login.validateSellerLogin(username, password);
                     break;
                 case "Admin":
-                    validation = Login.validateAdminLogin(username, password);
+                    validation = login.validateAdminLogin(username, password);
                 default:
                     System.out.println(new Exception("combo box selection does not exist."));
             }

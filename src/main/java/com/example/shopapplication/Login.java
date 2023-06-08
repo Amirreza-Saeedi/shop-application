@@ -5,22 +5,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Login extends Validation {
+public class Login implements Validatable {
 
-    private static boolean validateLogin(String table, String username, String password) {
+    public boolean validate(String table, User user) { // todo how to make it private?
         Connection connection;
+        String username = user.getUsername();
+        String password = user.getPassword();
+
         try {
             connection = new DatabaseConnectionJDBC().getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet;
 
-            { // temp
-                resultSet = statement.executeQuery("SELECT * FROM Users");
-                while (resultSet.next()) {
-                    System.out.println("username = " + resultSet.getString("username"));
-                    System.out.println("password = " + resultSet.getString("password"));
-                }
-            }
+//            { // temp
+//                resultSet = statement.executeQuery("SELECT * FROM Users");
+//                while (resultSet.next()) {
+//                    System.out.println("username = " + resultSet.getString("username"));
+//                    System.out.println("password = " + resultSet.getString("password"));
+//                }
+//            }
 
             String sql = "SELECT * FROM " + table + " WHERE username='" + username + "' AND password='" + password + "'";
             resultSet = statement.executeQuery(sql);
@@ -40,15 +43,15 @@ public class Login extends Validation {
 
         return false;
     }
-    public static boolean validateUserLogin(String username, String password) {
-        return validateLogin("Users", username, password);
+    public boolean validateCustomerLogin(String username, String password) {
+        return validate("CustomerSre", new Customer(username, password));
     }
 
-    public static boolean validateSellerLogin(String username, String password) {
-        return validateLogin("Sellers",username, password);
+    public boolean validateSellerLogin(String username, String password) {
+        return validate("Sellers", new Seller(username, password));
     }
 
-    public static boolean validateAdminLogin(String username, String password) {
-        return validateLogin("Admins", username, password);
+    public boolean validateAdminLogin(String username, String password) {
+        return validate("Admins", new Admin(username, password));
     }
 }
