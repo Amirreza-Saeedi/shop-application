@@ -10,7 +10,7 @@ public class Login {
     private static boolean validateLogin(String table, String username, String password) {
         Connection connection;
         try {
-            connection = new DatabaseConnectionJDBC().getConnection();
+            connection = new com.example.shopapplication.DatabaseConnectionJDBC().getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet;
 
