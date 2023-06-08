@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Login {
+public class Login extends Validation {
 
     private static boolean validateLogin(String table, String username, String password) {
         Connection connection;

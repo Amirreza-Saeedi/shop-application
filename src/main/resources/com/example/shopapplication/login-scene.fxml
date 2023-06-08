@@ -20,7 +20,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.LoginController">
    <children>
-      <Label layoutX="45.0" layoutY="55.0" prefHeight="18.0" prefWidth="311.0" text="Login">
+      <Label fx:id="loginLabel" layoutX="45.0" layoutY="55.0" prefHeight="18.0" prefWidth="311.0" text="Login">
          <font>
             <Font size="30.0" />
          </font>
