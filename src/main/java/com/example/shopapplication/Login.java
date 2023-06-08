@@ -13,7 +13,7 @@ public class Login implements Validatable {
         String password = user.getPassword();
 
         try {
-            connection = new DatabaseConnectionJDBC().getConnection();
+            connection = new com.example.shopapplication.DatabaseConnectionJDBC().getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet;
 
