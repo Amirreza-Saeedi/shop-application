@@ -55,8 +55,8 @@
             <TextField fx:id="usernameTextField" prefHeight="11.0" prefWidth="218.0" promptText="Enter username" GridPane.columnIndex="1" />
             <Pane prefHeight="26.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <PasswordField fx:id="passwordPasswordField" layoutY="2.0" prefHeight="20.0" prefWidth="218.0" promptText="Enter password" />
-                  <TextField fx:id="passwordTextField" layoutY="4.0" prefHeight="26.0" prefWidth="190.0" promptText="Enter password" visible="false" />
+                  <PasswordField fx:id="passwordPasswordField" layoutY="2.0" prefHeight="26.0" prefWidth="218.0" promptText="Enter password" />
+                  <TextField fx:id="passwordTextField" layoutY="2.0" prefHeight="26.0" prefWidth="218.0" promptText="Enter password" visible="false" />
                   <ImageView fx:id="visibilityImageView" fitHeight="143.0" fitWidth="36.0" layoutX="182.0" onMouseReleased="#switchVisibilityIcon" opacity="0.4" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/invisible.png" />
@@ -78,13 +78,14 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="firstTextField" layoutX="99.0" layoutY="12.0" prefHeight="14.0" prefWidth="218.0" promptText="Enter first name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="firstnameTextField" layoutX="99.0" layoutY="12.0" prefHeight="14.0" prefWidth="218.0" promptText="Enter first name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label layoutX="10.0" layoutY="95.0" text="Confirm Password:" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <PasswordField fx:id="confirmationPasswordField" prefHeight="1.0" prefWidth="218.0" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <PasswordField fx:id="passwordConfirmationPasswordField" prefHeight="1.0" prefWidth="218.0" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="passwordConfirmationTextField" prefHeight="20.0" prefWidth="218.0" promptText="Enter password" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label layoutX="10.0" layoutY="41.0" text="Last Name:" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />

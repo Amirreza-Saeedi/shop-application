@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SignUp implements Validatable {
+public class SignUp implements Verifiable {
     @Override
     public boolean validate(String table, User user) { // todo how to make it private?
+        /*check if username exists already*/
         boolean validation = false; // don't let user sign up by default
         String username = user.getUsername();
         String sql = "SELECT * FROM " + table + " WHERE username='" + username + "'";
@@ -34,7 +35,11 @@ public class SignUp implements Validatable {
         return validate("Customers", new Customer(username));
     }
 
-    public boolean validateSellerSignUp(String username) { // check if username exists already
+    public boolean validateSellerSignUp(String username) {
+        /* check if username exists already,
+         matches its related regex,
+         and admins allows seller to sign up*/
+
         return validate("Sellers", new Customer(username));
     }
 

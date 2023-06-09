@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Login implements Validatable {
+public class Login implements Verifiable {
     @Override
     public boolean validate(String table, User user) { // todo how to make it private?
         Connection connection;
