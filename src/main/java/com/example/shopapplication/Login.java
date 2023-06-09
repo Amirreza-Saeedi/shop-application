@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Login implements Validatable {
-
+    @Override
     public boolean validate(String table, User user) { // todo how to make it private?
         Connection connection;
         String username = user.getUsername();
@@ -38,7 +38,7 @@ public class Login implements Validatable {
             }
 
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
+            System.err.println(e);
         }
 
         return false;
