@@ -1,7 +1,11 @@
 package com.example.shopapplication;
 
-/*declares a method for verifying username and password based on database*/
+import com.example.shopapplication.exceptions.IllegalPasswordException;
+import com.example.shopapplication.exceptions.IllegalUsernameException;
+import com.example.shopapplication.exceptions.UsernameAlreadyExistsException;
+
+/*declares a method for verifying username and passwordRegex based on database*/
 public interface Verifiable {
-    boolean validate(String table, User user);
+    boolean validate(String table, User user) throws UsernameAlreadyExistsException, IllegalPasswordException, IllegalUsernameException;
 
 }

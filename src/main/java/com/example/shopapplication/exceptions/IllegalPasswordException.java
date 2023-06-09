@@ -1,4 +1,4 @@
-package com.example.shopapplication;
+package com.example.shopapplication.exceptions;
 
 public class IllegalPasswordException extends Exception {
     @Override

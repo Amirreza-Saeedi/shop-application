@@ -6,4 +6,8 @@ module com.example.shopapplication {
 
     opens com.example.shopapplication to javafx.fxml;
     exports com.example.shopapplication;
+    exports com.example.shopapplication.exceptions;
+    opens com.example.shopapplication.exceptions to javafx.fxml;
+    exports com.example.shopapplication.regex;
+    opens com.example.shopapplication.regex to javafx.fxml;
 }

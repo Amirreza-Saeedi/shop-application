@@ -77,7 +77,7 @@ public class LoginController extends Application implements Initializable {
     public void login() {
         if (usernameTextField.getText().equals("") || getPasswordText().equals("")) { // if a field is empty
             loginMessageLabel.setTextFill(Color.RED);
-            loginMessageLabel.setText("Enter username and password fields.");
+            loginMessageLabel.setText("Enter username and passwordRegex fields.");
 
         } else { // check inputs
             String username = usernameTextField.getText();
@@ -103,7 +103,7 @@ public class LoginController extends Application implements Initializable {
                 loginMessageLabel.setText("Welcome!");
             } else { // invalid inputs
                 loginMessageLabel.setTextFill(Color.RED);
-                loginMessageLabel.setText("Username or password is invalid.");
+                loginMessageLabel.setText("Username or passwordRegex is invalid.");
             }
         }
     }

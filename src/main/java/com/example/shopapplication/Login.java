@@ -21,7 +21,7 @@ public class Login implements Verifiable {
 //                resultSet = statement.executeQuery("SELECT * FROM Users");
 //                while (resultSet.next()) {
 //                    System.out.println("username = " + resultSet.getString("username"));
-//                    System.out.println("password = " + resultSet.getString("password"));
+//                    System.out.println("passwordRegex = " + resultSet.getString("passwordRegex"));
 //                }
 //            }
 

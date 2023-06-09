@@ -16,7 +16,7 @@ public class DatabaseConnectionJDBC {
         ResultSet resultset = statement.executeQuery("SELECT * From Users");
         while (resultset.next()) {
             System.out.println(resultset.getString("username"));
-            System.out.println(resultset.getString("password"));
+            System.out.println(resultset.getString("passwordRegex"));
         }
 
     }
