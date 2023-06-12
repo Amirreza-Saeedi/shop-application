@@ -1,6 +1,7 @@
 package com.example.shopapplication;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -47,7 +45,11 @@ public class SignUpController extends Application implements Initializable {
     private Label signUpMessageLabel;
     @FXML
     private ImageView visibilityImageView;
-
+    @FXML
+    private Button nextButton;
+    @FXML
+    private Label companyLabel;
+    private TextField[] textFields;
     private Image visibleIcon;
     private Image invisibleIcon;
 
@@ -69,8 +71,20 @@ public class SignUpController extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // combo box
-        String[] items = {"User", "Seller"};
+        String[] items = {"Customer", "Seller"};
         comboBox.getItems().addAll(items);
+        comboBox.setValue(items[0]);
+
+        // add change listener to text fields
+        ChangeListener<String> changeListener = (observableValue, oldValue, newValue) -> {
+            nextButtonChangeListener();
+        };
+        textFields = new TextField[]{usernameTextField, firstnameTextField, lastnameTextField, passwordTextField,
+                passwordConfirmationTextField, passwordPasswordField, passwordConfirmationPasswordField,
+                emailTextField, companyTextField};
+        for (TextField textField : textFields) {
+            textField.textProperty().addListener(changeListener);
+        }
 
         // images
         try {
@@ -115,6 +129,97 @@ public class SignUpController extends Application implements Initializable {
         stage.close();
     }
 
-    public void signUp(ActionEvent event) {
+    public void next(ActionEvent event) {
+        String signUpMessage = "";
+        SignUp signUp = null;
+        boolean validation = false;
+        User user = null;
+
+
+//        sign up step 1: validate inputs
+
+//        sign up step 2: check username uniqueness
+
+//        sign up step 3: verify email
+
+//        sign up step 4: get admin permission
+        try {
+            String username = usernameTextField.getText();
+            String password = getPassword();
+            String firstname = firstnameTextField.getText();
+            String lastname = lastnameTextField.getText();
+            String email = emailTextField.getText();
+            String comboBoxValue = comboBox.getValue();
+
+            if (comboBoxValue == "Customer") {
+                user = new Customer(username, password, firstname, lastname, email);
+            } else if (comboBoxValue == "Seller") {
+                user = new Seller(username, password, firstname, lastname, email);
+            }
+
+            signUp = new SignUp(user);
+
+            if (signUp.validate() && signUp.verify()) {
+                signUpMessage = "Welcome!";
+            }
+
+
+        } catch (Exception e) {
+            signUpMessage = e.getMessage();
+            System.err.println(e);
+        }
+
+        signUpMessageLabel.setText(signUpMessage);
+
+    }
+
+    private String getPassword() {
+        String password1;
+        String password2;
+        if (visibilityImageView.getImage() == invisibleIcon) {
+            password1 = passwordPasswordField.              getText();
+            password2 = passwordConfirmationPasswordField.  getText();
+        } else {
+            password1 = passwordTextField.                  getText();
+            password2 = passwordConfirmationTextField.      getText();
+        }
+
+        if (password1.equals(password2)) { // if they match
+            return password1;
+        } else { // if not matched
+            return "";
+        }
+    }
+
+    public void nextButtonChangeListener() {
+        System.out.println("SignUpController.nextButtonChangeListener");
+        System.out.println("getPassword() = " + getPassword());
+        if (usernameTextField.getText().equals("") || getPassword().equals("") || // keep next button disabled
+                firstnameTextField.getText().equals("") || lastnameTextField.getText().equals("") ||
+                emailTextField.getText().equals("") ||
+                (comboBox.getSelectionModel().isSelected(1) && companyTextField.getText().equals(""))) {
+            nextButton.setDisable(true);
+        } else {
+            nextButton.setDisable(false);
+        }
+
+        final int LIMIT = 20;
+        for (TextField textField : textFields) {
+            if (textField != emailTextField) {
+                String text = textField.getText();
+                textField.setText(text.length() > LIMIT ? text.substring(0, LIMIT) : text);
+            }
+        }
+    }
+
+    public void switchCompanyRow(ActionEvent event) {
+        if (comboBox.getValue() == "Seller") {
+            companyLabel.       setVisible(true);
+            companyTextField.   setVisible(true);
+        } else {
+            companyLabel.       setVisible(false);
+            companyTextField.   setVisible(false);
+        }
+        nextButtonChangeListener();
     }
 }

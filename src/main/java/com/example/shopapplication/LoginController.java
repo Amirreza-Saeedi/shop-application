@@ -82,10 +82,18 @@ public class LoginController extends Application implements Initializable {
         } else { // check inputs
             String username = usernameTextField.getText();
             String password = getPasswordText();
-            Login login = new Login();
+            User user = null;
+            if (comboBox.getValue() == "Customer")
+                user = new Customer(username, password);
+            else if (comboBox.getValue() == "Seller")
+                user = new Seller(username, password);
+            else if (comboBox.getValue() == "Admin")
+                user = new Admin(username, password);
+
+            Login login = new Login(user);
             boolean validation = false;
 
-            switch (comboBox.getValue()) { // validate base on combo box value
+            switch (comboBox.getValue()) { // verify base on combo box value
                 case "Customer":
                     validation = login.validateCustomerLogin(username, password);
                     break;
@@ -103,7 +111,7 @@ public class LoginController extends Application implements Initializable {
                 loginMessageLabel.setText("Welcome!");
             } else { // invalid inputs
                 loginMessageLabel.setTextFill(Color.RED);
-                loginMessageLabel.setText("Username or passwordRegex is invalid.");
+                loginMessageLabel.setText("Username or password is invalid.");
             }
         }
     }
