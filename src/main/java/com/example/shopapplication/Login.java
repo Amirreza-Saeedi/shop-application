@@ -36,6 +36,7 @@ public class Login {
 
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
+            e.printStackTrace();
         }
 
         return false;
