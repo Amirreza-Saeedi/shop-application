@@ -915,7 +915,7 @@ public class HomeController implements Initializable {
                         selectCommodities("BreakFastCommodities","Date",false,brandListItem);
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("BreakFastCommodities","Date",true,brandListItem);
+                        selectCommodities("BreakFastCommodities","Price",true,brandListItem);
                         break;
                     case "Most expensive to cheapest" :
                         selectCommodities("BreakFastCommodities","Price",false,brandListItem);
@@ -931,7 +931,7 @@ public class HomeController implements Initializable {
                         selectCommodities("ProteinCommodities","Date",false,brandListItem);
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("ProteinCommodities","Date",true,brandListItem);
+                        selectCommodities("ProteinCommodities","Price",true,brandListItem);
                         break;
                     case "Most expensive to cheapest" :
                         selectCommodities("ProteinCommodities","Price",false,brandListItem);
@@ -947,7 +947,7 @@ public class HomeController implements Initializable {
                         selectCommodities("DairyCommodities","Date",false,brandListItem);
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("DairyCommodities","Date",true,brandListItem);
+                        selectCommodities("DairyCommodities","Price",true,brandListItem);
                         break;
                     case "Most expensive to cheapest" :
                         selectCommodities("DairyCommodities","Price",false,brandListItem);
@@ -963,7 +963,7 @@ public class HomeController implements Initializable {
                         selectCommodities("FruitAndVegetablesCommodities","Date",false,brandListItem);
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("FruitAndVegetablesCommodities","Date",true,brandListItem);
+                        selectCommodities("FruitAndVegetablesCommodities","Price",true,brandListItem);
                         break;
                     case "Most expensive to cheapest" :
                         selectCommodities("FruitAndVegetablesCommodities","Price",false,brandListItem);
@@ -976,16 +976,16 @@ public class HomeController implements Initializable {
             case "Snacks" :
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("SnacksCommodities","Date",false,brandListItem);
+                        selectCommodities("SnackCommodities","Date",false,brandListItem);
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("SnacksCommodities","Date",true,brandListItem);
+                        selectCommodities("SnackCommodities","Price",true,brandListItem);
                         break;
                     case "Most expensive to cheapest" :
-                        selectCommodities("SnacksCommodities","Price",false,brandListItem);
+                        selectCommodities("SnackCommodities","Price",false,brandListItem);
                         break;
                     case "Based on points":
-                        selectCommodities("SnacksCommodities","Ratio",false,brandListItem);
+                        selectCommodities("SnackCommodities","Ratio",false,brandListItem);
                         break;
                 }
                 break;
