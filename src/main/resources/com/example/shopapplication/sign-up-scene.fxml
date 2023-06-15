@@ -42,21 +42,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label prefHeight="8.0" prefWidth="84.0" text="Username:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label text="Password:" GridPane.rowIndex="3">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="usernameTextField" prefHeight="11.0" prefWidth="218.0" promptText="Enter username" GridPane.columnIndex="1" />
+            <Label prefHeight="8.0" prefWidth="84.0" text="Username:" />
+            <TextField fx:id="usernameTextField" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="11.0" prefWidth="218.0" promptText="Enter username" GridPane.columnIndex="1" />
+            <Label layoutX="10.0" layoutY="41.0" text="First Name:" GridPane.rowIndex="1" />
+            <TextField fx:id="firstnameTextField" layoutX="99.0" layoutY="12.0" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="14.0" prefWidth="218.0" promptText="Enter first name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label layoutX="10.0" layoutY="41.0" text="Last Name:" GridPane.rowIndex="2" />
+            <TextField fx:id="lastnameTextField" layoutX="127.0" layoutY="39.0" onAction="#switchCompanyRow" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="14.0" prefWidth="218.0" promptText="Enter last name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Password:" GridPane.rowIndex="3" />
             <Pane prefHeight="26.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <PasswordField fx:id="passwordPasswordField" layoutY="2.0" prefHeight="20.0" prefWidth="218.0" promptText="Enter password" />
-                  <TextField fx:id="passwordTextField" layoutY="4.0" prefHeight="26.0" prefWidth="190.0" promptText="Enter password" visible="false" />
+                  <PasswordField fx:id="passwordPasswordField" layoutY="2.0" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="26.0" prefWidth="218.0" promptText="Enter password" />
+                  <TextField fx:id="passwordTextField" layoutY="2.0" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="26.0" prefWidth="218.0" promptText="Enter password" visible="false" />
                   <ImageView fx:id="visibilityImageView" fitHeight="143.0" fitWidth="36.0" layoutX="182.0" onMouseReleased="#switchVisibilityIcon" opacity="0.4" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/invisible.png" />
@@ -67,42 +63,19 @@
                   </ImageView>
                </children>
             </Pane>
-            <Label layoutX="10.0" layoutY="40.0" text="Sign up as:" GridPane.rowIndex="6">
+            <Label layoutX="10.0" layoutY="95.0" text="Confirm Password:" GridPane.rowIndex="4" />
+            <PasswordField fx:id="passwordConfirmationPasswordField" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="1.0" prefWidth="218.0" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="passwordConfirmationTextField" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="20.0" prefWidth="218.0" promptText="Enter password" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="10.0" layoutY="114.0" text="Email:" GridPane.rowIndex="5" />
+            <TextField fx:id="emailTextField" layoutX="127.0" layoutY="36.0" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="14.0" prefWidth="218.0" promptText="Enter email address" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label layoutX="10.0" layoutY="40.0" text="Sign up as:" GridPane.rowIndex="6" />
+            <ComboBox fx:id="comboBox" onAction="#switchCompanyRow" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="26.0" prefWidth="220.0" promptText="Choose one" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
+            <Label fx:id="companyLabel" layoutX="10.0" layoutY="148.0" text="Company:" visible="false" GridPane.rowIndex="7">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="comboBox" prefHeight="26.0" prefWidth="220.0" promptText="Choose one" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
-            <Label layoutX="10.0" layoutY="41.0" text="First Name:" GridPane.rowIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="firstTextField" layoutX="99.0" layoutY="12.0" prefHeight="14.0" prefWidth="218.0" promptText="Enter first name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label layoutX="10.0" layoutY="95.0" text="Confirm Password:" GridPane.rowIndex="4">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="confirmationPasswordField" prefHeight="1.0" prefWidth="218.0" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label layoutX="10.0" layoutY="41.0" text="Last Name:" GridPane.rowIndex="2">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="lastnameTextField" layoutX="127.0" layoutY="39.0" prefHeight="14.0" prefWidth="218.0" promptText="Enter last name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label layoutX="10.0" layoutY="148.0" text="Company:" visible="false" GridPane.rowIndex="7">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="companyTextField" layoutX="127.0" layoutY="64.0" prefHeight="14.0" prefWidth="218.0" promptText="Enter company name" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label layoutX="10.0" layoutY="114.0" text="Email:" GridPane.rowIndex="5">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="emailTextField" layoutX="127.0" layoutY="36.0" prefHeight="14.0" prefWidth="218.0" promptText="Enter email address" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="companyTextField" layoutX="127.0" layoutY="64.0" onInputMethodTextChanged="#listenToTextFieldsChange" prefHeight="14.0" prefWidth="218.0" promptText="Enter company name" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
          <opaqueInsets>
             <Insets />
@@ -111,9 +84,9 @@
       <ButtonBar layoutX="173.0" layoutY="332.0" prefHeight="40.0" prefWidth="254.0">
         <buttons>
             <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
-          <Button fx:id="signUpButton" defaultButton="true" mnemonicParsing="false" onAction="#signUp" text="Next" />
+          <Button fx:id="nextButton" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#next" text="Next" />
         </buttons>
       </ButtonBar>
-      <Label fx:id="signUpMessageLabel" layoutX="286.0" layoutY="83.0" text="Label" textFill="RED" />
+      <Label fx:id="signUpMessageLabel" alignment="CENTER" layoutX="3.0" layoutY="83.0" prefHeight="18.0" prefWidth="600.0" text="Label" textFill="RED" />
    </children>
 </AnchorPane>

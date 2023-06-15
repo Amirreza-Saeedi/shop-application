@@ -77,15 +77,23 @@ public class LoginController extends Application implements Initializable {
     public void login() {
         if (usernameTextField.getText().equals("") || getPasswordText().equals("")) { // if a field is empty
             loginMessageLabel.setTextFill(Color.RED);
-            loginMessageLabel.setText("Enter username and password fields.");
+            loginMessageLabel.setText("Enter username and passwordRegex fields.");
 
         } else { // check inputs
             String username = usernameTextField.getText();
             String password = getPasswordText();
-            Login login = new Login();
+            User user = null;
+            if (comboBox.getValue() == "Customer")
+                user = new Customer(username, password);
+            else if (comboBox.getValue() == "Seller")
+                user = new Seller(username, password);
+            else if (comboBox.getValue() == "Admin")
+                user = new Admin(username, password);
+
+            Login login = new Login(user);
             boolean validation = false;
 
-            switch (comboBox.getValue()) { // validate base on combo box value
+            switch (comboBox.getValue()) { // verify base on combo box value
                 case "Customer":
                     validation = login.validateCustomerLogin(username, password);
                     break;
