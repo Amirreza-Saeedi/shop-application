@@ -38,6 +38,10 @@ public class SignUp implements Validatable, Verifiable {
         return validator.validateUserSignUp(user);
     }
 
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public boolean verify() throws UsernameAlreadyExistsException {
         /*checks if username already exists*/

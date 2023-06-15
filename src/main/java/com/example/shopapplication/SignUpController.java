@@ -77,7 +77,7 @@ public class SignUpController extends Application implements Initializable {
 
         // add change listener to text fields
         ChangeListener<String> changeListener = (observableValue, oldValue, newValue) -> {
-            nextButtonChangeListener();
+            listenToTextFieldsChange();
         };
         textFields = new TextField[]{usernameTextField, firstnameTextField, lastnameTextField, passwordTextField,
                 passwordConfirmationTextField, passwordPasswordField, passwordConfirmationPasswordField,
@@ -150,20 +150,30 @@ public class SignUpController extends Application implements Initializable {
             String lastname = lastnameTextField.getText();
             String email = emailTextField.getText();
             String comboBoxValue = comboBox.getValue();
+            String company = companyTextField.getText();
 
             if (comboBoxValue == "Customer") {
                 user = new Customer(username, password, firstname, lastname, email);
             } else if (comboBoxValue == "Seller") {
-                user = new Seller(username, password, firstname, lastname, email);
+                user = new Seller(username, password, firstname, lastname, email, company);
             }
 
             signUp = new SignUp(user);
 
-            if (signUp.validate() && signUp.verify()) {
+            if (signUp.validate() && signUp.verify()) { // to next step
+                System.out.println("ysesssss");
                 signUpMessage = "Welcome!";
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("email-confirmation-scene.fxml"));
+                Parent root = loader.load();
+
+                EmailConfirmationController emailConfirmationController = loader.getController();
+                emailConfirmationController.setSignUp(signUp);
+
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) nextButton.getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
             }
-
-
         } catch (Exception e) {
             signUpMessage = e.getMessage();
             System.err.println(e);
@@ -191,8 +201,8 @@ public class SignUpController extends Application implements Initializable {
         }
     }
 
-    public void nextButtonChangeListener() {
-        System.out.println("SignUpController.nextButtonChangeListener");
+    public void listenToTextFieldsChange() {
+        System.out.println("SignUpController.listenToTextFieldsChange");
         System.out.println("getPassword() = " + getPassword());
         if (usernameTextField.getText().equals("") || getPassword().equals("") || // keep next button disabled
                 firstnameTextField.getText().equals("") || lastnameTextField.getText().equals("") ||
@@ -212,14 +222,29 @@ public class SignUpController extends Application implements Initializable {
         }
     }
 
-    public void switchCompanyRow(ActionEvent event) {
-        if (comboBox.getValue() == "Seller") {
+    public void switchCompanyRow() {
+        if (comboBox.getSelectionModel().isSelected(1)) { // if is seller
             companyLabel.       setVisible(true);
             companyTextField.   setVisible(true);
-        } else {
+        } else { // if customer
             companyLabel.       setVisible(false);
             companyTextField.   setVisible(false);
         }
-        nextButtonChangeListener();
+        listenToTextFieldsChange(); //  check for enabling next button
+    }
+
+    public void setUserTextFields(User user) {
+        usernameTextField.setText(user.getUsername());
+        firstnameTextField.setText(user.getFirstname());
+        lastnameTextField.setText(user.getLastname());
+        passwordPasswordField.setText(user.getPassword());
+        passwordConfirmationPasswordField.setText(user.getPassword());
+        emailTextField.setText(user.getEmail());
+        if (user instanceof Seller) {
+            Seller seller = (Seller) user;
+            comboBox.setValue(comboBox.getItems().get(1));
+            companyTextField.setText(seller.getCompany());
+            switchCompanyRow();
+        }
     }
 }
