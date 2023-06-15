@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.LoginController">
+   <children>
+      <Label layoutX="45.0" layoutY="55.0" prefHeight="18.0" prefWidth="311.0" text="Login">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Line endX="100.0" layoutX="148.0" layoutY="102.0" startX="-100.0" strokeWidth="2.0" />
+      <GridPane alignment="CENTER_RIGHT" depthTest="DISABLE" layoutX="164.0" layoutY="161.0" prefHeight="99.0" prefWidth="278.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.99998779296874" minWidth="10.0" prefWidth="88.60001220703126" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.2" minWidth="10.0" prefWidth="189.39998779296874" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Username:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Password:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameTextField" prefHeight="26.0" prefWidth="166.0" promptText="Enter username" GridPane.columnIndex="1" />
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <PasswordField fx:id="passwordPasswordField" layoutY="4.0" prefHeight="26.0" prefWidth="190.0" promptText="Enter password" />
+                  <TextField fx:id="passwordTextField" layoutY="4.0" prefHeight="26.0" prefWidth="190.0" promptText="Enter password" visible="false" />
+                  <ImageView fx:id="visibilityImageView" fitHeight="143.0" fitWidth="36.0" layoutX="156.0" layoutY="1.0" onMouseReleased="#switchVisibilityIcon" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/invisible.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Label layoutX="10.0" layoutY="40.0" text="Login as:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comboBox" prefHeight="26.0" prefWidth="194.0" promptText="Choose one" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </GridPane>
+      <Hyperlink fx:id="forgottenPasswordHyperlink" layoutX="164.0" layoutY="300.0" onAction="#switchToPasswordRestoration" text="Have you forgotten your password?" />
+      <Button fx:id="loginButton" defaultButton="true" layoutX="333.0" layoutY="268.0" mnemonicParsing="false" onAction="#login" text="Log in" />
+      <Hyperlink fx:id="createAccountHyperlink" layoutX="164.0" layoutY="324.0" onAction="#switchToSignUp" text="Create an account." />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="390.0" layoutY="268.0" mnemonicParsing="false" onAction="#close" text="Cancel" />
+      <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="163.0" layoutY="129.0" prefHeight="18.0" prefWidth="278.0" textFill="RED" />
+   </children>
+</AnchorPane>
