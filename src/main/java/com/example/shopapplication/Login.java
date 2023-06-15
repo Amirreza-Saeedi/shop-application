@@ -83,4 +83,8 @@ public class Login implements Verifiable {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean login(User user) { // todo
+        return false;
+    }
 }

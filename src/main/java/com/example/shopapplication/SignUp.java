@@ -1,6 +1,7 @@
 package com.example.shopapplication;
 
 import com.example.shopapplication.exceptions.*;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -93,6 +94,46 @@ public class SignUp implements Validatable, Verifiable {
         boolean permission = false;
         // todo socket server
         return permission;
+    }
+
+    public boolean signUp() throws SignUpException, SQLException, ClassNotFoundException { // todo
+
+        if (!step1 || !step2)
+            throw new SignUpException();
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection();
+             Statement statement = connection.createStatement()) {
+
+            if (user instanceof Customer) { // add customer directly to customers
+                String sql = "INSERT INTO Customers (username, password, firstname, lastname, email)" +
+                        " VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "', '" +
+                        user.getFirstname() + "', '" + user.getLastname() + "', '" + user.getEmail() + "')";
+//            statement.execute(sql);
+                System.out.println("statement.executeUpdate(sql) = " + statement.executeUpdate(sql));
+                connection.close();
+                return true;
+
+            } else if (user instanceof Seller) { // add seller to waiting list
+                Seller seller = (Seller) user;
+                // todo admin section
+                String sql = "INSERT INTO waitingSellers (username,password,firstname,lastname,email,company)" +
+                        " VALUES ('" + seller.getUsername() + "', '" + seller.getPassword() + "', '" +
+                        seller.getFirstname() + "', '" + seller.getLastname() + "', '" + seller.getEmail() + "', '" +
+                        seller.getCompany() + "')";
+//            statement.execute(sql);
+                System.out.println("statement.executeUpdate(sql) = " + statement.executeUpdate(sql));
+                connection.close();
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
+
+
+
+        return false;
     }
 //    public boolean validateCustomerSignUp(String username, String password) throws UsernameAlreadyExistsException,
 //            IllegalPasswordException, IllegalUsernameException { // check if username exists already

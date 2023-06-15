@@ -1,5 +1,6 @@
 package com.example.shopapplication;
 
+import com.example.shopapplication.exceptions.UsernameAlreadyExistsException;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,12 +25,22 @@ public class EmailConfirmationController implements Initializable {
     private Button nextButton;
     @FXML
     private Label codeLabel;
+    @FXML
+    private Label messageLabel;
 
     SignUp signUp;
+    int code;
 
     public void setSignUp(SignUp signUp) { // only a valid signUp will be set
-        this.signUp = signUp;
-        codeLabel.setText("Enter 6-digit code sent to '" + signUp.getUser().getEmail() + "':");
+        try {
+            if (signUp == null)
+                throw new NullPointerException();
+            this.signUp = signUp;
+            codeLabel.setText("Enter 6-digit code sent to '" + signUp.getUser().getEmail() + "':");
+        } catch (NullPointerException e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
     }
 
     public void back(ActionEvent event) throws IOException {
@@ -51,8 +62,39 @@ public class EmailConfirmationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // add change listener
         ChangeListener<String> changeListener = (observableValue, s, t1) -> listenToCodeTextFieldChange();
         codeTextField.textProperty().addListener(changeListener);
+
+        // todo send code to email
+        code = 123456;
+    }
+
+    public void next() {
+        try {
+            int input = Integer.parseInt(codeTextField.getText());
+            if (code == input) {
+                messageLabel.setText("Continue...");
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("request-for-sign-up.fxml"));
+                Parent root = loader.load();
+
+                RequestForSignUpController controller = loader.getController();
+                controller.setSignUp(signUp);
+                controller.fillTextFields(signUp.getUser());
+
+                Stage stage = (Stage) nextButton.getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+            } else {
+                messageLabel.setText("Wrong!");
+            }
+
+        } catch (IOException e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
+
     }
 
     private void listenToCodeTextFieldChange() {
@@ -67,6 +109,9 @@ public class EmailConfirmationController implements Initializable {
                 str.deleteCharAt(lastIndex);
                 codeTextField.setText(str.toString());
             }
+
+            nextButton.setDisable(str.length() != LIMIT);
+
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println(e);
         }
