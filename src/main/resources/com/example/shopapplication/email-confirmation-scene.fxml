@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.EmailConfirmationController">
+    <children>
+        <Label fx:id="signUpLabel" layoutX="55.0" layoutY="25.0" prefHeight="18.0" prefWidth="311.0" text="Sign up">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <Line endX="100.0" layoutX="158.0" layoutY="72.0" startX="-100.0" strokeWidth="2.0" />
+      <Label fx:id="codeLabel" alignment="CENTER" layoutY="127.0" prefHeight="63.0" prefWidth="602.0" text="Enter the code sent to 'your@email':">
+         <font>
+            <Font size="21.0" />
+         </font>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </Label>
+      <TextField fx:id="codeTextField" alignment="CENTER" layoutX="225.0" layoutY="200.0" onAction="#next" promptText="Code" />
+      <ButtonBar buttonMinWidth="60.0" layoutX="214.0" layoutY="246.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="35.0">
+         <buttons>
+            <Button fx:id="backButton" cancelButton="true" mnemonicParsing="false" onAction="#back" text="Back" />
+            <Button fx:id="nextButton" defaultButton="true" disable="true" mnemonicParsing="false" text="Next" />
+         </buttons>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+      </ButtonBar>
+      <Label fx:id="messageLabel" alignment="CENTER" layoutY="181.0" prefHeight="18.0" prefWidth="605.0" text="Message" textFill="RED">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="confirmationImageView" fitHeight="26.0" fitWidth="26.0" layoutX="386.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</AnchorPane>
