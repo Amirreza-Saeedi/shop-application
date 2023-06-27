@@ -680,10 +680,10 @@ public class HomeController implements Initializable {
 //        statement.executeUpdate();
 //
 //        // Close the input/output streams and the database connection
-//        inputStream.close();
-//        outputStream.close();
-//        statement.close();
-//        connection.close();
+//        inputStream.cancel();
+//        outputStream.cancel();
+//        statement.cancel();
+//        connection.cancel();
 //    }
 
 

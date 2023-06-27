@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -124,9 +125,11 @@ public class SignUpController extends Application implements Initializable {
         }
     }
 
-    public void cancel(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+    public void cancel(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) nextButton.getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 
     public void next(ActionEvent event) {
@@ -246,5 +249,12 @@ public class SignUpController extends Application implements Initializable {
             companyTextField.setText(seller.getCompany());
             switchCompanyRow();
         }
+    }
+
+    public void login() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-scene.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) nextButton.getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }
