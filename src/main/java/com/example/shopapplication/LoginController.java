@@ -17,7 +17,6 @@ import javafx.stage.StageStyle;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController extends Application implements Initializable {
@@ -49,7 +48,7 @@ public class LoginController extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String[] roles = {"User", "Seller", "Admin"};
+        String[] roles = {"Customer", "Seller", "Admin"};
         comboBox.setItems(FXCollections.observableArrayList(roles));
         comboBox.setValue(comboBox.getItems().get(0));
 
@@ -78,22 +77,31 @@ public class LoginController extends Application implements Initializable {
     public void login() {
         if (usernameTextField.getText().equals("") || getPasswordText().equals("")) { // if a field is empty
             loginMessageLabel.setTextFill(Color.RED);
-            loginMessageLabel.setText("Enter username and password fields.");
+            loginMessageLabel.setText("Enter username and passwordRegex fields.");
 
         } else { // check inputs
             String username = usernameTextField.getText();
             String password = getPasswordText();
+            User user = null;
+            if (comboBox.getValue() == "Customer")
+                user = new Customer(username, password);
+            else if (comboBox.getValue() == "Seller")
+                user = new Seller(username, password);
+            else if (comboBox.getValue() == "Admin")
+                user = new Admin(username, password);
+
+            Login login = new Login(user);
             boolean validation = false;
 
-            switch (comboBox.getValue()) { // validate base on combo box value
-                case "User":
-                    validation = Login.validateUserLogin(username, password);
+            switch (comboBox.getValue()) { // verify base on combo box value
+                case "Customer":
+                    validation = login.validateCustomerLogin(username, password);
                     break;
                 case "Seller":
-                    validation = Login.validateSellerLogin(username, password);
+                    validation = login.validateSellerLogin(username, password);
                     break;
                 case "Admin":
-                    validation = Login.validateAdminLogin(username, password);
+                    validation = login.validateAdminLogin(username, password);
                 default:
                     System.out.println(new Exception("combo box selection does not exist."));
             }
@@ -143,7 +151,6 @@ public class LoginController extends Application implements Initializable {
 
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println(getClass().getResource(""));
         FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("login-scene.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
