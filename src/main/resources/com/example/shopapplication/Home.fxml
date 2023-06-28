@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -20,13 +21,13 @@
    <children>
       <AnchorPane layoutX="3.0" prefHeight="107.0" prefWidth="1397.0" style="-fx-background-color: #26c6da;">
          <children>
-            <TextField fx:id="search" layoutX="596.0" layoutY="31.0" onAction="#search" prefHeight="46.0" prefWidth="499.0" promptText="Search" />
-            <ImageView fitHeight="46.0" fitWidth="49.0" layoutX="1317.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+            <TextField fx:id="search" layoutX="562.0" layoutY="30.0" onAction="#search" prefHeight="46.0" prefWidth="499.0" promptText="Search" />
+            <ImageView fitHeight="46.0" fitWidth="49.0" layoutX="1339.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../basket.png" />
                </image>
             </ImageView>
-            <Button fx:id="loginbutton" alignment="CENTER" layoutX="1156.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="28.0" prefWidth="126.0" text="Login/Sign up">
+            <Button fx:id="loginbutton" alignment="CENTER" layoutX="1191.0" layoutY="34.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="28.0" prefWidth="126.0" text="Login/Sign up">
                <font>
                   <Font name="A Nahar-Bold" size="16.0" />
                </font>
@@ -34,7 +35,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </Button>
-            <Line endX="-55.07819747924805" endY="-1.167122721672058" layoutX="1381.0" layoutY="53.0" rotate="90.0" startX="-100.0" stroke="#615f5f" />
+            <Line endX="-55.07819747924805" endY="-1.167122721672058" layoutX="1406.0" layoutY="53.0" rotate="91.0" startX="-100.0" stroke="#615f5f" />
             <ImageView fitHeight="60.0" fitWidth="432.0" layoutX="128.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../logo2.png" />
@@ -45,6 +46,22 @@
                   <Image url="@../../../icon.png" />
                </image>
             </ImageView>
+            <Label fx:id="commoditiesNumber" alignment="CENTER" layoutX="1338.0" layoutY="73.0" prefHeight="24.0" prefWidth="46.0" text="0" />
+            <Button fx:id="placeAuction" layoutX="1075.0" layoutY="6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color: #ab47bc;" text="Place an auction" visible="false">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="productRegitration" layoutX="1075.0" layoutY="57.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
+               <font>
+                  <Font name="System Bold Italic" size="10.0" />
+               </font>
+            </Button>
+            <Label fx:id="typeInfo" alignment="CENTER" layoutX="1191.0" layoutY="68.0" prefHeight="26.0" prefWidth="126.0" text="Not registered">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Line endX="1173.982177734375" endY="-10.171032905578613" fill="#d40a0a" layoutX="226.0" layoutY="116.0" rotate="0.5" startX="-222.00001525878906" startY="7.62939453125E-6" stroke="#666464" />
@@ -600,11 +617,16 @@
                </font>
             </Label>
             <ChoiceBox fx:id="brandFilter" prefHeight="26.0" prefWidth="158.0" />
-            <Label fx:id="brandName" prefHeight="26.0" prefWidth="166.0" text="Brand: All brands">
+            <Label fx:id="brandName" alignment="CENTER" prefHeight="26.0" prefWidth="166.0" text="Brand: All brands">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
+            <CheckBox fx:id="isAuction" mnemonicParsing="false" onAction="#select" prefHeight="26.0" prefWidth="201.0" text="in auction commodities" textFill="#0e91e3">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </CheckBox>
          </children>
       </HBox>
    </children>

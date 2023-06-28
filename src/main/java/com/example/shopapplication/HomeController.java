@@ -1,6 +1,7 @@
 package com.example.shopapplication;
 
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -220,11 +221,14 @@ public class HomeController implements Initializable {
     private ChoiceBox<String> brandFilter;
     @FXML
     private Label brandName;
+    @FXML
+    private CheckBox isAuction;
     private String choiceBoxOption = "Filter";
     private String groupListItem  = "All Commodities";
     private String brandListItem;
     private String orderBy;
     private boolean isLowToHigh;
+    private  User user;
     private ObservableList<String> choiceBoxOptions =
             FXCollections.observableArrayList("Clear filters","Cheapest to most expensive", "Most expensive to cheapest", "Based on points");
 //     private AnchorPane[] anchorPanes = new AnchorPane[14];
@@ -320,6 +324,12 @@ public class HomeController implements Initializable {
 //       number[12] = number51;
 //       number[13] = number61;
 //    }
+    public void setUser(User user){
+        if (user == null){
+            throw new NullPointerException("User is null");
+        }
+        this.user = user;
+    }
     private void hideAnchorPanes(){
         anchorPane00.setVisible(false);
         anchorPane10.setVisible(false);
@@ -468,7 +478,7 @@ public class HomeController implements Initializable {
         return;
 
     }
-    private void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
+    public void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
         hideAnchorPanes();
         page.setText("1");
         int count = 0;
@@ -661,7 +671,13 @@ public class HomeController implements Initializable {
             System.out.println("Test3 passed");
         }
     }
-    private void selectCommodities(String group,String orderBy,boolean isLowToHigh,String brand) {
+    public void select(){
+        if (choiceFilter.getValue().equals("Filters")) selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+        else selectCommoditiesByChoiceFilter(groupListItem,choiceFilter.getValue());
+    }
+
+    public void selectCommodities(String group,String orderBy,boolean isLowToHigh,String brand) {
+        search.setText(null);
         hideAnchorPanes();
         page.setText("1");
         int count = 0;
@@ -685,6 +701,7 @@ public class HomeController implements Initializable {
             }
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
+            if (!isAuction.isSelected()) {
                 while (rs.next()) {
                     String number1 = rs.getString("Number");
                     if (Integer.parseInt(number1) > 0) {
@@ -827,6 +844,153 @@ public class HomeController implements Initializable {
 //                     if (number1 > 0)
                     }
                 }
+            }else{
+                while (rs.next()) {
+                    String isAuction = rs.getString("isAuction");
+                    if (isAuction.equals("true")){
+                        String number1 = rs.getString("Number");
+                    if (Integer.parseInt(number1) > 0) {
+                        if (count == numbers.size()) numbers.add(number1);
+                        else numbers.set(count, number1);
+                        String type1 = rs.getString("Type");
+                        if (count == types.size()) types.add(type1);
+                        else types.set(count, type1);
+                        String brand1 = rs.getString("Brand");
+                        if (count == brands.size()) brands.add(brand1);
+                        else brands.set(count, brand1);
+                        String price1 = rs.getString("Price");
+                        if (count == prices.size()) prices.add(price1);
+                        else prices.set(count, price1);
+                        String ratio1 = rs.getString("Ratio");
+                        if (count == rates.size()) rates.add(ratio1);
+                        else rates.set(count, ratio1);
+                        String title1 = rs.getString("Title");
+                        if (count == titles.size()) titles.add(title1);
+                        else titles.set(count, title1);
+//                        Blob blob = rs.getBlob("image");
+//                        InputStream inputStream = blob.getBinaryStream();
+//                        Image image1 = new Image(inputStream);
+//                        if (count == images.size()) images.add(image1);
+//                        else images.set(count,image1);
+                        String date = rs.getString("Date");
+                        if (count == dates.size()) {
+                            dates.add(date);
+                            arraySizeCounter++;
+                        } else dates.set(count, date);
+                        count++;
+                        System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
+
+//                     title[count].setText(title1);
+//                     if (number1 > 0)
+//                         anchorPanes[count].setVisible(true);
+//                     number[count].setText("Number: " + String.valueOf(number1));
+//                     ratio[count].setText(ratio1);
+//                     price[count].setText(price1);
+//                     switch (count) {
+//                         case 0:
+//                             anchorPane00 = anchorPanes[count];
+//                             number00 = number[count];
+//                             title00 = title[count];
+//                             ratio00 = ratio[count];
+//                             price00 = price[count];
+//                             break;
+//                         case 1:
+//                             anchorPane10 = anchorPanes[count];
+//                             number10 = number[count];
+//                             title10 = title[count];
+//                             ratio10 = ratio[count];
+//                             price10 = price[count];
+//                             break;
+//                         case 2:
+//                             anchorPane20 = anchorPanes[count];
+//                             number20 = number[count];
+//                             title20 = title[count];
+//                             ratio20 = ratio[count];
+//                             price20 = price[count];
+//                             break;
+//                         case 3:
+//                             anchorPane30 = anchorPanes[count];
+//                             number30 = number[count];
+//                             title30 = title[count];
+//                             ratio30 = ratio[count];
+//                             price30 = price[count];
+//                             break;
+//                         case 4:
+//                             anchorPane40 = anchorPanes[count];
+//                             number40 = number[count];
+//                             title40 = title[count];
+//                             ratio40 = ratio[count];
+//                             price40 = price[count];
+//                             break;
+//                         case 5:
+//                             anchorPane50 = anchorPanes[count];
+//                             number50 = number[count];
+//                             title50 = title[count];
+//                             ratio50 = ratio[count];
+//                             price50 = price[count];
+//                             break;
+//                         case 6:
+//                             anchorPane60 = anchorPanes[count];
+//                             number60 = number[count];
+//                             title60 = title[count];
+//                             ratio60 = ratio[count];
+//                             price60 = price[count];
+//                             break;
+//                         case 7:
+//                             anchorPane01 = anchorPanes[count];
+//                             number01 = number[count];
+//                             title01 = title[count];
+//                             ratio01 = ratio[count];
+//                             price01 = price[count];
+//                             break;
+//                         case 8:
+//                             anchorPane11 = anchorPanes[count];
+//                             number11 = number[count];
+//                             title11 = title[count];
+//                             ratio11 = ratio[count];
+//                             price11 = price[count];
+//                             break;
+//                         case 9:
+//                             anchorPane21 = anchorPanes[count];
+//                             number21 = number[count];
+//                             title21 = title[count];
+//                             ratio21 = ratio[count];
+//                             price21 = price[count];
+//                             break;
+//                         case 10:
+//                             anchorPane31 = anchorPanes[count];
+//                             number31 = number[count];
+//                             title31 = title[count];
+//                             ratio31 = ratio[count];
+//                             price31 = price[count];
+//                             break;
+//                         case 11:
+//                             anchorPane41 = anchorPanes[count];
+//                             number41 = number[count];
+//                             title41 = title[count];
+//                             ratio41 = ratio[count];
+//                             price41 = price[count];
+//                             break;
+//                         case 12:
+//                             anchorPane51 = anchorPanes[count];
+//                             number51 = number[count];
+//                             title51 = title[count];
+//                             ratio51 = ratio[count];
+//                             price51 = price[count];
+//                             break;
+//                         case 13:
+//                             anchorPane61 = anchorPanes[count];
+//                             number61 = number[count];
+//                             title61 = title[count];
+//                             ratio61 = ratio[count];
+//                             price61 = price[count];
+//                             break;
+//                     }
+//                     if (number1 > 0)
+                    }
+                }
+                }
+            }
             for (int i = arraySizeCounter - 1; i >= count  ; i--) {
                 types.remove(i);
                 brands.remove(i);
@@ -887,6 +1051,9 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        setIDs();
+        if (user instanceof Seller){
+
+        }
         brandFilter.setValue("Brands");
         brandFilter.getSelectionModel().selectFirst();
         brandListItem = "Brands";
@@ -1135,6 +1302,10 @@ public class HomeController implements Initializable {
             brandName.setText("Brand: " + newValue);
             selectCommoditiesByChoiceFilter(groupListItem,choiceFilter.getValue());
 
+        });
+        isAuction.getProperties().addListener((MapChangeListener<Object, Object>) change -> {
+            search.setText(null);
+            selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
         });
         checkToVisibleNextButton();
         checkToVisiblePreviousButton();
