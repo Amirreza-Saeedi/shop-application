@@ -247,7 +247,15 @@ public class HomeController implements Initializable {
     int arraySizeCounter = 0;
 
     private Connection connection = null;
-//    private void setIDs(){
+
+    public static void toHome(Node node) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HomeController.class.getResource("home.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
+
+    //    private void setIDs(){
 //        anchorPanes[0] = anchorPane00;
 //        anchorPanes[1] = anchorPane10;
 //        anchorPanes[2] = anchorPane20;
