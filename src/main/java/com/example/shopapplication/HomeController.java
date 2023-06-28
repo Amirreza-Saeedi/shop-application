@@ -340,6 +340,13 @@ public class HomeController implements Initializable {
             throw new NullPointerException("User is null");
         }
         this.user = user;
+
+        if (user instanceof Seller){
+            placeAuction.setVisible(true);
+            productRegistration.setVisible(true);
+        } else if (user instanceof Customer) {
+
+        }
     }
     private void hideAnchorPanes(){
         anchorPane00.setVisible(false);
