@@ -223,6 +223,10 @@ public class HomeController implements Initializable {
     private Label brandName;
     @FXML
     private CheckBox isAuction;
+    @FXML
+    private Button placeAuction;
+    @FXML
+    private Button productRegistration;
     private String choiceBoxOption = "Filter";
     private String groupListItem  = "All Commodities";
     private String brandListItem;
@@ -478,7 +482,7 @@ public class HomeController implements Initializable {
         return;
 
     }
-    public void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
+    private void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
         hideAnchorPanes();
         page.setText("1");
         int count = 0;
@@ -676,7 +680,7 @@ public class HomeController implements Initializable {
         else selectCommoditiesByChoiceFilter(groupListItem,choiceFilter.getValue());
     }
 
-    public void selectCommodities(String group,String orderBy,boolean isLowToHigh,String brand) {
+    private void selectCommodities(String group,String orderBy,boolean isLowToHigh,String brand) {
         search.setText(null);
         hideAnchorPanes();
         page.setText("1");
@@ -1052,7 +1056,8 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        setIDs();
         if (user instanceof Seller){
-
+            placeAuction.setVisible(true);
+            productRegistration.setVisible(true);
         }
         brandFilter.setValue("Brands");
         brandFilter.getSelectionModel().selectFirst();
@@ -1302,10 +1307,6 @@ public class HomeController implements Initializable {
             brandName.setText("Brand: " + newValue);
             selectCommoditiesByChoiceFilter(groupListItem,choiceFilter.getValue());
 
-        });
-        isAuction.getProperties().addListener((MapChangeListener<Object, Object>) change -> {
-            search.setText(null);
-            selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
         });
         checkToVisibleNextButton();
         checkToVisiblePreviousButton();
