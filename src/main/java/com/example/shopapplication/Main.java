@@ -18,11 +18,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage)  {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("portalPage.fxml"));
             System.out.println("YEEESssssssss");
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.centerOnScreen();
             stage.centerOnScreen();
             stage.setTitle("FoodFirst");
             stage.show();

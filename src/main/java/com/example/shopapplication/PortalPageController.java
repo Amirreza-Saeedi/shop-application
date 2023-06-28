@@ -182,6 +182,7 @@ public class PortalPageController implements Initializable {
             e.printStackTrace();
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setX(60);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
