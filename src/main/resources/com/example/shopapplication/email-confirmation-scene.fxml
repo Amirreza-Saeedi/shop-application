@@ -30,7 +30,7 @@
       <ButtonBar buttonMinWidth="60.0" layoutX="214.0" layoutY="246.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="35.0">
          <buttons>
             <Button fx:id="backButton" cancelButton="true" mnemonicParsing="false" onAction="#back" text="Back" />
-            <Button fx:id="nextButton" defaultButton="true" disable="true" mnemonicParsing="false" text="Next" />
+            <Button fx:id="nextButton" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#next" text="Next" />
          </buttons>
          <padding>
             <Insets right="20.0" />

@@ -1,7 +1,13 @@
 package com.example.shopapplication;
 
 import com.example.shopapplication.exceptions.UsernameAlreadyExistsException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -84,7 +90,13 @@ public class Login implements Verifiable {
         }
     }
 
-    public static boolean login(User user) { // todo
-        return false;
+    public void loginToHome(Node node) throws IOException { // todo
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("home.fxml"));
+        Parent root = loader.load();
+        HomeController homeController = loader.getController();
+        homeController.setUser(user);
+        Stage stage = (Stage) node.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
     }
 }

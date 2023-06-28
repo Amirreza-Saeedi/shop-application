@@ -96,7 +96,7 @@ public class SignUp implements Validatable, Verifiable {
         return permission;
     }
 
-    public boolean signUp() throws SignUpException, SQLException, ClassNotFoundException { // todo
+    public boolean signUp() throws SignUpException, SQLException, ClassNotFoundException { // add to appropriate table
 
         if (!step1 || !step2)
             throw new SignUpException();

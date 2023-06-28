@@ -84,24 +84,28 @@ public class RequestForSignUpController implements Initializable {
             if (signUp.signUp()) {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-                if (signUp.getUser() instanceof Customer) { // customer
+                if (signUp.getUser() instanceof Customer) { // 1- customer
                     headerText = "You are successfully signed up.";
                     contentText = "If you want to log in to your account click OK, else click Cancel.";
                     alert.setContentText(contentText);
                     alert.setHeaderText(headerText);
 
                     if (alert.showAndWait().get() == ButtonType.OK) { // ok
-                        // todo login directly
-                        Login.login(signUp.getUser()); // log in to account
-                        message = "log in...";
+                        message = "Returning to home...";
+                        messageLabel.setText(message);
+                        sleep();
+                        // log in to account
+                        Login login = new Login(signUp.getUser());
+                        login.loginToHome((Node) event.getSource());
 
                     } else { // cancel
-                        // todo return to home page
                         message = "back to home page...";
-                        switchToHomePage();
+                        messageLabel.setText(message);
+                        sleep();
+                        HomeController.toHome((Node) event.getSource());
                     }
 
-                } else if (signUp.getUser() instanceof Seller) { // seller
+                } else if (signUp.getUser() instanceof Seller) { // 2- seller
                     alert.setAlertType(Alert.AlertType.INFORMATION);
                     headerText = "Your request is sent to admins for their confirmation.";
                     contentText = "As soon as admins answer to your request you'll be alerted through your email." +
@@ -110,39 +114,47 @@ public class RequestForSignUpController implements Initializable {
                     alert.setHeaderText(headerText);
                     alert.show();
                     message = "back to home page...";
-                    // todo return to home page
-                    switchToHomePage();
-
+                    messageLabel.setText(message);
+                    HomeController.toHome((Node) event.getSource());
                 }
 
-            } else {
-                // todo
+            } else { // 3- error
                 alert = new Alert(Alert.AlertType.ERROR);
                 headerText = "A problem has been occurred!";
                 contentText = "Click OK to return to Home Page.";
                 alert.setContentText(contentText);
                 alert.setHeaderText(headerText);
-                if (alert.showAndWait().get() == ButtonType.OK) {
-                    switchToHomePage();
-                }
+//                if (alert.showAndWait().get() == ButtonType.OK) {
+//                }
+                alert.show();
                 message = "back to home page...";
+                messageLabel.setText(message);
+                sleep();
+                HomeController.toHome((Node) event.getSource());
             }
 
         } catch (SignUpException | SQLException | ClassNotFoundException e) {
             System.err.println(e);
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         messageLabel.setText(message);
     }
 
-    private void switchToHomePage() {
-    }
+
 
     public void cancel(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+    }
+
+    private void sleep() throws InterruptedException {
+        Thread.sleep(1000);
     }
 }

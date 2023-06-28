@@ -11,8 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -225,6 +223,7 @@ public class HomeController implements Initializable {
     private String brandListItem;
     private String orderBy;
     private boolean isLowToHigh;
+    private User user;
     private ObservableList<String> choiceBoxOptions =
             FXCollections.observableArrayList("Clear filters","Cheapest to most expensive", "Most expensive to cheapest", "Based on points");
 //     private AnchorPane[] anchorPanes = new AnchorPane[14];
@@ -244,7 +243,9 @@ public class HomeController implements Initializable {
     int arraySizeCounter = 0;
 
     private Connection connection = null;
-//    private void setIDs(){
+
+
+    //    private void setIDs(){
 //        anchorPanes[0] = anchorPane00;
 //        anchorPanes[1] = anchorPane10;
 //        anchorPanes[2] = anchorPane20;
@@ -1519,5 +1520,16 @@ public class HomeController implements Initializable {
         brandFilter.setItems(observableList2);
         brandFilter.getItems().add(0,"All brands");
         brandFilter.getSelectionModel().selectFirst();
+    }
+
+    public void setUser(User user) {
+
+    }
+
+    public static void toHome(Node node) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HomeController.class.getResource("home.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }

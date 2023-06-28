@@ -71,6 +71,7 @@ public class EmailConfirmationController implements Initializable {
     }
 
     public void next() {
+
         try {
             int input = Integer.parseInt(codeTextField.getText());
             if (code == input) {
@@ -86,6 +87,7 @@ public class EmailConfirmationController implements Initializable {
                 Stage stage = (Stage) nextButton.getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                System.out.println("EmailConfirmationController.next");
             } else {
                 messageLabel.setText("Wrong!");
             }

@@ -140,8 +140,14 @@ public class LoginController extends Application implements Initializable {
 
             } else { // 4- sign in successfully
                 loginMessageLabel.setTextFill(Color.GREEN);
-                loginMessageLabel.setText("Welcome!");
+                loginMessageLabel.setText("Returning to home...");
 
+                try {
+                    Thread.sleep(1000);
+                    login.loginToHome(loginButton);
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
