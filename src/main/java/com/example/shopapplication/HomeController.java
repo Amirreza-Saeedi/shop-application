@@ -145,6 +145,8 @@ public class HomeController implements Initializable {
     private Label ratio51;
     @FXML
     private Label ratio61;
+    @FXML
+    private TextField search;
 //    @FXML
 //    private ImageView imageView00;
 //    @FXML
@@ -219,8 +221,10 @@ public class HomeController implements Initializable {
     @FXML
     private Label brandName;
     private String choiceBoxOption = "Filter";
-    String groupListItem  = "All Commodities";
-    String brandListItem;
+    private String groupListItem  = "All Commodities";
+    private String brandListItem;
+    private String orderBy;
+    private boolean isLowToHigh;
     private ObservableList<String> choiceBoxOptions =
             FXCollections.observableArrayList("Clear filters","Cheapest to most expensive", "Most expensive to cheapest", "Based on points");
 //     private AnchorPane[] anchorPanes = new AnchorPane[14];
@@ -464,6 +468,199 @@ public class HomeController implements Initializable {
         return;
 
     }
+    private void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
+        hideAnchorPanes();
+        page.setText("1");
+        int count = 0;
+        String sql;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:src/database.db";
+            Connection conn = DriverManager.getConnection(url);
+            if (brand.equals("Brands") || brand.equals("All brands")) {
+                if (isLowToHigh == false) {
+                    sql = "SELECT * FROM " + group + " ORDER BY " + orderBy + " desc";
+                } else {
+                    sql = "SELECT * FROM " + group + " ORDER BY " + orderBy + " ASC";
+                }
+            }else {
+                if (isLowToHigh == false) {
+                    sql = "SELECT * FROM " + group + " WHERE Brand = " + "'"+ brand +"'" + " ORDER BY " + orderBy + " desc";
+                }else {
+                    sql = "SELECT * FROM " + group + " WHERE Brand = " +"'"+ brand +"'" + " ORDER BY " + orderBy + " ASC";
+                }
+            }
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                String type1 = rs.getString("Type");
+                String brand1 = rs.getString("Brand");
+                if (type1.indexOf(searchedItem) != -1 || brand1.indexOf(searchedItem) != -1){
+                    if (count == types.size()) types.add(type1);
+                    else types.set(count, type1);
+                    String number1 = rs.getString("Number");
+                    if (Integer.parseInt(number1) > 0) {
+                        if (count == numbers.size()) numbers.add(number1);
+                        else numbers.set(count, number1);
+                        if (count == brands.size()) brands.add(brand1);
+                        else brands.set(count, brand1);
+                        String price1 = rs.getString("Price");
+                        if (count == prices.size()) prices.add(price1);
+                        else prices.set(count, price1);
+                        String ratio1 = rs.getString("Ratio");
+                        if (count == rates.size()) rates.add(ratio1);
+                        else rates.set(count, ratio1);
+                        String title1 = rs.getString("Title");
+                        if (count == titles.size()) titles.add(title1);
+                        else titles.set(count, title1);
+//                        Blob blob = rs.getBlob("image");
+//                        InputStream inputStream = blob.getBinaryStream();
+//                        Image image1 = new Image(inputStream);
+//                        if (count == images.size()) images.add(image1);
+//                        else images.set(count,image1);
+                        String date = rs.getString("Date");
+                        if (count == dates.size()) {
+                            dates.add(date);
+                            arraySizeCounter++;
+                        } else dates.set(count, date);
+                        count++;
+                        System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
+                    }
+//                     title[count].setText(title1);
+//                     if (number1 > 0)
+//                         anchorPanes[count].setVisible(true);
+//                     number[count].setText("Number: " + String.valueOf(number1));
+//                     ratio[count].setText(ratio1);
+//                     price[count].setText(price1);
+//                     switch (count) {
+//                         case 0:
+//                             anchorPane00 = anchorPanes[count];
+//                             number00 = number[count];
+//                             title00 = title[count];
+//                             ratio00 = ratio[count];
+//                             price00 = price[count];
+//                             break;
+//                         case 1:
+//                             anchorPane10 = anchorPanes[count];
+//                             number10 = number[count];
+//                             title10 = title[count];
+//                             ratio10 = ratio[count];
+//                             price10 = price[count];
+//                             break;
+//                         case 2:
+//                             anchorPane20 = anchorPanes[count];
+//                             number20 = number[count];
+//                             title20 = title[count];
+//                             ratio20 = ratio[count];
+//                             price20 = price[count];
+//                             break;
+//                         case 3:
+//                             anchorPane30 = anchorPanes[count];
+//                             number30 = number[count];
+//                             title30 = title[count];
+//                             ratio30 = ratio[count];
+//                             price30 = price[count];
+//                             break;
+//                         case 4:
+//                             anchorPane40 = anchorPanes[count];
+//                             number40 = number[count];
+//                             title40 = title[count];
+//                             ratio40 = ratio[count];
+//                             price40 = price[count];
+//                             break;
+//                         case 5:
+//                             anchorPane50 = anchorPanes[count];
+//                             number50 = number[count];
+//                             title50 = title[count];
+//                             ratio50 = ratio[count];
+//                             price50 = price[count];
+//                             break;
+//                         case 6:
+//                             anchorPane60 = anchorPanes[count];
+//                             number60 = number[count];
+//                             title60 = title[count];
+//                             ratio60 = ratio[count];
+//                             price60 = price[count];
+//                             break;
+//                         case 7:
+//                             anchorPane01 = anchorPanes[count];
+//                             number01 = number[count];
+//                             title01 = title[count];
+//                             ratio01 = ratio[count];
+//                             price01 = price[count];
+//                             break;
+//                         case 8:
+//                             anchorPane11 = anchorPanes[count];
+//                             number11 = number[count];
+//                             title11 = title[count];
+//                             ratio11 = ratio[count];
+//                             price11 = price[count];
+//                             break;
+//                         case 9:
+//                             anchorPane21 = anchorPanes[count];
+//                             number21 = number[count];
+//                             title21 = title[count];
+//                             ratio21 = ratio[count];
+//                             price21 = price[count];
+//                             break;
+//                         case 10:
+//                             anchorPane31 = anchorPanes[count];
+//                             number31 = number[count];
+//                             title31 = title[count];
+//                             ratio31 = ratio[count];
+//                             price31 = price[count];
+//                             break;
+//                         case 11:
+//                             anchorPane41 = anchorPanes[count];
+//                             number41 = number[count];
+//                             title41 = title[count];
+//                             ratio41 = ratio[count];
+//                             price41 = price[count];
+//                             break;
+//                         case 12:
+//                             anchorPane51 = anchorPanes[count];
+//                             number51 = number[count];
+//                             title51 = title[count];
+//                             ratio51 = ratio[count];
+//                             price51 = price[count];
+//                             break;
+//                         case 13:
+//                             anchorPane61 = anchorPanes[count];
+//                             number61 = number[count];
+//                             title61 = title[count];
+//                             ratio61 = ratio[count];
+//                             price61 = price[count];
+//                             break;
+//                     }
+//                     if (number1 > 0)
+                }
+            }
+            for (int i = arraySizeCounter - 1; i >= count  ; i--) {
+                types.remove(i);
+                brands.remove(i);
+                prices.remove(i);
+                rates.remove(i);
+                titles.remove(i);
+                numbers.remove(i);
+                dates.remove(i);
+                arraySizeCounter--;
+            }
+            showAnchorPanes(1);
+            checkToVisibleNextButton();
+            checkToVisiblePreviousButton();
+//            ObservableList<String> observableList = FXCollections.observableArrayList(brands);
+//            brandFilter.setItems(observableList);
+            System.out.println("Test1 passed");
+//            brandFilter.getItems().add(0,"All brands");
+            System.out.println("Test2 passed");
+
+            rs.close();
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Test3 passed");
+        }
+    }
     private void selectCommodities(String group,String orderBy,boolean isLowToHigh,String brand) {
         hideAnchorPanes();
         page.setText("1");
@@ -693,7 +890,10 @@ public class HomeController implements Initializable {
         brandFilter.setValue("Brands");
         brandFilter.getSelectionModel().selectFirst();
         brandListItem = "Brands";
-        selectCommodities("AllCommodities","Date",false,brandListItem);
+        groupListItem = "AllCommodities";
+        orderBy = "Date";
+        isLowToHigh = false;
+        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
         ObservableList<String> observableList = FXCollections.observableArrayList(brands);
         brandFilter.setItems(observableList);
         brandFilter.getItems().add(0,"All brands");
@@ -729,6 +929,7 @@ public class HomeController implements Initializable {
 
         groupingList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
+                search.setText(null);
                 String selectedItem = groupingList.getSelectionModel().getSelectedItem();
                 showGroupLabel.setText("Group: " + selectedItem);
                 choiceBoxOption = choiceFilter.getValue();
@@ -738,114 +939,177 @@ public class HomeController implements Initializable {
                 brandFilter.getSelectionModel().selectFirst();
                 switch (selectedItem){
                     case "All Commodities" :
+                        groupListItem = "AllCommodities";
                         switch (choiceBoxOption) {
                             case "Clear filters", "Filters":
-                                selectCommodities("AllCommodities","Date",false,brandListItem);
+                                orderBy = "Date";
+                                isLowToHigh = false;
+                                selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                 break;
                             case "Cheapest to most expensive" :
-                                selectCommodities("AllCommodities","Price",true,brandListItem);
+                                orderBy = "Price";
+                                isLowToHigh = true;
+                                selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                 break;
                             case "Most expensive to cheapest" :
-                                selectCommodities("AllCommodities","Price",false,brandListItem);
+                                orderBy = "Price";
+                                isLowToHigh = false;
+                                selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                 break;
                             case "Based on points":
-                                selectCommodities("AllCommodities","Ratio",false,brandListItem);
+                                orderBy = "Ratio";
+                                isLowToHigh = false;
+                                selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                 break;
                         }
                         break;
                             case "Grocery" :
+                                groupListItem = "GroceryCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
-                                        selectCommodities("GroceryCommodities","Date",false,brandListItem);
+                                        orderBy = "Date";
+                                        isLowToHigh =false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                          break;
                                     case "Cheapest to most expensive" :
-                                            selectCommodities("GroceryCommodities","Price",true,brandListItem);
-                                            break;
+                                        orderBy = "Price";
+                                        isLowToHigh = true;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                                        break;
                                     case "Most expensive to cheapest" :
-                                        selectCommodities("GroceryCommodities","Price",false,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Based on points":
-                                        selectCommodities("GroceryCommodities","Ratio",false,brandListItem);
+                                        orderBy = "Ratio";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                 }
                                 break;
                             case "Break fast" :
+                                groupListItem = "BreakFastCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
-                                        selectCommodities("BreakFastCommodities","Date",false,brandListItem);
+                                        orderBy = "Date";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Cheapest to most expensive" :
-                                        selectCommodities("BreakFastCommodities","Price",true,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = true;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Most expensive to cheapest" :
-                                        selectCommodities("BreakFastCommodities","Price",false,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh =false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Based on points":
-                                        selectCommodities("BreakFastCommodities","Ratio",false,brandListItem);
+                                        orderBy = "Ratio";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                 }
                                 break;
                             case  "Protein" :
+                                groupListItem = "ProteinCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
-                                        selectCommodities("ProteinCommodities","Date",false,brandListItem);
+                                        orderBy = "Date";
+                                        isLowToHigh =false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Cheapest to most expensive" :
-                                        selectCommodities("ProteinCommodities","Price",true,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh =true;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Most expensive to cheapest" :
-                                        selectCommodities("ProteinCommodities","Price",false,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Based on points":
-                                        selectCommodities("ProteinCommodities","Ratio",false,brandListItem);
+                                        orderBy = "Ratio";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                 }
                                 break;
                             case "Dairy" :
+                                groupListItem = "DairyCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
-                                        selectCommodities("DairyCommodities","Date",false,brandListItem);
+                                        orderBy = "Date";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Cheapest to most expensive" :
-                                        selectCommodities("DairyCommodities","Price",true,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = true;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Most expensive to cheapest" :
-                                        selectCommodities("DairyCommodities","Price",false,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Based on points":
-                                        selectCommodities("DairyCommodities","Ratio",false,brandListItem);
+                                        orderBy = "Ratio";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                 }
                                 break;
                             case "Fruit and Vegetables" :
+                                groupListItem = "FruitAndVegetablesCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
-                                        selectCommodities("FruitAndVegetablesCommodities","Date",false,brandListItem);
+                                        orderBy = "Date";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Cheapest to most expensive" :
-                                        selectCommodities("FruitAndVegetablesCommodities","Price",true,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = true;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Most expensive to cheapest" :
-                                        selectCommodities("FruitAndVegetablesCommodities","Price",false,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Based on points":
-                                        selectCommodities("FruitAndVegetablesCommodities","Ratio",false,brandListItem);
+                                        orderBy = "Ratio";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                 }
                                 break;
                             case "Snacks" :
+                                groupListItem = "SnackCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
-                                        selectCommodities("SnackCommodities","Date",false,brandListItem);
+                                        orderBy = "Date";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Cheapest to most expensive" :
-                                        selectCommodities("SnackCommodities","Price",true,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = true;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Most expensive to cheapest" :
-                                        selectCommodities("SnackCommodities","Price",false,brandListItem);
+                                        orderBy = "Price";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                     case "Based on points":
-                                        selectCommodities("SnackCommodities","Ratio",false,brandListItem);
+                                        orderBy = "Ratio";
+                                        isLowToHigh = false;
+                                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
                                         break;
                                 }
                                 break;
@@ -879,113 +1143,316 @@ public class HomeController implements Initializable {
     private void selectCommoditiesByChoiceFilter(String groupListItem,String newValue){
         switch (groupListItem){
             case  "All Commodities":
+                groupListItem = "AllCommodities";
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("AllCommodities","Date",false,brandListItem);
+                        orderBy = "Date";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("AllCommodities","Price",true,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = true;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Most expensive to cheapest" :
-                        selectCommodities("AllCommodities","Price",false,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = false;
+                        if (search.getText()==null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Based on points":
-                        selectCommodities("AllCommodities","Ratio",false,brandListItem);
+                        orderBy = "Ratio";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                 }
                 break;
             case "Grocery" :
+                groupListItem = "GroceryCommodities";
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("GroceryCommodities","Date",false,brandListItem);
+                        orderBy = "Date";
+                        isLowToHigh = false;
+                        if (search.getText()==null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Cheapest to most expensive":
-                        selectCommodities("GroceryCommodities","Price",true,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = true;
+                        if (search.getText()==null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                     case "Most expensive to cheapest" :
-                        selectCommodities("GroceryCommodities","Price",false,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Based on points":
-                        selectCommodities("GroceryCommodities","Ratio",false,brandListItem);
+                        orderBy = "Ratio";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                 }
                 break;
             case "Break fast" :
+                groupListItem = "BreakFastCommodities";
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("BreakFastCommodities","Date",false,brandListItem);
+                        orderBy = "Date";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("BreakFastCommodities","Price",true,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = true;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Most expensive to cheapest" :
-                        selectCommodities("BreakFastCommodities","Price",false,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Based on points":
-                        selectCommodities("BreakFastCommodities","Ratio",false,brandListItem);
+                        orderBy = "Ratio";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                 }
                 break;
             case  "Protein" :
+                groupListItem = "ProteinCommodities";
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("ProteinCommodities","Date",false,brandListItem);
+                        orderBy = "Date";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("ProteinCommodities","Price",true,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = true;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Most expensive to cheapest" :
-                        selectCommodities("ProteinCommodities","Price",false,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Based on points":
-                        selectCommodities("ProteinCommodities","Ratio",false,brandListItem);
+                        orderBy = "Ratio";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                 }
                 break;
             case "Dairy" :
+                groupListItem = "DairyCommodities";
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("DairyCommodities","Date",false,brandListItem);
+                        orderBy = "Date";
+                        isLowToHigh =false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("DairyCommodities","Price",true,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = true;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Most expensive to cheapest" :
-                        selectCommodities("DairyCommodities","Price",false,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = false;
+                        if (search.getText() ==null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem ="AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Based on points":
-                        selectCommodities("DairyCommodities","Ratio",false,brandListItem);
+                        orderBy= "Ratio";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                 }
                 break;
             case "Fruit and Vegetables" :
+                groupListItem = "FruitAndVegetablesCommodities";
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("FruitAndVegetablesCommodities","Date",false,brandListItem);
+                        orderBy = "Date";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("FruitAndVegetablesCommodities","Price",true,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = true;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Most expensive to cheapest" :
-                        selectCommodities("FruitAndVegetablesCommodities","Price",false,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Based on points":
-                        selectCommodities("FruitAndVegetablesCommodities","Ratio",false,brandListItem);
+                        orderBy = "Ratio";
+                        isLowToHigh = false;
+                        if(search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem  ="AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                 }
                 break;
             case "Snacks" :
+                groupListItem = "SnackCommodities";
                 switch (newValue) {
                     case "Clear filters", "Filters":
-                        selectCommodities("SnackCommodities","Date",false,brandListItem);
+                        orderBy = "Date";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Cheapest to most expensive" :
-                        selectCommodities("SnackCommodities","Price",true,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = true;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else{
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Most expensive to cheapest" :
-                        selectCommodities("SnackCommodities","Price",false,brandListItem);
+                        orderBy = "Price";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem  = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                     case "Based on points":
-                        selectCommodities("SnackCommodities","Ratio",false,brandListItem);
+                        orderBy = "Ratio";
+                        isLowToHigh = false;
+                        if (search.getText() == null)
+                        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
+                        else {
+                            groupListItem = "AllCommodities";
+                            selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,search.getText());
+                        }
                         break;
                 }
                 break;
@@ -1041,5 +1508,16 @@ public class HomeController implements Initializable {
         page.setText(String.valueOf(pageNume));
         checkToVisiblePreviousButton();
         checkToVisibleNextButton();
+    }
+    public void search(){
+//        brandListItem = "All brands";
+        String searchItem = search.getText();
+        searchItem.toLowerCase();
+        groupListItem = "AllCommodities";
+        selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,searchItem);
+        ObservableList<String> observableList2 = FXCollections.observableArrayList(brands);
+        brandFilter.setItems(observableList2);
+        brandFilter.getItems().add(0,"All brands");
+        brandFilter.getSelectionModel().selectFirst();
     }
 }
