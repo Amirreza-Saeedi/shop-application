@@ -75,7 +75,7 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
             System.out.println(commodity);
 //            if(commodity.image != null)
                 image.setImage(new Image("E:\\Job\\Java Assignments\\shop-application-main\\src\\main\\resources\\bank.png"));
-            price.setText(commodity.price * commodity.number + "");
+            price.setText(Integer.parseInt(commodity.price) * commodity.number + "");
             name.setText(commodity.title);
             count.setText(commodity.number + "");
 

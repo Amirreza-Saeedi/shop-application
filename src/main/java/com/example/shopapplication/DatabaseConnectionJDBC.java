@@ -13,10 +13,14 @@ public class DatabaseConnectionJDBC {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         DatabaseConnectionJDBC database = new DatabaseConnectionJDBC();
         Statement statement = database.connection.createStatement();
-        ResultSet resultset = statement.executeQuery("SELECT * From Users");
+        String group = "BreakFastCommodities";
+        String sql = "SELECT * FROM allcommodities WHERE groupp='BreakFastCommodities'";
+//        String sql = "SELECT * FROM " + table + " WHERE username='" + username + "' AND password='" + password + "'";
+
+        ResultSet resultset = statement.executeQuery(sql);
         while (resultset.next()) {
-            System.out.println(resultset.getString("username"));
-            System.out.println(resultset.getString("passwordRegex"));
+            System.out.println("type = " + resultset.getString("type"));
+            System.out.println("brand = " + resultset.getString("brand"));
         }
 
     }

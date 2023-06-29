@@ -47,14 +47,14 @@
                </image>
             </ImageView>
             <Label fx:id="commoditiesNumber" alignment="CENTER" layoutX="1338.0" layoutY="73.0" prefHeight="24.0" prefWidth="46.0" text="0" />
-            <Button fx:id="placeAuction" layoutX="1075.0" layoutY="6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color: #ab47bc;" text="Place an auction" visible="false">
+            <Button fx:id="placeAuction" layoutX="1067.0" layoutY="5.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #ab47bc;" text="Place an auction" visible="false">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="productRegistration" layoutX="1075.0" layoutY="57.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
+            <Button fx:id="productRegistration" layoutX="1067.0" layoutY="37.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
                <font>
-                  <Font name="System Bold Italic" size="10.0" />
+                  <Font name="System Bold Italic" size="11.0" />
                </font>
             </Button>
             <Label fx:id="typeInfo" alignment="CENTER" layoutX="1191.0" layoutY="68.0" prefHeight="26.0" prefWidth="126.0" text="Not registered">
@@ -62,6 +62,11 @@
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
+            <Button fx:id="manageCommodities" layoutX="1068.0" layoutY="69.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #009688;" text="Manage commodities" visible="false">
+               <font>
+                  <Font name="System Bold Italic" size="10.3" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <Line endX="1173.982177734375" endY="-10.171032905578613" fill="#d40a0a" layoutX="226.0" layoutY="116.0" rotate="0.5" startX="-222.00001525878906" startY="7.62939453125E-6" stroke="#666464" />
