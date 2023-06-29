@@ -290,126 +290,126 @@ public class HomeController implements Initializable {
             anchorPane00.setVisible(true);
 //            imageView00.setImage(images.get(page));
             number00.setText("Number: " + commodities.get(page).number);
-            ratio00.setText(commodities.get(page).ratio);
-            price00.setText(commodities.get(page).price);
-            title00.setText(commodities.get(page).title);
+            ratio00.setText(commodities.get(page).getRatio());
+            price00.setText(commodities.get(page).getPrice());
+            title00.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane10.setVisible(true);
 //            imageView10.setImage(images.get(page));
             number10.setText("Number: " + commodities.get(page).number);
-            ratio10.setText(commodities.get(page).ratio);
-            price10.setText(commodities.get(page).price);
-            title10.setText(commodities.get(page).title);
+            ratio10.setText(commodities.get(page).getRatio());
+            price10.setText(commodities.get(page).getPrice());
+            title10.setText(commodities.get(page).getTitle());
             page++;
         }else return;
         if (page < commodities.size()){
             anchorPane20.setVisible(true);
 //            imageView20.setImage(images.get(page));
             number20.setText("Number: " + commodities.get(page).number);
-            ratio20.setText(commodities.get(page).ratio);
-            price20.setText(commodities.get(page).price);
-            title20.setText(commodities.get(page).title);
+            ratio20.setText(commodities.get(page).getRatio());
+            price20.setText(commodities.get(page).getPrice());
+            title20.setText(commodities.get(page).getTitle());
             page++;
         }else return;
         if (page < commodities.size()){
             anchorPane30.setVisible(true);
 //            imageView30.setImage(images.get(page));
             number30.setText("Number: " + commodities.get(page).number);
-            ratio30.setText(commodities.get(page).ratio);
-            price30.setText(commodities.get(page).price);
-            title30.setText(commodities.get(page).title);
+            ratio30.setText(commodities.get(page).getRatio());
+            price30.setText(commodities.get(page).getPrice());
+            title30.setText(commodities.get(page).getTitle());
             page++;
         }else return;
         if (page < commodities.size()){
             anchorPane40.setVisible(true);
 //            imageView40.setImage(images.get(page));
             number40.setText("Number: " + commodities.get(page).number);
-            ratio40.setText(commodities.get(page).ratio);
-            price40.setText(commodities.get(page).price);
-            title40.setText(commodities.get(page).title);
+            ratio40.setText(commodities.get(page).getRatio());
+            price40.setText(commodities.get(page).getPrice());
+            title40.setText(commodities.get(page).getTitle());
             page++;
         }else return;
         if (page < commodities.size()){
             anchorPane50.setVisible(true);
 //            imageView50.setImage(images.get(page));
             number50.setText("Number: " + commodities.get(page).number);
-            ratio50.setText(commodities.get(page).ratio);
-            price50.setText(commodities.get(page).price);
-            title50.setText(commodities.get(page).title);
+            ratio50.setText(commodities.get(page).getRatio());
+            price50.setText(commodities.get(page).getPrice());
+            title50.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane60.setVisible(true);
 //            imageView60.setImage(images.get(page));
             number60.setText("Number: " + commodities.get(page).number);
-            ratio60.setText(commodities.get(page).ratio);
-            price60.setText(commodities.get(page).price);
-            title60.setText(commodities.get(page).title);
+            ratio60.setText(commodities.get(page).getRatio());
+            price60.setText(commodities.get(page).getPrice());
+            title60.setText(commodities.get(page).getTitle());
             page++;
         }else return;
         if (page < commodities.size()){
             anchorPane01.setVisible(true);
 //            imageView01.setImage(images.get(page));
             number01.setText("Number: " + commodities.get(page).number);
-            ratio01.setText(commodities.get(page).ratio);
-            price01.setText(commodities.get(page).price);
-            title01.setText(commodities.get(page).title);
+            ratio01.setText(commodities.get(page).getRatio());
+            price01.setText(commodities.get(page).getPrice());
+            title01.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane11.setVisible(true);
 //            imageView11.setImage(images.get(page));
             number11.setText("Number: " + commodities.get(page).number);
-            ratio11.setText(commodities.get(page).ratio);
-            price11.setText(commodities.get(page).price);
-            title11.setText(commodities.get(page).title);
+            ratio11.setText(commodities.get(page).getRatio());
+            price11.setText(commodities.get(page).getPrice());
+            title11.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane21.setVisible(true);
 //            imageView21.setImage(images.get(page));
             number21.setText("Number: " + commodities.get(page).number);
-            ratio21.setText(commodities.get(page).ratio);
-            price21.setText(commodities.get(page).price);
-            title21.setText(commodities.get(page).title);
+            ratio21.setText(commodities.get(page).getRatio());
+            price21.setText(commodities.get(page).getPrice());
+            title21.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane31.setVisible(true);
 //            imageView31.setImage(images.get(page));
             number31.setText("Number: " + commodities.get(page).number);
-            ratio31.setText(commodities.get(page).ratio);
-            price31.setText(commodities.get(page).price);
-            title31.setText(commodities.get(page).title);
+            ratio31.setText(commodities.get(page).getRatio());
+            price31.setText(commodities.get(page).getPrice());
+            title31.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane41.setVisible(true);
 //            imageView41.setImage(images.get(page));
             number41.setText("Number: " + commodities.get(page).number);
-            ratio41.setText(commodities.get(page).ratio);
-            price41.setText(commodities.get(page).price);
-            title41.setText(commodities.get(page).title);
+            ratio41.setText(commodities.get(page).getRatio());
+            price41.setText(commodities.get(page).getPrice());
+            title41.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane51.setVisible(true);
 //            imageView51.setImage(images.get(page));
             number51.setText("Number: " + commodities.get(page).number);
-            ratio51.setText(commodities.get(page).ratio);
-            price51.setText(commodities.get(page).price);
-            title51.setText(commodities.get(page).title);
+            ratio51.setText(commodities.get(page).getRatio());
+            price51.setText(commodities.get(page).getPrice());
+            title51.setText(commodities.get(page).getTitle());
             page++;
         } else return;
         if (page < commodities.size()){
             anchorPane61.setVisible(true);
 //            imageView61.setImage(images.get(page));
             number61.setText("Number: " + commodities.get(page).number);
-            ratio61.setText(commodities.get(page).ratio);
-            price61.setText(commodities.get(page).price);
-            title61.setText(commodities.get(page).title);
+            ratio61.setText(commodities.get(page).getRatio());
+            price61.setText(commodities.get(page).getPrice());
+            title61.setText(commodities.get(page).getTitle());
             page++;
         }
         return;
@@ -726,7 +726,7 @@ public class HomeController implements Initializable {
         isLowToHigh = false;
         selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
         ArrayList<String> brands1 = new ArrayList<>();
-        for (int i = 0; i < commodities.size(); i++) brands1.add(commodities.get(i).brand);
+        for (int i = 0; i < commodities.size(); i++) brands1.add(commodities.get(i).getBrand());
         ObservableList<String> observableList = FXCollections.observableArrayList(brands1);
         brandFilter.setItems(observableList);
         brandFilter.getItems().add(0,"All brands");
@@ -767,7 +767,7 @@ public class HomeController implements Initializable {
                 showGroupLabel.setText("Group: " + selectedItem);
                 choiceBoxOption = choiceFilter.getValue();
                 ArrayList<String> brands2 = new ArrayList<>();
-                for (int i = 0; i < commodities.size(); i++) brands2.add(commodities.get(i).brand);
+                for (int i = 0; i < commodities.size(); i++) brands2.add(commodities.get(i).getBrand());
                 ObservableList<String> observableList1 = FXCollections.observableArrayList(brands2);
                 brandFilter.setItems(observableList1);
                 brandFilter.getItems().add(0,"All brands");
@@ -950,7 +950,7 @@ public class HomeController implements Initializable {
                                 break;
                         }
                         ArrayList<String> brands3 = new ArrayList<>();
-                for (int i = 0; i < commodities.size() ; i++) brands3.add(commodities.get(i).brand);
+                for (int i = 0; i < commodities.size() ; i++) brands3.add(commodities.get(i).getBrand());
                 ObservableList<String> observableList2 = FXCollections.observableArrayList(brands3);
                 brandFilter.setItems(observableList2);
                 brandFilter.getItems().add(0,"All brands");
@@ -1397,7 +1397,7 @@ public class HomeController implements Initializable {
         groupListItem = "AllCommodities";
         selectCommoditiesBySearch(groupListItem,orderBy,isLowToHigh,brandListItem,searchItem);
         ArrayList<String> brands4 = new ArrayList<>();
-        for (int i = 0; i < commodities.size() ; i++) brands4.add(commodities.get(i).brand);
+        for (int i = 0; i < commodities.size() ; i++) brands4.add(commodities.get(i).getBrand());
         ObservableList<String> observableList2 = FXCollections.observableArrayList(brands4);
         brandFilter.setItems(observableList2);
         brandFilter.getItems().add(0,"All brands");
