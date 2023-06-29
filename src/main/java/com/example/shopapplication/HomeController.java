@@ -226,6 +226,10 @@ public class HomeController implements Initializable {
     private Button placeAuction;
     @FXML
     private Button productRegistration;
+    @FXML
+    private Label typeInfo;
+    @FXML
+    private Button manageCommodities;
     private String choiceBoxOption = "Filter";
     private String groupListItem  = "All Commodities";
     private String brandListItem;
@@ -344,8 +348,9 @@ public class HomeController implements Initializable {
         if (user instanceof Seller){
             placeAuction.setVisible(true);
             productRegistration.setVisible(true);
-        } else if (user instanceof Customer) {
+            manageCommodities.setVisible(true);
 
+            typeInfo.setText("you are a seller!");
         }
     }
     private void hideAnchorPanes(){
@@ -1069,10 +1074,6 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        setIDs();
-        if (user instanceof Seller){
-            placeAuction.setVisible(true);
-            productRegistration.setVisible(true);
-        }
         brandFilter.setValue("Brands");
         brandFilter.getSelectionModel().selectFirst();
         brandListItem = "Brands";

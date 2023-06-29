@@ -7,33 +7,42 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="753.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="753.0" prefWidth="1000.0" style="-fx-background-color: #f8bbd0;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ProductRegistrationController">
    <children>
-      <TextField layoutX="588.0" layoutY="228.0" prefHeight="38.0" prefWidth="194.0" promptText="Price" />
-      <TextField layoutX="588.0" layoutY="157.0" prefHeight="38.0" prefWidth="194.0" promptText="Brand" />
-      <TextField layoutX="588.0" layoutY="299.0" prefHeight="38.0" prefWidth="194.0" promptText="Title" />
-      <TextField layoutX="588.0" layoutY="377.0" prefHeight="38.0" prefWidth="194.0" promptText="Number" />
-      <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="782.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../coin.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="48.0" fitWidth="38.0" layoutX="782.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../brand.png" />
-         </image>
-      </ImageView>
-      <TextField layoutX="588.0" layoutY="454.0" prefHeight="38.0" prefWidth="194.0" promptText="Properties" />
-      <Label alignment="CENTER" layoutX="534.0" layoutY="156.0" prefHeight="38.0" prefWidth="54.0" text="Brand" />
-      <Label alignment="CENTER" layoutX="534.0" layoutY="228.0" prefHeight="38.0" prefWidth="54.0" text="Price" />
-      <Label alignment="CENTER" layoutX="534.0" layoutY="299.0" prefHeight="38.0" prefWidth="54.0" text="Title" />
-      <Label alignment="CENTER" layoutX="534.0" layoutY="377.0" prefHeight="38.0" prefWidth="54.0" text="Number" />
-      <Label alignment="CENTER" layoutX="534.0" layoutY="454.0" prefHeight="38.0" prefWidth="54.0" text="Properties" />
-      <Button alignment="CENTER" layoutX="609.0" layoutY="552.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="134.0" text="Record">
+      <TextField fx:id="priceTextField" layoutX="403.0" layoutY="228.0" prefHeight="38.0" prefWidth="194.0" promptText="Price" />
+      <TextField fx:id="brandTextField" layoutX="403.0" layoutY="157.0" prefHeight="38.0" prefWidth="194.0" promptText="Brand" />
+      <TextField fx:id="titleTextField" layoutX="402.0" layoutY="299.0" prefHeight="38.0" prefWidth="194.0" promptText="Title" />
+      <TextField fx:id="numberTextField" layoutX="403.0" layoutY="377.0" prefHeight="38.0" prefWidth="194.0" promptText="Number" />
+      <Label alignment="CENTER" layoutX="348.0" layoutY="157.0" prefHeight="38.0" prefWidth="54.0" text="Brand" />
+      <Label alignment="CENTER" layoutX="348.0" layoutY="228.0" prefHeight="38.0" prefWidth="54.0" text="Price" />
+      <Label alignment="CENTER" layoutX="348.0" layoutY="299.0" prefHeight="38.0" prefWidth="54.0" text="Title" />
+      <Label alignment="CENTER" layoutX="348.0" layoutY="377.0" prefHeight="38.0" prefWidth="54.0" text="Number" />
+      <Button fx:id="record" alignment="CENTER" layoutX="403.0" layoutY="686.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="194.0" style="-fx-background-color: #6a1b9a;" text="Record" textFill="#f7f2f2">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <font>
+            <Font size="22.0" />
+         </font>
       </Button>
+      <TextField fx:id="typeTextField" layoutX="402.0" layoutY="86.0" prefHeight="38.0" prefWidth="194.0" promptText="Type" />
+      <Label alignment="CENTER" layoutX="348.0" layoutY="86.0" prefHeight="38.0" prefWidth="54.0" text="Type" />
+      <Button fx:id="chooseImageButton" layoutX="418.0" layoutY="621.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: #880e4f;" text="Choose an image" textFill="#f7f4f4">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="imageView" fitHeight="164.0" fitWidth="212.0" layoutX="418.0" layoutY="457.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../nullImage.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="-1.0" prefHeight="86.0" prefWidth="1000.0" style="-fx-background-color: #e57373;" text=" New                            product             registration">
+         <font>
+            <Font name="System Bold Italic" size="43.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
