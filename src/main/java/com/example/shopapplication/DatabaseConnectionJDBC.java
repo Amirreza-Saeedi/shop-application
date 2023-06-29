@@ -3,11 +3,11 @@ package com.example.shopapplication;
 import java.sql.*;
 
 public class DatabaseConnectionJDBC {
-    private final Connection connection;
+    private static Connection connection = null;
 
     public DatabaseConnectionJDBC() throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
-        connection = DriverManager.getConnection("jdbc:sqlite:src/database.db");
+        DatabaseConnectionJDBC.connection = DriverManager.getConnection("jdbc:sqlite:src/database.db");
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -21,7 +21,7 @@ public class DatabaseConnectionJDBC {
 
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connection;
     }
 }
