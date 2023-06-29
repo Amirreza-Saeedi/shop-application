@@ -53,7 +53,7 @@ public class BasketController implements Initializable {
                         }
                         c.title = rs.getString("Title");
                         c.number = item_count;
-                        c.price = rs.getInt("Price");
+                        c.price = String.valueOf(rs.getInt("Price"));
 
 //                        System.out.println(c);
                         communist.add(c);
