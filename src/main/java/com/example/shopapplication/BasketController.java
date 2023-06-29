@@ -16,14 +16,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class basketController implements Initializable {
+public class BasketController implements Initializable {
     public Button btn_submit;
     public Text totalPrice;
     public ListView list;
 
     private ObservableList<Commodity> observableList;
 
-    public basketController() {
+    public BasketController() {
         observableList = FXCollections.observableArrayList();
         String userQuery = "SELECT * FROM USERS WHERE username='" + AppWorkflow.username + "';";
         String commodityQuery = "SELECT * FROM AllCommodities";

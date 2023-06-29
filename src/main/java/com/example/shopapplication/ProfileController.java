@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class profileController implements Initializable {
+public class ProfileController implements Initializable {
     public Text name;
     public Text username;
     public TableColumn content;
@@ -54,15 +54,15 @@ public class profileController implements Initializable {
 
                 table.getColumns().addAll(nameColumn, surnameColumn);
 
-                tableRow mail = new tableRow("email", rs.getString("email"));
-                tableRow number = new tableRow("telephone", rs.getString("phoneNumber"));
-                tableRow password = new tableRow("password", rs.getString("password"));
-                tableRow role = new tableRow("role", rs.getString("role"));
+                TableRow mail = new TableRow("email", rs.getString("email"));
+                TableRow number = new TableRow("telephone", rs.getString("phoneNumber"));
+                TableRow password = new TableRow("password", rs.getString("password"));
+                TableRow role = new TableRow("role", rs.getString("role"));
                 if(role.getValue() == "Seller"){
                     role.setValue(role.value + " : " + "company"); // set company
                 }
-                tableRow balance = new tableRow("balance", rs.getString("balance"));
-                tableRow disCode = new tableRow("discount Code", rs.getString("discount"));
+                TableRow balance = new TableRow("balance", rs.getString("balance"));
+                TableRow disCode = new TableRow("discount Code", rs.getString("discount"));
 
                 table.getItems().add(mail);
                 table.getItems().add(number);

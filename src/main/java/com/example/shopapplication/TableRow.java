@@ -1,11 +1,11 @@
 package com.example.shopapplication;
 
-public class tableRow {
+public class TableRow {
 
     public String info;
     public String value;
 
-    public tableRow(String info, String value) {
+    public TableRow(String info, String value) {
         this.info = info;
         this.value = value;
     }
