@@ -513,21 +513,21 @@ public class HomeController implements Initializable {
             if (brand.equals("Brands") || brand.equals("All brands")) {
                 if (isLowToHigh == false) {
                     if (group.equals("AllCommodities"))
-                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " desc";
+                    sql = "SELECT * FROM AllCommodities WHERE groupp = " + "'"+ group + "'"+" ORDER BY " + orderBy + " desc";
                     else sql = sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " desc";
                 } else {
                     if (group.equals("AllCommodities"))
-                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " ASC";
+                    sql = "SELECT * FROM AllCommodities WHERE groupp = " + "'"+ group + "'"+" ORDER BY " + orderBy + " ASC";
                     else sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " ASC";
                 }
             }else {
                 if (isLowToHigh == false) {
                     if (group.equals("AllCommodities"))
-                    sql ="SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " desc";
+                    sql ="SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND groupp = " + "'" + group + "'" + " ORDER BY " + orderBy + " desc";
                     else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " desc";
                 }else {
                     if (group.equals("AllCommodities"))
-                    sql ="SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " ASC";
+                    sql ="SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND groupp = " + "'" + group + "'" + " ORDER BY " + orderBy + " ASC";
                     else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " ASC";
                 }
             }
@@ -717,24 +717,25 @@ public class HomeController implements Initializable {
             Class.forName("org.sqlite.JDBC");
             String url = "jdbc:sqlite:src/database.db";
             Connection conn = DriverManager.getConnection(url);
+            conn = new DatabaseConnectionJDBC().getConnection();
             if (brand.equals("Brands") || brand.equals("All brands")) {
                 if (isLowToHigh == false) {
                     if (!group.equals("AllCommodities"))
-                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " desc";
+                    sql = "SELECT * FROM AllCommodities WHERE groupp = " + "'"+ group + "'"+" ORDER BY " + orderBy + " desc";
                     else sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " desc";
                 } else {
                     if (!group.equals("AllCommodities"))
-                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " ASC";
+                    sql = "SELECT * FROM AllCommodities WHERE groupp = " + "'"+ group + "'"+" ORDER BY " + orderBy + " ASC";
                     else sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " ASC";
                 }
             }else {
                 if (isLowToHigh == false) {
                     if (!group.equals("AllCommodities"))
-                    sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " desc";
+                    sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND groupp = " + "'" + group + "'" + " ORDER BY " + orderBy + " desc";
                     else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " desc";
                 }else {
                     if (!group.equals("AllCommodities"))
-                    sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " ASC";
+                    sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND groupp = " + "'" + group + "'" + " ORDER BY " + orderBy + " ASC";
                     else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " ASC";
                 }
             }
