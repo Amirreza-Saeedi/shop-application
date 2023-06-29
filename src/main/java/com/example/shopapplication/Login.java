@@ -51,10 +51,11 @@ public class Login implements Verifiable {
 
             while (resultSet.next()) {
                 if (resultSet.getString("username").equals(username)) {
-                    connection.close();
+                    AppWorkflow.username = username;
+//                    connection.close();
                     return true;
                 } else {
-                    connection.close();
+//                    connection.close();
                     return false;
                 }
             }
