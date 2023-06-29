@@ -1,13 +1,23 @@
 package com.example.shopapplication;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ProductionController extends Application {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ProductionController extends Application implements Initializable {
     @FXML
     private ImageView mainImageView;
     @FXML
@@ -40,11 +50,23 @@ public class ProductionController extends Application {
     private Text votesText;
     @FXML
     private Text userVoteText;
+    @FXML
+    private ListView<Comment> commentsListView;
 
-
-
+    private ObservableList<Comment> comments = FXCollections.observableArrayList();
     private Commodity commodity;
     private User user;
+
+    public ProductionController() {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        comments.addAll(new Comment("ali", "ali", "ali", "ali", 3));
+        commentsListView.setItems(comments);
+        commentsListView.setCellFactory(new CommentCellFactory());
+    }
 
     public void add() {
     }
@@ -55,9 +77,14 @@ public class ProductionController extends Application {
     public static void main(String[] args) {
         launch();
     }
+
     @Override
     public void start(Stage stage) throws Exception {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("production-page.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void setCommodity(Commodity commodity) { // set commodity and its labels
@@ -71,9 +98,9 @@ public class ProductionController extends Application {
         typeText.setText(commodity.getType());
         priceText.setText(commodity.getPrice());
         brandText.setText(commodity.getBrand());
-        rateText.setText(commodity.getRate());
-        availableText.setText(commodity.getNumber());
-        votesText.setText(commodity.getVotes());
+//        rateText.setText(commodity.getRate());
+//        availableText.setText(commodity.getNumber());
+//        votesText.setText(commodity.getVotes());
         mainImageView.setImage(commodity.getImage());
 
     }
@@ -88,5 +115,4 @@ public class ProductionController extends Application {
 
     public void refresh() {
     }
-
 }
