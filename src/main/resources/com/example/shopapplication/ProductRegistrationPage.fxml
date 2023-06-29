@@ -19,7 +19,7 @@
       <Label alignment="CENTER" layoutX="348.0" layoutY="228.0" prefHeight="38.0" prefWidth="54.0" text="Price" />
       <Label alignment="CENTER" layoutX="348.0" layoutY="299.0" prefHeight="38.0" prefWidth="54.0" text="Title" />
       <Label alignment="CENTER" layoutX="348.0" layoutY="377.0" prefHeight="38.0" prefWidth="54.0" text="Number" />
-      <Button fx:id="record" alignment="CENTER" layoutX="403.0" layoutY="686.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="194.0" style="-fx-background-color: #6a1b9a;" text="Record" textFill="#f7f2f2">
+      <Button fx:id="record" alignment="CENTER" layoutX="403.0" layoutY="686.0" mnemonicParsing="false" onAction="#recordOnAction" prefHeight="46.0" prefWidth="194.0" style="-fx-background-color: #6a1b9a;" text="Record" textFill="#f7f2f2">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

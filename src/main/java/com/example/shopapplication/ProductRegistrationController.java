@@ -2,6 +2,7 @@ package com.example.shopapplication;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -78,6 +79,10 @@ public class ProductRegistrationController implements Initializable {
                 imageView.setImage(image);
             }
         });
+    }
+
+    public void recordOnAction(ActionEvent event){
+
     }
 
 }

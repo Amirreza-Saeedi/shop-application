@@ -512,15 +512,23 @@ public class HomeController implements Initializable {
             Connection conn = DriverManager.getConnection(url);
             if (brand.equals("Brands") || brand.equals("All brands")) {
                 if (isLowToHigh == false) {
-                    sql = "SELECT * FROM " + group + " ORDER BY " + orderBy + " desc";
+                    if (group.equals("AllCommodities"))
+                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " desc";
+                    else sql = sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " desc";
                 } else {
-                    sql = "SELECT * FROM " + group + " ORDER BY " + orderBy + " ASC";
+                    if (group.equals("AllCommodities"))
+                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " ASC";
+                    else sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " ASC";
                 }
             }else {
                 if (isLowToHigh == false) {
-                    sql = "SELECT * FROM " + group + " WHERE Brand = " + "'"+ brand +"'" + " ORDER BY " + orderBy + " desc";
+                    if (group.equals("AllCommodities"))
+                    sql ="SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " desc";
+                    else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " desc";
                 }else {
-                    sql = "SELECT * FROM " + group + " WHERE Brand = " +"'"+ brand +"'" + " ORDER BY " + orderBy + " ASC";
+                    if (group.equals("AllCommodities"))
+                    sql ="SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " ASC";
+                    else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " ASC";
                 }
             }
             Statement stmt = conn.createStatement();
@@ -711,15 +719,23 @@ public class HomeController implements Initializable {
             Connection conn = DriverManager.getConnection(url);
             if (brand.equals("Brands") || brand.equals("All brands")) {
                 if (isLowToHigh == false) {
-                    sql = "SELECT * FROM " + group + " ORDER BY " + orderBy + " desc";
+                    if (!group.equals("AllCommodities"))
+                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " desc";
+                    else sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " desc";
                 } else {
-                    sql = "SELECT * FROM " + group + " ORDER BY " + orderBy + " ASC";
+                    if (!group.equals("AllCommodities"))
+                    sql = "SELECT * FROM AllCommodities WHERE group = " + "'"+ group + "'"+" ORDER BY " + orderBy + " ASC";
+                    else sql = "SELECT * FROM AllCommodities ORDER BY " + orderBy + " ASC";
                 }
             }else {
                 if (isLowToHigh == false) {
-                    sql = "SELECT * FROM " + group + " WHERE Brand = " + "'"+ brand +"'" + " ORDER BY " + orderBy + " desc";
+                    if (!group.equals("AllCommodities"))
+                    sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " desc";
+                    else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " desc";
                 }else {
-                    sql = "SELECT * FROM " + group + " WHERE Brand = " +"'"+ brand +"'" + " ORDER BY " + orderBy + " ASC";
+                    if (!group.equals("AllCommodities"))
+                    sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'"+ brand +"'" +" AND group = " + "'" + group + "'" + " ORDER BY " + orderBy + " ASC";
+                    else sql = "SELECT * FROM AllCommodities WHERE Brand = " + "'" + brand + "'" + " ORDER BY " + orderBy  + " ASC";
                 }
             }
             Statement stmt = conn.createStatement();
