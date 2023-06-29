@@ -10,4 +10,18 @@ public class Commodity {
     public Image image;
     public Label Properties;
     public int number;
+
+    @Override
+    public String toString() {
+        return "Commodity{" +
+                "type='" + type + '\'' +
+                ", price=" + price +
+                ", ratio=" + ratio +
+                ", brand='" + brand + '\'' +
+                ", title='" + title + '\'' +
+                ", image=" + image +
+                ", Properties=" + Properties +
+                ", number=" + number +
+                '}';
+    }
 }
