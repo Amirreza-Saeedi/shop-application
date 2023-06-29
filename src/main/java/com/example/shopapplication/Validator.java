@@ -2,9 +2,10 @@ package com.example.shopapplication;
 
 import com.example.shopapplication.exceptions.*;
 import com.example.shopapplication.regex.MyRegEx;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +23,7 @@ public class Validator {
     }
 
     public boolean validateSeller(Seller seller) throws IllegalUsernameException, IllegalPasswordException,
-            IllegalFirstnameException, AddressException, IllegalLastnameException {
+            IllegalFirstnameException, IllegalLastnameException, AddressException {
         return validateUserSignUp(seller);
     }
 
