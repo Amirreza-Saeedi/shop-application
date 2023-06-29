@@ -41,7 +41,7 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
 
-//            loadFXML();
+            loadFXML();
         }
         catch (Exception e){
 

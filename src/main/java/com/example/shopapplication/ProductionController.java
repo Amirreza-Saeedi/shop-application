@@ -75,12 +75,14 @@ public class ProductionController extends Application implements Initializable {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("production-page.fxml"));
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("production-page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("comment-cell.fxml"));
+
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);

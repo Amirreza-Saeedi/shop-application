@@ -3,6 +3,7 @@ package com.example.shopapplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -28,7 +29,8 @@ public class BasketController implements Initializable {
         String userQuery = "SELECT * FROM USERS WHERE username='" + AppWorkflow.username + "';";
         String commodityQuery = "SELECT * FROM AllCommodities";
         try {
-            Statement stmt = AppWorkflow.connection.createStatement();
+//            Statement stmt = AppWorkflow.connection.createStatement();
+            Statement stmt = new DatabaseConnectionJDBC().getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(userQuery);
             String basket_title = rs.getString("basket");
             var item_list = basket_title.split(",");
@@ -63,6 +65,8 @@ public class BasketController implements Initializable {
             }
             observableList.addAll(communist);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
