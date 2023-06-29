@@ -8,7 +8,14 @@ public class Commodity {
     private String price , ratio;
     private String brand , title;
     private Image image;
-    private Label Properties;
+    private String properties;
+    private String date;
+    public void setDate(String date){
+        this.date= date;
+    }
+    public String getDate(){
+        return date;
+    }
 
     public String getType() {
         return type;
@@ -58,12 +65,12 @@ public class Commodity {
         this.image = image;
     }
 
-    public Label getProperties() {
-        return Properties;
+    public String getProperties() {
+        return properties;
     }
 
-    public void setProperties(Label properties) {
-        Properties = properties;
+    public void setProperties(String properties) {
+        this.properties = properties;
     }
 
     public int getNumber() {
@@ -96,7 +103,7 @@ public class Commodity {
                 ", brand='" + brand + '\'' +
                 ", title='" + title + '\'' +
                 ", image=" + image +
-                ", Properties=" + Properties +
+                ", Properties=" + properties +
                 ", number=" + number +
                 '}';
     }
