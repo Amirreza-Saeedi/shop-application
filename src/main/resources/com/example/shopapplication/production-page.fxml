@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -9,12 +11,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="659.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ProductionController">
    <children>
       <ImageView fitHeight="283.0" fitWidth="314.0" layoutX="37.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="283.0" layoutX="37.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" width="314.0" />
-      <Label layoutX="395.0" layoutY="81.0" text="Full name">
+      <Label layoutX="388.0" layoutY="81.0" text="Full name">
          <font>
             <Font size="21.0" />
          </font>
@@ -31,12 +32,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Attribute1:">
+            <Label text="Price:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="22.0" text="Attribute2:" GridPane.rowIndex="1">
+            <Label layoutX="10.0" layoutY="22.0" text="Rate:" GridPane.rowIndex="1">
                <font>
                   <Font size="16.0" />
                </font>
@@ -51,7 +52,52 @@
                   <Font size="16.0" />
                </font>
             </Label>
+            <Label layoutX="10.0" layoutY="25.0" text="500$" GridPane.columnIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
+      <Hyperlink fx:id="homeHyperLink" layoutX="37.0" layoutY="30.0" onAction="#toHome" text="Home" underline="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Hyperlink>
+      <ImageView fitHeight="31.0" fitWidth="35.0" layoutX="336.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../add.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="55.0" fitWidth="43.0" layoutX="743.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../basket.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="37.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../star.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="80.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../star.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="123.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../star.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="166.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../star.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="209.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../star.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
