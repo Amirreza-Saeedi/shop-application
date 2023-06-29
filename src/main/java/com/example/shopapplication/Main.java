@@ -19,8 +19,7 @@ public class Main extends Application {
     public void start(Stage stage)  {
         try {
             AppWorkflow.username = "reza";
-            String url = "jdbc:sqlite:src/database.db";
-            AppWorkflow.connection = DriverManager.getConnection(url);
+            AppWorkflow.connection = new DatabaseConnectionJDBC().getConnection();
             Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
             System.out.println("YEEESssssssss");
             Scene scene = new Scene(root);
