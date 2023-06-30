@@ -131,8 +131,6 @@ public class SignUp implements Validatable, Verifiable {
             e.printStackTrace();
         }
 
-
-
         return false;
     }
 //    public boolean validateCustomerSignUp(String username, String password) throws UsernameAlreadyExistsException,

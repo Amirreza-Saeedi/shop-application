@@ -264,6 +264,7 @@ public class HomeController implements Initializable {
             productRegistration.setVisible(true);
             manageCommodities.setVisible(true);
 
+            loginbutton.setText(user.getUsername());
             typeInfo.setText("you are a seller!");
         }
     }
@@ -1405,7 +1406,7 @@ public class HomeController implements Initializable {
     }
 
     public void goToProductRegistrationPage(ActionEvent event){
-        switchScene(event,"ProductRegistrationPage");
+//        switchScene(event,"ProductRegistrationPage");
         FXMLLoader loader = new FXMLLoader(getClass().getResource( "ProductRegistrationPage.fxml"));
         Parent root = null;
         try {
@@ -1417,7 +1418,7 @@ public class HomeController implements Initializable {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+//        stage.show();
         stage.setX(50);
         ProductRegistrationController productRegistrationController = loader.getController();
         productRegistrationController.setUser(user);
