@@ -3,6 +3,7 @@ package com.example.shopapplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
@@ -38,28 +39,18 @@ public class CommentCell extends ListCell<Comment> {
     private Button dislikeButton;
     @FXML
     private Label votesLabel;
-//    private Label authorLabel;
 
 
     public CommentCell() {
         loadFXML();
-//        // Initialize your UI components and set their properties
-//        // ...
-//
-//        // Add your UI components to the cell
-//        getChildren().addAll(nameLabel, usernameLabel, userTypeLabel, commentTextLabel,
-//                replyButton, upvoteButton, downvoteButton);
-//
-//        // Set the spacing and alignment of your UI components
-//        setLineSpacing(10);
-//        setAlignment(Pos.TOP_LEFT);
     }
 
     private void loadFXML() {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("comment-cell.fxml"));
-            loader.setController(this);
             loader.setRoot(this);
+            loader.setController(this);
             loader.load();
         }
         catch (IOException e) {

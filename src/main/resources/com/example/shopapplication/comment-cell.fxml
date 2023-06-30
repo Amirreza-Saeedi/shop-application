@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="124.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.CommentCell">
+<fx:root id="CommentCell" prefHeight="124.0" prefWidth="612.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="messageLabel" alignment="TOP_LEFT" layoutX="14.0" layoutY="34.0" prefHeight="75.0" prefWidth="521.0" style="-fx-border-width: 1; -fx-border-color: gray;" text="message">
          <padding>
@@ -43,4 +42,4 @@
          </children>
       </VBox>
    </children>
-</AnchorPane>
+</fx:root>
