@@ -1,6 +1,7 @@
 package com.example.shopapplication;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,6 +24,7 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
     public Text count;
     public Button btn_plus;
     public Button btn_minus;
+
 
     public CustomCell() {
 
@@ -73,7 +75,7 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
 
 
             System.out.println(commodity);
-//            if(commodity.image != null)
+            if(commodity.getImage() != null)
                 image.setImage(new Image("E:\\Job\\Java Assignments\\shop-application-main\\src\\main\\resources\\bank.png"));
             price.setText(Integer.parseInt(commodity.getPrice()) * commodity.number + "");
             name.setText(commodity.getTitle());

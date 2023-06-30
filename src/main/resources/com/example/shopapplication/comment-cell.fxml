@@ -9,37 +9,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="CommentCell" prefHeight="124.0" prefWidth="612.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="messageLabel" alignment="TOP_LEFT" layoutX="14.0" layoutY="34.0" prefHeight="75.0" prefWidth="521.0" style="-fx-border-width: 1; -fx-border-color: gray;" text="message">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" />
-         </padding>
-      </Label>
-      <HBox layoutX="14.0" layoutY="4.0" prefHeight="20.0" prefWidth="591.0">
-         <children>
-            <Label fx:id="senderLabel" prefHeight="20.0" prefWidth="487.0" text="Sender's name and lastname" textFill="#717171">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <tooltip>
-                  <Tooltip fx:id="senderTooltip" text="username" />
-               </tooltip>
-            </Label>
-            <Label fx:id="asLabel" text="(as...)" />
-         </children>
-      </HBox>
-      <VBox layoutX="547.0" layoutY="34.0" prefHeight="75.0" prefWidth="57.0">
-         <children>
-            <Button fx:id="likeButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="59.0" text="Like" />
-            <HBox prefHeight="27.0" prefWidth="58.0">
-               <children>
-                  <Label prefHeight="22.0" prefWidth="34.0" text="Votes:" />
-                  <Label fx:id="votesLabel" alignment="CENTER" prefHeight="24.0" prefWidth="25.0" text="0" />
-               </children>
-            </HBox>
-            <Button fx:id="dislikeButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="Dislike" />
-         </children>
-      </VBox>
-   </children>
-</fx:root>
+<AnchorPane fx:id="pane" prefHeight="123.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="messageLabel" alignment="TOP_LEFT" layoutX="10.0" layoutY="40.0" prefHeight="75.0" prefWidth="521.0" style="-fx-border-width: 1; -fx-border-color: gray;" text="message">
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" />
+      </padding>
+   </Label>
+   <HBox layoutX="14.0" layoutY="11.0">
+      <children>
+         <Label fx:id="senderLabel" prefHeight="20.0" prefWidth="487.0" text="Sender's name and lastname" textFill="#717171">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <tooltip>
+               <Tooltip fx:id="senderTooltip" text="username" />
+            </tooltip>
+         </Label>
+         <Label fx:id="asLabel" text="(as...)" />
+      </children>
+   </HBox>
+   <VBox layoutX="548.0" layoutY="39.0">
+      <children>
+         <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="Like" />
+         <HBox>
+            <children>
+               <Label prefHeight="22.0" prefWidth="36.0" text="Votes:" />
+               <Label fx:id="votesLabel" alignment="CENTER" prefHeight="24.0" prefWidth="37.0" text="0" />
+            </children>
+         </HBox>
+         <Button fx:id="dislikeButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="Dislike" />
+      </children>
+   </VBox>
+</AnchorPane>

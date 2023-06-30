@@ -9,63 +9,70 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProductionController extends Application implements Initializable {
-    @FXML
-    private ImageView mainImageView;
-    @FXML
-    private ImageView star1ImageView;
-    @FXML
-    private ImageView star2ImageView;
-    @FXML
-    private ImageView star3ImageView;
-    @FXML
-    private ImageView star4ImageView;
-    @FXML
-    private ImageView star5ImageView;
-    @FXML
-    private Label productLabel;
-    @FXML
-    private Text typeText;
-    @FXML
-    private Text priceText;
-    @FXML
-    private Text brandText;
-    @FXML
-    private Text rateText;
-    @FXML
-    private Text dateText;
-    @FXML
-    private Text availableText;
-    @FXML
-    private Text auctionText;
-    @FXML
-    private Text votesText;
-    @FXML
-    private Text userVoteText;
-    @FXML
-    private ListView<Comment> commentsListView;
+public class ProductionController implements Initializable {
+    
+    public ImageView mainImageView;
+    
+    public ImageView star1ImageView;
+    
+    public ImageView star2ImageView;
+    
+    public ImageView star3ImageView;
+    
+    public ImageView star4ImageView;
+    
+    public ImageView star5ImageView;
+    
+    public Label productLabel;
+    
+    public Text typeText;
+    
+    public Text priceText;
+    
+    public Text brandText;
+    
+    public Text rateText;
+    
+    public Text dateText;
+    
+    public Text availableText;
+    
+    public Text auctionText;
+    
+    public Text votesText;
+    
+    public Text userVoteText;
+    
+    public ListView commentsListView;
 
-    private ObservableList<Comment> comments = FXCollections.observableArrayList();
+    private ObservableList<Comment> comments;
     private Commodity commodity;
     private User user;
 
     public ProductionController() {
+        comments = FXCollections.observableArrayList();
+        comments.addAll(
+                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3),
+                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3)
+        );
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comments.addAll(new Comment("ali", "ali", "ali", "ali", 3));
+
         commentsListView.setItems(comments);
-        commentsListView.setCellFactory(new CommentCellFactory());
+        commentsListView.setCellFactory( listView -> new CommentCell());
     }
 
     public void add() {
@@ -74,20 +81,20 @@ public class ProductionController extends Application implements Initializable {
     public void toHome() {
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("production-page.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("comment-cell.fxml"));
-
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
+//
+//    @Override
+//    public void start(Stage stage) throws Exception {
+////        FXMLLoader loader = new FXMLLoader(getClass().getResource("production-page.fxml"));
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("comment-cell.fxml"));
+//
+//        Parent root = loader.load();
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
 
     public void setCommodity(Commodity commodity) { // set commodity and its labels
         if (commodity == null) {

@@ -2,59 +2,42 @@ package com.example.shopapplication;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-// commentCell controller:
-public class CommentCell extends ListCell<Comment> {
-    // Define the UI components for your comment cell
-//    @FXML
-//    private Label nameLabel;
-//    @FXML
-//    private Label usernameLabel;
-//    @FXML
-//    private Label userTypeLabel;
-//    @FXML
-//    private Label commentTextLabel;
-//    @FXML
-//    private Button replyButton;
-//    @FXML
-//    private Button upvoteButton;
-//    @FXML
-//    private Button downvoteButton;
-
-    @FXML
-    private Label senderLabel;
-    @FXML
-    private Label  messageLabel;
-    @FXML
-    private Tooltip senderTooltip;
-    @FXML
-    private Label asLabel;
-    @FXML
-    private Button likeButton;
-    @FXML
-    private Button dislikeButton;
-    @FXML
-    private Label votesLabel;
+public class CommentCell extends ListCell<Comment> implements Initializable {
+    public Label senderLabel;
+    public Label  messageLabel;
+    public Tooltip senderTooltip;
+    public Label asLabel;
+    public Button likeButton;
+    public Button dislikeButton;
+    public Label votesLabel;
+    public AnchorPane pane;
 
 
     public CommentCell() {
-        loadFXML();
     }
 
-    private void loadFXML() {
+    private void loadFXML() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("comment-cell.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("comment-cell.fxml"));
-            loader.setRoot(this);
-            loader.setController(this);
-            loader.load();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
+            loadFXML();
+        } catch (Exception e) {
+            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -66,17 +49,36 @@ public class CommentCell extends ListCell<Comment> {
         if (empty || comment == null) {
             setText(null);
             setGraphic(null);
+
         } else {
-//            authorLabel.setText(comment.getAuthor());
-//            commentTextLabel.setText(comment.getText());
-            // ...
+            FXMLLoader loader = null;
+            if (loader == null) {
+                loader = new FXMLLoader(getClass().getResource("comment-cell.fxml"));
+                loader.setController(this);
+                try {
+                    loader.load();
+                } catch (Exception e) {
+                    System.err.println(e);
+                    e.printStackTrace();
+                }
+            }
+
             senderLabel.setText(comment.getSender());
             senderTooltip.setText(comment.getUsername());
             messageLabel.setText(comment.getMessage());
             asLabel.setText(comment.getUserType());
             votesLabel.setText(comment.getVotes() + "");
 
-            setGraphic(this);
+            setText(null);
+            setGraphic(pane);
         }
+    }
+
+    public void like() {
+        System.out.println("CommentCell.like");
+    }
+
+    public void dislike() {
+        System.out.println("CommentCell.dislike");
     }
 }
