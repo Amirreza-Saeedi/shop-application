@@ -45,7 +45,6 @@ public class CommentCell extends ListCell<Comment> implements Initializable {
     protected void updateItem(Comment comment, boolean empty) {
         super.updateItem(comment, empty);
 
-        // Update the UI components of your cell with the data from the comment
         if (empty || comment == null) {
             setText(null);
             setGraphic(null);
@@ -68,6 +67,18 @@ public class CommentCell extends ListCell<Comment> implements Initializable {
             messageLabel.setText(comment.getMessage());
             asLabel.setText(comment.getUserType());
             votesLabel.setText(comment.getVotes() + "");
+
+            if (likeButton != null) {
+
+                likeButton.onMouseClickedProperty().setValue(e -> {
+                    System.out.println("CommentCell.updateItem");
+                    updateItem(comment, false);
+                });
+            }
+
+//            dislikeButton.onMouseClickedProperty().setValue();
+
+
 
             setText(null);
             setGraphic(pane);

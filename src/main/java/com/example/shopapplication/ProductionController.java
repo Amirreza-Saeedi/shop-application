@@ -63,6 +63,8 @@ public class ProductionController implements Initializable {
         comments = FXCollections.observableArrayList();
         comments.addAll(
                 new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3),
+                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3),
+                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3),
                 new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3)
         );
 

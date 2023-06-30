@@ -81,13 +81,14 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
             name.setText(commodity.getTitle());
             count.setText(commodity.number + "");
 
-           btn_minus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
-               @Override
-               public void handle(MouseEvent mouseEvent) {
-                   commodity.number--;
-                   updateItem(commodity,false);
-               }
-           });
+
+//           btn_minus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
+//               @Override
+//               public void handle(MouseEvent mouseEvent) {
+//                   commodity.number--;
+//                   updateItem(commodity,false);
+//               }
+//           });
 
            btn_plus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
                @Override
