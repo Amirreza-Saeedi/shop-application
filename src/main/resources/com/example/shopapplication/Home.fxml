@@ -52,7 +52,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="productRegistration" layoutX="1067.0" layoutY="37.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
+            <Button fx:id="productRegistration" layoutX="1067.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToProductRegistrationPage" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
                <font>
                   <Font name="System Bold Italic" size="11.0" />
                </font>

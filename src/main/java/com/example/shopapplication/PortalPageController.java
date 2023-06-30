@@ -1,5 +1,6 @@
 package com.example.shopapplication;
 
+import com.example.shopapplication.regex.MyRegex;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,10 +61,10 @@ public class PortalPageController implements Initializable {
     private Label info6;
     @FXML
             private Label info7;
-    Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
+    Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Pattern numberPattern = Pattern.compile("\\d*");
+        Pattern numberPattern = Pattern.compile(MyRegex.numberRegex);
         cardNumberTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             Matcher matcher = numberPattern.matcher(newValue);
             if (!matcher.matches()) {
