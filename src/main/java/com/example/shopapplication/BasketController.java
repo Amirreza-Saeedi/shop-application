@@ -46,14 +46,14 @@ public class BasketController implements Initializable {
                         Commodity c = new Commodity();
                         try{
 
-                            c.image = new Image(new ByteArrayInputStream(rs.getBytes("image")));
+                            c.setImage(new Image(new ByteArrayInputStream(rs.getBytes("image"))));
                         }catch (Exception e){
 //                            e.printStackTrace();
-                            c.image = null;
+                            c.setImage(null);
                         }
-                        c.title = rs.getString("Title");
+                        c.setTitle(rs.getString("Title"));
                         c.number = item_count;
-                        c.price = String.valueOf(rs.getInt("Price"));
+                        c.setPrice(String.valueOf(rs.getInt("Price")));
 
 //                        System.out.println(c);
                         communist.add(c);
