@@ -128,8 +128,9 @@ public class ProductRegistrationController implements Initializable {
             try (Connection connection = databaseConnection.getConnection();
             Statement statement = connection.createStatement()) {
                 String type = typeBox.getValue();
-                type.toLowerCase();
+                type = type.toLowerCase();
                 String brand = brandTextField.getText();
+                brand = brand.toLowerCase();
                 String price = priceTextField.getText();
                 String title = titleTextField.getText();
 

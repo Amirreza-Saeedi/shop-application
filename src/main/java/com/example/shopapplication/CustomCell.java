@@ -52,7 +52,7 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
     protected void updateItem(Commodity commodity, boolean b) {
         super.updateItem(commodity, b);
 
-        if(b || commodity == null || commodity.number <= 0) {
+        if(b || commodity == null || commodity.getNumber() <= 0) {
             setText(null);
             setGraphic(null);
         } else {
@@ -75,14 +75,16 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
             System.out.println(commodity);
 //            if(commodity.image != null)
                 image.setImage(new Image("E:\\Job\\Java Assignments\\shop-application-main\\src\\main\\resources\\bank.png"));
-            price.setText(Integer.parseInt(commodity.getPrice()) * commodity.number + "");
+            price.setText(Integer.parseInt(commodity.getPrice()) * commodity.getNumber() + "");
             name.setText(commodity.getTitle());
-            count.setText(commodity.number + "");
+            count.setText(commodity.getNumber() + "");
 
            btn_minus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
-                   commodity.number--;
+                   int number  = commodity.getNumber();
+                   number--;
+                   commodity.setNumber(number);
                    updateItem(commodity,false);
                }
            });
@@ -90,7 +92,9 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
            btn_plus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
-                   commodity.number++;
+                   int number = commodity.getNumber();
+                   number++;
+                   commodity.setNumber(number);
                    updateItem(commodity,false);
                }
            });

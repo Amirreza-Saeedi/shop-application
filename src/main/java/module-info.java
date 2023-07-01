@@ -6,6 +6,7 @@ module com.example.shopproject {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires java.mail;
+    requires java.desktop;
 
     opens com.example.shopapplication to javafx.fxml;
     exports com.example.shopapplication;
