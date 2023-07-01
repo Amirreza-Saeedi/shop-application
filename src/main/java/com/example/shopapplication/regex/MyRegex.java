@@ -7,5 +7,6 @@ public final class MyRegex {
     public final static String emailRegex = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
     public final static String numberRegex = "\\d*";
     public final static String doubleRegex = "^(-?)(0|([1-9][0-9]*))(\\.[0-9]+)?$";
+    public final static String commentRegex = "^[^\\n]{0,100}$";
 //    public final static String emailRegex       = null;
 }

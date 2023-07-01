@@ -1,30 +1,48 @@
 package com.example.shopapplication;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Comment {
-    private String sender;
+    private String fullName;
     private String  message;
     private String username;
     private String userType;
-    private int votes;
+    private LocalDateTime localDateTime;
 
-    public Comment(String sender, String message, String username, String userType, int votes) {
-        this.sender = sender;
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    private int number;
+
+    public Comment(String fullName, String message, String username, String userType, LocalDateTime localDateTime, int number) {
+        this.fullName = fullName;
         this.message = message;
         this.username = username;
         this.userType = userType;
-        this.votes = votes;
+        this.localDateTime = localDateTime;
+        this.number = number;
     }
 
-    public String getSender() {
-        return sender;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getMessage() {
@@ -51,11 +69,4 @@ public class Comment {
         this.userType = userType;
     }
 
-    public int getVotes() {
-        return votes;
-    }
-
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
 }

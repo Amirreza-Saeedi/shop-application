@@ -1,10 +1,10 @@
 package com.example.shopapplication;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,13 +12,12 @@ import java.util.ResourceBundle;
 
 public class CommentCell extends ListCell<Comment> implements Initializable {
     public Label senderLabel;
-    public Label  messageLabel;
     public Tooltip senderTooltip;
-    public Label asLabel;
-    public Button likeButton;
-    public Button dislikeButton;
-    public Label votesLabel;
     public AnchorPane pane;
+    public Label dateTimeLabel;
+    public Text messageText;
+    public Label numberLabel;
+
 
 
     public CommentCell() {
@@ -62,23 +61,11 @@ public class CommentCell extends ListCell<Comment> implements Initializable {
                 }
             }
 
-            senderLabel.setText(comment.getSender());
+            senderLabel.setText(comment.getFullName() + " (" + comment.getUserType() + ")");
             senderTooltip.setText(comment.getUsername());
-            messageLabel.setText(comment.getMessage());
-            asLabel.setText(comment.getUserType());
-            votesLabel.setText(comment.getVotes() + "");
-
-            if (likeButton != null) {
-
-                likeButton.onMouseClickedProperty().setValue(e -> {
-                    System.out.println("CommentCell.updateItem");
-                    updateItem(comment, false);
-                });
-            }
-
-//            dislikeButton.onMouseClickedProperty().setValue();
-
-
+            messageText.setText(comment.getMessage());
+            dateTimeLabel.setText(comment.getLocalDateTime().toString());
+            numberLabel.setText(comment.getNumber() + "- ");
 
             setText(null);
             setGraphic(pane);

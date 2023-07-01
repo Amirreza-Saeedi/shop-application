@@ -1,7 +1,10 @@
 package com.example.shopapplication;
 
+import com.example.shopapplication.regex.MyRegex;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,11 +15,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -24,7 +27,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProductionController implements Initializable {
 
@@ -72,6 +80,13 @@ public class ProductionController implements Initializable {
     @FXML
     private Text errorText;
 
+    @FXML
+    private TextArea commentTextArea;
+    @FXML
+    private Label remainingCharsLabel;
+    @FXML
+    private Button sendButton;
+
     private ObservableList<Comment> comments;
     private Commodity commodity;
     private User user;
@@ -82,13 +97,41 @@ public class ProductionController implements Initializable {
 
 
     public ProductionController() {
+
+    }
+
+    public void loadComments() {
+
         comments = FXCollections.observableArrayList();
-        comments.addAll(
-                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3),
-                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3),
-                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3),
-                new Comment("dsf", "ksfjld", "fsdlkj", "dkslfj", 3)
-        );
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            System.out.println("ProductionController.loadComments");
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM Comments WHERE commodityId='" + commodity.getCommodityId() + "' ORDER BY date,time Desc"; // todo desc doesnt work
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            ArrayList<Comment> arrayList = new ArrayList<>(10);
+            for (int i = 1; resultSet.next(); ++i) {
+                String fullName = resultSet.getString("fullName");
+                String message = resultSet.getString("message");
+                String username = resultSet.getString("userId");
+                String userType = resultSet.getString("user");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                String dateTime = resultSet.getString("date") + " " + resultSet.getString("time");
+                LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+                arrayList.add(new Comment(fullName, message, username, userType, localDateTime, i));
+                System.out.println("fullName = " + fullName);
+                System.out.println("message = " + message);
+                System.out.println("username = " + username);
+                System.out.println("localDateTime = " + localDateTime);;
+            }
+
+            comments.addAll(arrayList);
+            commentsListView.setItems(comments);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -105,6 +148,28 @@ public class ProductionController implements Initializable {
 
         // error text
         errorText.setVisible(false);
+
+        commentTextArea.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            Pattern pattern = Pattern.compile(MyRegex.commentRegex);
+            Matcher matcher = pattern.matcher(newValue);
+            int remaining;
+            final int LIMIT = 100;
+            if (!matcher.matches()) {
+                commentTextArea.setText(oldValue);
+                remaining = 100 - oldValue.length();
+            } else {
+                remaining = 100 - newValue.length();
+            }
+            remainingCharsLabel.setText(remaining + "/" + LIMIT);
+        });
+    }
+
+    public void toNewComment() {
+        System.out.println("ProductionController.toNewComment");
+    }
+
+    public void send() {
+        System.out.println("ProductionController.send");
     }
 
     public void add() {
@@ -131,6 +196,8 @@ public class ProductionController implements Initializable {
             setUser(user);
         }
         updateRatesAndVotes();
+
+        loadComments(); // todo remove
     }
 
     private boolean submitVote(int newVote) { // todo exception needed?
@@ -205,7 +272,7 @@ public class ProductionController implements Initializable {
         }
     }
 
-    private boolean updateVote() { // use voteId for optimization
+    private void updateVote() { // use voteId for optimization
         /**
          * Sets voteId
          * Called just before updateRatedAndVotes.
@@ -231,7 +298,6 @@ public class ProductionController implements Initializable {
         }
 
 
-        return false;
     }
 
     private boolean vote(int number) { // false if vote not applied
@@ -381,40 +447,6 @@ public class ProductionController implements Initializable {
 
     }
 
-    private void initializeUserVote() {
-        /** User is not null in this method.
-         * Vote == 0 is ignored and considered as no vote,
-         * and has no effect in votes & rate calculations.
-         * Sets voteId if vote is found.
-         * */
-
-        try {
-            Connection connection = new DatabaseConnectionJDBC().getConnection();
-            Statement statement = connection.createStatement();
-            String sql = "SELECT * from CommodityVotes where " +
-                    "commodityId='" + commodity.getCommodityId() + "' and " +
-                    "userId='"      + user.getUsername() + "' and " +
-                    "user='"        + userType + "'";
-            ResultSet resultSet = statement.executeQuery(sql); // find vote
-
-            int userVote = 0;
-            if (resultSet.next()) { // vote found
-                userVote = resultSet.getInt("vote");
-                userVoteText.setText(userVote + "");
-                voteId = resultSet.getInt("voteId"); // voteId
-            }
-
-            starImageViews[userVote - 1].setOpacity(1.0);
-
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            System.out.println(e);
-
-        }
-    }
 
     public void setUser(User user) {
         /**- User is not null!
@@ -486,12 +518,9 @@ public class ProductionController implements Initializable {
         }
     }
 
-    public void setUserVoteText() {
-        // todo get user vote from votes table
-    }
 
-    public void refresh() {
-    }
+
+
 
     /**Just specify which image is clicked*/
     public void vote1() {
