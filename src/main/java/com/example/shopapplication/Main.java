@@ -21,7 +21,8 @@ public class Main extends Application {
             AppWorkflow.username = "reza";
             AppWorkflow.connection = new DatabaseConnectionJDBC().getConnection();
 //            Parent root = FXMLLoader.load(getClass().getResource("basket.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("production-page.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("production-page.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
             System.out.println("YEEESssssssss");
             Scene scene = new Scene(root);
             stage.setScene(scene);

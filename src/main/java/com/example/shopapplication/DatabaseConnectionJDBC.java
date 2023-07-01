@@ -5,7 +5,7 @@ import java.sql.*;
 public class DatabaseConnectionJDBC {
     private static Connection connection = null;
 
-    public DatabaseConnectionJDBC() throws SQLException, ClassNotFoundException {
+    public DatabaseConnectionJDBC() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         DatabaseConnectionJDBC.connection = DriverManager.getConnection("jdbc:sqlite:src/database.db");
     }

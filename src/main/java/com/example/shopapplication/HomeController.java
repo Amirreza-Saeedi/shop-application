@@ -1416,6 +1416,20 @@ public class HomeController implements Initializable {
         System.out.println("index = " + index);
         System.out.println("row = " + row);
         System.out.println("col = " + col);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("production-page.fxml"));
+            Parent root = loader.load();
+
+            ProductionController controller = loader.getController();
+            controller.setAll(commodities.get(index), user);
+
+            Stage stage = (Stage) loginbutton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void add(int row, int col) {
