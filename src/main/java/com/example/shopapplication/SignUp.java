@@ -1,9 +1,9 @@
 package com.example.shopapplication;
 
 import com.example.shopapplication.exceptions.*;
-import jakarta.mail.internet.AddressException;
 import org.w3c.dom.ls.LSOutput;
 
+import javax.mail.internet.AddressException;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.ResultSet;

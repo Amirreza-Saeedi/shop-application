@@ -1,6 +1,5 @@
 package com.example.shopapplication;
 
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 public class Commodity {
@@ -13,6 +12,21 @@ public class Commodity {
     private int number;
     private int commodityId;
 
+    public Commodity(){
+
+    }
+
+    public Commodity(String type,String brand,String price,String ratio,String title,
+                     int number, int commodityId) {
+        this.type = type;
+        this.brand = brand;
+        this.price = price;
+        this.ratio = ratio;
+        this.title = title;
+        this.number = number;
+        this.commodityId = commodityId;
+    }
+
     public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
     }
@@ -20,10 +34,10 @@ public class Commodity {
     public int getCommodityId() {
         return commodityId;
     }
-
     public void setDate(String date){
         this.date= date;
     }
+
     public String getDate(){
         return date;
     }
@@ -89,19 +103,6 @@ public class Commodity {
     }
 
     public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int number;
-    public Commodity(){
-
-    }
-    public Commodity(String type,String brand,String price,String ratio,String title,int number){
-        this.type = type;
-        this.brand = brand;
-        this.price = price;
-        this.ratio = ratio;
-        this.title = title;
         this.number = number;
     }
 

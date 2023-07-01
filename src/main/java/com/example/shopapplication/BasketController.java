@@ -64,8 +64,8 @@ public class BasketController implements Initializable {
 //
 //            }
             observableList.addAll(
-                    new Commodity("sdkflj", "lskdfj", "45", "4.4", "ksfld", 2),
-                    new Commodity("sdkflj", "lskdfj", "456", "4.4", "ksfld", 2));
+                    new Commodity("sdkflj", "lskdfj", "45", "4.4", "ksfld", 2, 2),
+                    new Commodity("sdkflj", "lskdfj", "456", "4.4", "ksfld", 2, 1));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

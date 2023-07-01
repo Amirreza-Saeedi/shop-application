@@ -2,15 +2,15 @@ module com.example.shopproject {
     requires javafx.controls;
     requires javafx.fxml;
 
-    requires org.controlsfx.controls;
-    requires org.kordamp.bootstrapfx.core;
+//    requires org.controlsfx.controls;
+//    requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires java.mail;
     requires java.desktop;
 //    requires java.mail;
     requires org.simplejavamail;
     requires org.simplejavamail.core;
-    requires jakarta.mail;
+//    requires jakarta.mail;
 
 //    requires java.mail;
 

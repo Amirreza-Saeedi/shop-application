@@ -165,7 +165,7 @@
             </GridPane>
             <HBox alignment="CENTER" layoutX="28.0" layoutY="267.0" prefHeight="46.0" prefWidth="256.0" spacing="5.0">
                <children>
-                  <ImageView fx:id="star1ImageView" fitHeight="52.0" fitWidth="45.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: .5;">
+                  <ImageView fx:id="star1ImageView" fitHeight="52.0" fitWidth="45.0" onMouseClicked="#vote1" opacity="0.5" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: .5;">
                      <image>
                         <Image url="@icons/1 star.png" />
                      </image>
@@ -173,7 +173,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="star2ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="10.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="star2ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#vote2" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/2 star.png" />
                      </image>
@@ -181,7 +181,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="star3ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="61.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="star3ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="61.0" layoutY="10.0" onMouseClicked="#vote3" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/3 star.png" />
                      </image>
@@ -189,7 +189,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="star4ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="112.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="star4ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="112.0" layoutY="10.0" onMouseClicked="#vote4" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/4 star.png" />
                      </image>
@@ -197,7 +197,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="star5ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="164.0" layoutY="10.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="star5ImageView" fitHeight="52.0" fitWidth="45.0" layoutX="164.0" layoutY="10.0" onMouseClicked="#vote5" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/5 star.png" />
                      </image>
@@ -221,11 +221,14 @@
             </HBox>
             <HBox layoutX="107.0" layoutY="17.0" prefHeight="18.0" prefWidth="282.0">
                <children>
-                  <Label layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="57.0" text="Status:" />
-                  <Label fx:id="usernameLabel" prefHeight="18.0" prefWidth="161.0" text="Not signed in" />
-                  <Label fx:id="userTypeLabel" prefHeight="18.0" prefWidth="104.0" text="()" />
+                  <Label layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="37.0" text="State:">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font></Label>
+                  <Label fx:id="usernameLabel" prefHeight="18.0" prefWidth="156.0" text="Not signed in" />
                </children>
             </HBox>
+            <Text fx:id="errorText" fill="RED" layoutX="296.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error message" textAlignment="CENTER" wrappingWidth="408.0" />
          </children>
       </AnchorPane>
       <TabPane prefHeight="117.0" prefWidth="751.0" tabClosingPolicy="UNAVAILABLE">

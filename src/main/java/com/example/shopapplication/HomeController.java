@@ -463,7 +463,7 @@ public class HomeController implements Initializable {
                         String price1 = rs.getString("Price");
                         String ratio1 = rs.getString("Ratio");
                         String title1 = rs.getString("Title");
-                        int commodityId =rs.getInt("commodity-id");
+                        int commodityId =rs.getInt("commodityId");
 //                        InputStream is = rs.getBinaryStream("image");
 //                        BufferedImage image = ImageIO.read(is);
                         commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId));
@@ -651,7 +651,7 @@ public class HomeController implements Initializable {
                         String price1 = rs.getString("Price");
                         String ratio1 = rs.getString("Ratio");
                         String title1 = rs.getString("Title");
-                        int commodityId =rs.getInt("commodity-id");
+                        int commodityId =rs.getInt("commodityId");
                         commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId));
 
                         String date = rs.getString("Date");
@@ -673,7 +673,7 @@ public class HomeController implements Initializable {
                             String title1 = rs.getString("Title");
 //                            InputStream is = rs.getBinaryStream("image");
 //                            BufferedImage image = ImageIO.read(is);
-                            int commodityId =rs.getInt("commodity-id");
+                            int commodityId =rs.getInt("commodityId");
                             commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId));
 
                             String date = rs.getString("Date");

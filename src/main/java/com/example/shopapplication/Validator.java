@@ -2,10 +2,10 @@ package com.example.shopapplication;
 
 import com.example.shopapplication.exceptions.*;
 import com.example.shopapplication.regex.MyRegex;
-import jakarta.mail.internet.AddressException;
-import jakarta.mail.internet.InternetAddress;
 
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

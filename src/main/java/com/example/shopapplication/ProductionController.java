@@ -1,7 +1,7 @@
 package com.example.shopapplication;
 
-import com.example.shopapplication.exceptions.InsertionFailedException;
-import javafx.application.Application;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -66,13 +68,18 @@ public class ProductionController implements Initializable {
     @FXML
     private Label usernameLabel;
     @FXML
-    private Label userTypeLabel;
+    private Tooltip productTooltip;
+    @FXML
+    private Text errorText;
 
     private ObservableList<Comment> comments;
     private Commodity commodity;
     private User user;
-    private boolean canVote;
     private String userType;
+    private boolean hasBought; // true means user has signed in & bought the product
+    private int voteId; // != 0 means user takes a place in CommodityVotes table and new changes will be applied in that place
+
+
 
     public ProductionController() {
         comments = FXCollections.observableArrayList();
@@ -95,6 +102,9 @@ public class ProductionController implements Initializable {
         starImageViews = new ImageView[]{
                 star1ImageView, star2ImageView, star3ImageView, star4ImageView, star5ImageView
         };
+
+        // error text
+        errorText.setVisible(false);
     }
 
     public void add() {
@@ -117,83 +127,75 @@ public class ProductionController implements Initializable {
         /*commodity cant be null,
          * user may be null*/
         setCommodity(commodity);
-        calculateVotes();
         if (user != null) {
             setUser(user);
-            initializeUserVote();
         }
-//        updateVotes();
-        updateRateAndVotes();
+        updateRatesAndVotes();
     }
 
-    private boolean insertRateAndVote() throws InsertionFailedException {
-        return false;
-    }
-
-    private void updateRateAndVotes() {
-        /** Called in setAll() and after user changes his vote in vote() and it returns true.
-         * Just get data!
-         * 1- Count votes
-         * 2- Calculate rete
+    private boolean submitVote(int newVote) { // todo exception needed?
+        /**Inserts/updates user vote in table.
+         * Sets voteId if insertion is successful.
          * */
-        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+
+        try(Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
-            String sql = "SELECT sum(vote) as totalVotes, count(vote) as votes FROM CommodityVotes WHERE " +
-                    "commodityId='1'"; // todo id
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            if (resultSet.next()) {
-                // 1- votes
-                int votes = resultSet.getInt("votes");
-                votesText.setText(votes + "");
-
-                // 2- rate
-                int totalVotes = resultSet.getInt("totalVotes");
-                float rate = ((float) totalVotes) / votes;
-                System.out.println("totalVotes = " + totalVotes);
-                System.out.println("votes = " + votes);
-                System.out.println("rate = " + rate);
-                rateText.setText(new BigDecimal(rate).setScale(1, BigDecimal.ROUND_HALF_UP).toString());
+            String sql;
+            // CommodityVotes table:
+            if (voteId != 0) { // update
+                sql = "UPDATE CommodityVotes SET vote='" + newVote + "' " +
+                        "WHERE voteId='" + voteId + "'";
+            } else { // insert
+                sql = "INSERT INTO CommodityVotes (userId,user,vote,commodityId) " +
+                        "VALUES ('" + user.getUsername() + "','" +
+                        userType + "','" + newVote + "','" + commodity.getCommodityId() + "')";
             }
+            int resultSet = statement.executeUpdate(sql);
+            if (resultSet != 1) {
+                throw new Exception("resultSet = " + resultSet);
+            }
+
+
+
+            return true;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-        } catch (ArithmeticException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            System.err.println(e);
             e.printStackTrace();
         }
-    }
 
-    private boolean vote() { // false if vote not applied
-
-
-
-
-        try {
-            if (insertRateAndVote()) {
-                updateRateAndVotes();
-            }
-        } catch (InsertionFailedException e) {
-            /*todo error message*/
-        }
         return false;
     }
 
-    private void updateVotes() {
-        /*commodity's votes updates when user vote change
-         *
+    private void updateRatesAndVotes() {
+        /**
+         * Called in setAll() and after user changes his vote in vote() and it returns true.
+         * Just gets data!
+         * Counts votes
+         * vote == 0 considered no vote.
          * */
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
-            String sql = "select count(*) from CommodityVotes where commodityId='" + commodity.getId() + "'";
+            String sql = "SELECT count(vote) as votes FROM CommodityVotes WHERE " +
+                    "commodityId='" + commodity.getCommodityId() + "' and " +
+                    "NOT vote='" + 0 + "'";
             ResultSet resultSet = statement.executeQuery(sql);
+
             if (resultSet.next()) {
-                int count = resultSet.getInt(1);
-                votesText.setText(count + "");
+                int votes = resultSet.getInt("votes"); // votes
+                votesText.setText(votes + "");
+            }
+
+            sql = "SELECT * from AllCommodities where commodityId='" + commodity.getCommodityId() + "'";
+            resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                rateText.setText(resultSet.getString("ratio"));
             } else {
-                throw new Exception("commodity not exist!");
+                throw new Exception();
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -203,17 +205,126 @@ public class ProductionController implements Initializable {
         }
     }
 
-    private void calculateVotes() {
-        try {
-            Connection connection = new DatabaseConnectionJDBC().getConnection();
+    private boolean updateVote() { // use voteId for optimization
+        /**
+         * Sets voteId
+         * Called just before updateRatedAndVotes.
+         * */
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
-//            String
+            String sql = "select * from CommodityVotes where " +
+                    "commodityId='" + commodity.getCommodityId() + "' and " +
+                    "userId='" + user.getUsername() + "' and " +
+                    "user='" + userType + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
 
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+            if (resultSet.next()) {
+                int vote = resultSet.getInt("vote");
+                userVoteText.setText(vote + ""); // user vote
+//                starImageViews[vote - 1].setOpacity(1.0); // vote image
+                voteId = resultSet.getInt("voteId"); // voteId
+
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+
+        return false;
+    }
+
+    private boolean vote(int number) { // false if vote not applied
+        /**user vote will be applied only if hasBought == true:
+         * Inserts new vote and rate in related tables.
+         * Updates page after insertion from tables.
+         * */
+
+        System.out.println("ProductionController.vote");
+        System.out.println("number = " + number);
+        String errorMessage = "";
+        Color color = Color.RED;
+
+        if (hasBought) {
+            int newVote;
+            int index = number - 1;
+            if (starImageViews[index].getOpacity() == 1.0) { // deselect and vote = 0
+                starImageViews[index].setOpacity(0.5); // change opacity
+                newVote = 0;
+
+            } else { // select new, deselect old and vote
+                for (int i = 0; i < starImageViews.length; i++) {
+                    starImageViews[i].setOpacity((i != index) ? 0.5 : 1);
+                }
+                newVote = number;
+            }
+
+            if (submitVote(newVote) && submitRate()) {
+                updateVote();
+                updateRatesAndVotes();
+                errorMessage = "Vote successfully submitted.";
+                color = Color.GREEN;
+
+            } else {
+                errorMessage = "Vote submission failed.";
+
+            }
+
+        } else if (user == null) {
+            errorMessage = "You need to log in to vote if you have already bought this commodity.";
+
+        } else {
+            errorMessage = "You have not bought this commodity yet.";
+
+        }
+        showError(errorText, errorMessage, 5, color);
+
+
+        return false;
+    }
+
+    private boolean submitRate() {
+        /**
+         * Calculate rate and update
+         * */
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT sum(vote) as totalVotes, count(vote) as votes FROM CommodityVotes WHERE " +
+                    "commodityId='" + commodity.getCommodityId() + "' and " +
+                    "NOT vote='" + 0 + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                int votes = resultSet.getInt("votes"); // vote
+                int totalVotes = resultSet.getInt("totalVotes"); // totalVotes
+                float rate = (votes != 0 ? ((float) totalVotes) / votes : 0); // rate
+                System.out.println("totalVotes = " + totalVotes);
+                System.out.println("votes = " + votes);
+                System.out.println("rate = " + rate);
+
+                // Update ratio AllCommodities table
+                if (rate != 0) {
+                    String rateString  = new BigDecimal(rate).setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+                    sql = "UPDATE AllCommodities SET ratio='" + rateString + "' " +
+                            "WHERE commodityId='" + commodity.getCommodityId() + "'";
+                    int resultSet2 = statement.executeUpdate(sql);
+                    if (resultSet2 != 1) {
+                        throw new Exception("resultSet2 = " + resultSet2);
+                    }
+
+                    return true;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
     }
 
     public void setCommodity(Commodity commodity) { // set commodity and its labels
@@ -225,6 +336,7 @@ public class ProductionController implements Initializable {
         this.commodity = commodity;
 
         productLabel.setText(commodity.getTitle());
+        productTooltip.setText(commodity.getTitle());
         typeText.setText(commodity.getType());
         priceText.setText(commodity.getPrice());
         brandText.setText(commodity.getBrand());
@@ -244,8 +356,7 @@ public class ProductionController implements Initializable {
 
             Connection connection = new DatabaseConnectionJDBC().getConnection();
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM AllCommodities WHERE Number='" + commodity.getNumber() +
-                    "' AND title='" + commodity.getTitle() + "'"; // todo number must be enough
+            String sql = "SELECT * FROM AllCommodities WHERE commodityId='" + commodity.getCommodityId() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
 
             if (resultSet.next()) {
@@ -271,23 +382,26 @@ public class ProductionController implements Initializable {
     }
 
     private void initializeUserVote() {
-        /* user is not null in this method
-         *
+        /** User is not null in this method.
+         * Vote == 0 is ignored and considered as no vote,
+         * and has no effect in votes & rate calculations.
+         * Sets voteId if vote is found.
          * */
 
         try {
             Connection connection = new DatabaseConnectionJDBC().getConnection();
             Statement statement = connection.createStatement();
             String sql = "SELECT * from CommodityVotes where " +
-                    "commodityId='" + 1 + "' and " + // todo replace 1 with id
-                    "userId='" + user.getUsername() + "' and " +
-                    "user='" + userType + "'";
-            ResultSet resultSet = statement.executeQuery(sql);
-            int userVote = 0;
+                    "commodityId='" + commodity.getCommodityId() + "' and " +
+                    "userId='"      + user.getUsername() + "' and " +
+                    "user='"        + userType + "'";
+            ResultSet resultSet = statement.executeQuery(sql); // find vote
 
+            int userVote = 0;
             if (resultSet.next()) { // vote found
                 userVote = resultSet.getInt("vote");
                 userVoteText.setText(userVote + "");
+                voteId = resultSet.getInt("voteId"); // voteId
             }
 
             starImageViews[userVote - 1].setOpacity(1.0);
@@ -298,25 +412,31 @@ public class ProductionController implements Initializable {
             throw new RuntimeException(e);
         } catch (Exception e) {
             System.out.println(e);
-            ;
+
         }
     }
 
     public void setUser(User user) {
-        /**User is not null!
-         * Called once in initialization
-         * Set related labels
+        /**- User is not null!
+         * - Called once in initialization
+         * - inits:
+         * 1. Sets user obj & type
+         * 2. Sets related components
+         * 3. Determines hasBought value
+         * - Vote == 0 is ignored and considered as no vote,
+         * and has no effect in votes & rate calculations.
+         * - Sets voteId if vote is found.
          * */
 
-        this.user = user;
+        // 1. user:
+        this.user = user; // 1- obj
 
-        // user type:
-        if (user instanceof Customer) {
-            userType = "(customer)";
+        if (user instanceof Customer) { // 2- userType
+            userType = "customer";
         } else if (user instanceof Seller) {
-            userType = "(seller)";
+            userType = "seller";
         } else if (user instanceof Admin) {
-            userType = "(admin)";
+            userType = "admin";
         } else {
             try {
                 throw new Exception("user type not exist.");
@@ -325,17 +445,44 @@ public class ProductionController implements Initializable {
             }
         }
 
-        // labels:
-        usernameLabel.setText(user.getUsername());
-        userTypeLabel.setText(userType);
+
+        // 2. labels:
+        usernameLabel.setText(user.getUsername() + " (" + userType + ")"); // username
+
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
-            String sql = "select ";
+            String sql = "select * from CommodityVotes where " +
+                    "commodityId='" + commodity.getCommodityId() + "' and " +
+                    "userId='" + user.getUsername() + "' and " +
+                    "user='"        + userType + "'";;
             ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                int vote = resultSet.getInt("vote");
+                userVoteText.setText(vote + ""); // user vote
+                starImageViews[vote - 1].setOpacity(1.0); // vote image
+                voteId = resultSet.getInt("voteId"); // voteId
+
+            }
+
+            // 3. hasBought:
+            sql = "select * from Purchases where " +
+                    "userId='"      + user.getUsername()        + "' and " +
+                    "user='"        + userType                  + "' and " +
+                    "commodityId='" + commodity.getCommodityId() + "' ;";
+            resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                hasBought = true; // hasBought
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -346,5 +493,33 @@ public class ProductionController implements Initializable {
     public void refresh() {
     }
 
+    /**Just specify which image is clicked*/
+    public void vote1() {
+        vote(1);
+    }
+    public void vote2() {
+        vote(2);
+    }
+    public void vote3() {
+        vote(3);
+    }
+    public void vote4() {
+        vote(4);
+    }
+    public void vote5() {
+        vote(5);
+    }
+
+
+    private void showError(Text text, String message, int durationSeconds, Color color) {
+        if (message.equals(""))
+            return;
+        text.setFill(color);
+        text.setText(message);
+        text.setVisible(true);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(durationSeconds),
+                event -> text.setVisible(false)));
+        timeline.play();
+    }
 
 }
