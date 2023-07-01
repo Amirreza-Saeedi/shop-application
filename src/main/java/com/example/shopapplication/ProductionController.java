@@ -1,5 +1,6 @@
 package com.example.shopapplication;
 
+import com.example.shopapplication.exceptions.InsertionFailedException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,39 +25,39 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class ProductionController implements Initializable {
-    
+
     public ImageView mainImageView;
-    
+
     public ImageView star1ImageView;
-    
+
     public ImageView star2ImageView;
-    
+
     public ImageView star3ImageView;
-    
+
     public ImageView star4ImageView;
-    
+
     public ImageView star5ImageView;
-    
+    private ImageView[] starImageViews;
     public Label productLabel;
-    
+
     public Text typeText;
-    
+
     public Text priceText;
-    
+
     public Text brandText;
-    
+
     public Text rateText;
-    
+
     public Text dateText;
-    
+
     public Text availableText;
-    
+
     public Text auctionText;
-    
+
     public Text votesText;
-    
+
     public Text userVoteText;
-    
+
     public ListView commentsListView;
     @FXML
     private Hyperlink homeHyperlink;
@@ -87,7 +89,12 @@ public class ProductionController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         commentsListView.setItems(comments);
-        commentsListView.setCellFactory( listView -> new CommentCell());
+        commentsListView.setCellFactory(listView -> new CommentCell());
+
+        // images
+        starImageViews = new ImageView[]{
+                star1ImageView, star2ImageView, star3ImageView, star4ImageView, star5ImageView
+        };
     }
 
     public void add() {
@@ -108,12 +115,91 @@ public class ProductionController implements Initializable {
 
     public void setAll(Commodity commodity, User user) {
         /*commodity cant be null,
-        * user may be null*/
+         * user may be null*/
         setCommodity(commodity);
         calculateVotes();
         if (user != null) {
             setUser(user);
             initializeUserVote();
+        }
+//        updateVotes();
+        updateRateAndVotes();
+    }
+
+    private boolean insertRateAndVote() throws InsertionFailedException {
+        return false;
+    }
+
+    private void updateRateAndVotes() {
+        /** Called in setAll() and after user changes his vote in vote() and it returns true.
+         * Just get data!
+         * 1- Count votes
+         * 2- Calculate rete
+         * */
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT sum(vote) as totalVotes, count(vote) as votes FROM CommodityVotes WHERE " +
+                    "commodityId='1'"; // todo id
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                // 1- votes
+                int votes = resultSet.getInt("votes");
+                votesText.setText(votes + "");
+
+                // 2- rate
+                int totalVotes = resultSet.getInt("totalVotes");
+                float rate = ((float) totalVotes) / votes;
+                System.out.println("totalVotes = " + totalVotes);
+                System.out.println("votes = " + votes);
+                System.out.println("rate = " + rate);
+                rateText.setText(new BigDecimal(rate).setScale(1, BigDecimal.ROUND_HALF_UP).toString());
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (ArithmeticException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+
+    private boolean vote() { // false if vote not applied
+
+
+
+
+        try {
+            if (insertRateAndVote()) {
+                updateRateAndVotes();
+            }
+        } catch (InsertionFailedException e) {
+            /*todo error message*/
+        }
+        return false;
+    }
+
+    private void updateVotes() {
+        /*commodity's votes updates when user vote change
+         *
+         * */
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = "select count(*) from CommodityVotes where commodityId='" + commodity.getId() + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                votesText.setText(count + "");
+            } else {
+                throw new Exception("commodity not exist!");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -182,13 +268,12 @@ public class ProductionController implements Initializable {
 //        votesText.setText(commodity.getVotes());
 
 
-
     }
 
     private void initializeUserVote() {
         /* user is not null in this method
-        *
-        * */
+         *
+         * */
 
         try {
             Connection connection = new DatabaseConnectionJDBC().getConnection();
@@ -198,25 +283,30 @@ public class ProductionController implements Initializable {
                     "userId='" + user.getUsername() + "' and " +
                     "user='" + userType + "'";
             ResultSet resultSet = statement.executeQuery(sql);
+            int userVote = 0;
 
             if (resultSet.next()) { // vote found
-                userVoteText.setText(resultSet.getString("vote"));
+                userVote = resultSet.getInt("vote");
+                userVoteText.setText(userVote + "");
             }
 
+            starImageViews[userVote - 1].setOpacity(1.0);
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
-            System.out.println(e);;
+            System.out.println(e);
+            ;
         }
     }
 
     public void setUser(User user) {
-        /*user is not null
-        *
-        * */
+        /**User is not null!
+         * Called once in initialization
+         * Set related labels
+         * */
 
         this.user = user;
 
@@ -238,6 +328,15 @@ public class ProductionController implements Initializable {
         // labels:
         usernameLabel.setText(user.getUsername());
         userTypeLabel.setText(userType);
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = "select ";
+            ResultSet resultSet = statement.executeQuery(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setUserVoteText() {
@@ -246,5 +345,6 @@ public class ProductionController implements Initializable {
 
     public void refresh() {
     }
+
 
 }

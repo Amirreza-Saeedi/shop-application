@@ -1,7 +1,7 @@
 package com.example.shopapplication;
 
 import com.example.shopapplication.exceptions.*;
-import com.example.shopapplication.regex.MyRegEx;
+import com.example.shopapplication.regex.MyRegex;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 
@@ -35,7 +35,7 @@ public class Validator {
     }
 
     public boolean validatePassword(String password) throws IllegalPasswordException {
-        Pattern pattern = Pattern.compile(MyRegEx.passwordRegex);
+        Pattern pattern = Pattern.compile(MyRegex.passwordRegex);
         Matcher matcher = pattern.matcher(password);
         if (!matcher.find())
             throw new IllegalPasswordException();
@@ -44,7 +44,7 @@ public class Validator {
     }
 
     public boolean validateUsername(String username) throws IllegalUsernameException {
-        Pattern pattern = Pattern.compile(MyRegEx.usernameRegex);
+        Pattern pattern = Pattern.compile(MyRegex.usernameRegex);
         Matcher matcher = pattern.matcher(username);
         if (!matcher.find())
             throw new IllegalUsernameException();
@@ -59,7 +59,7 @@ public class Validator {
     }
 
     private boolean validateName(String name) {
-        Pattern pattern = Pattern.compile(MyRegEx.usernameRegex);
+        Pattern pattern = Pattern.compile(MyRegex.usernameRegex);
         Matcher matcher = pattern.matcher(name);
         return matcher.find();
     }

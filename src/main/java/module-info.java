@@ -9,6 +9,7 @@ module com.example.shopproject {
     requires org.simplejavamail;
     requires org.simplejavamail.core;
     requires jakarta.mail;
+
 //    requires java.mail;
 
 

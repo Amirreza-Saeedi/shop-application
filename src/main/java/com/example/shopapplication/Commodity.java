@@ -10,12 +10,12 @@ public class Commodity {
     private Image image;
     private String properties;
     private String date;
+    private int id;
+
 
     public int getId() {
         return id;
     }
-
-    private int id;
     public void setDate(String date){
         this.date= date;
     }
