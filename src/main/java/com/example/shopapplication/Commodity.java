@@ -10,12 +10,17 @@ public class Commodity {
     private Image image;
     private String properties;
     private String date;
-    private int id;
+    private int number;
+    private int commodityId;
 
-
-    public int getId() {
-        return id;
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
     }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
     public void setDate(String date){
         this.date= date;
     }
