@@ -10,6 +10,17 @@ public class Commodity {
     private Image image;
     private String properties;
     private String date;
+    private int number;
+    private int commodityId;
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
     public void setDate(String date){
         this.date= date;
     }
@@ -81,11 +92,10 @@ public class Commodity {
         this.number = number;
     }
 
-    public int number;
     public Commodity(){
 
     }
-    public Commodity(String type,String brand,String price,String ratio,String title,int number){
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId){
         this.type = type;
         this.brand = brand;
         this.price = price;

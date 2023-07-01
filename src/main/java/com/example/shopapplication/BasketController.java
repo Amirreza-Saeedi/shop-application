@@ -52,7 +52,7 @@ public class BasketController implements Initializable {
                             c.setImage(null);
                         }
                         c.setTitle(rs.getString("Title"));
-                        c.number = item_count;
+                        c.setNumber(item_count);
                         c.setPrice(String.valueOf(rs.getInt("Price")));
 
 //                        System.out.println(c);
