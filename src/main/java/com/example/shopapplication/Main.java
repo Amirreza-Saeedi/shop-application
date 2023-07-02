@@ -34,5 +34,8 @@ public class Main extends Application {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        String str = "\n\n\nasd\n\n\nsdkfj\n\n\n\n\nksjd    fldsjfsjdf\n\n\n\n\n\n\n";
+        System.out.println(str.trim());
     }
 }

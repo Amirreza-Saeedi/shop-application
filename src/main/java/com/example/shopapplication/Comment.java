@@ -1,7 +1,6 @@
 package com.example.shopapplication;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Comment {
     private String fullName;
@@ -9,6 +8,7 @@ public class Comment {
     private String username;
     private String userType;
     private LocalDateTime localDateTime;
+    private boolean bought;
 
     public int getNumber() {
         return number;
@@ -20,13 +20,23 @@ public class Comment {
 
     private int number;
 
-    public Comment(String fullName, String message, String username, String userType, LocalDateTime localDateTime, int number) {
+    public Comment(String fullName, String message, String username, String userType,
+                   LocalDateTime localDateTime, int number, boolean bought) {
         this.fullName = fullName;
         this.message = message;
         this.username = username;
         this.userType = userType;
         this.localDateTime = localDateTime;
         this.number = number;
+        this.bought = bought;
+    }
+
+    public boolean isBought() {
+        return bought;
+    }
+
+    public void setBought(boolean bought) {
+        this.bought = bought;
     }
 
     public LocalDateTime getLocalDateTime() {

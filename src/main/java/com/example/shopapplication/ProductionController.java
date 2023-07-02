@@ -3,8 +3,6 @@ package com.example.shopapplication;
 import com.example.shopapplication.regex.MyRegex;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +17,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -27,7 +24,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -86,6 +85,8 @@ public class ProductionController implements Initializable {
     private Label remainingCharsLabel;
     @FXML
     private Button sendButton;
+    @FXML
+    private Tab newCommentTab;
 
     private ObservableList<Comment> comments;
     private Commodity commodity;
@@ -101,16 +102,21 @@ public class ProductionController implements Initializable {
     }
 
     public void loadComments() {
+        /**
+         * Called by clicking on comments tab.
+         * Loads all comments.
+         * */
 
         comments = FXCollections.observableArrayList();
 
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             System.out.println("ProductionController.loadComments");
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM Comments WHERE commodityId='" + commodity.getCommodityId() + "' ORDER BY date,time Desc"; // todo desc doesnt work
+            String sql = "SELECT * FROM Comments WHERE commodityId='" + commodity.getCommodityId() +
+                    "' ORDER BY date DESC, time Desc";
             ResultSet resultSet = statement.executeQuery(sql);
 
-            ArrayList<Comment> arrayList = new ArrayList<>(10);
+            ArrayList<Comment> arrayList = new ArrayList<>();
             for (int i = 1; resultSet.next(); ++i) {
                 String fullName = resultSet.getString("fullName");
                 String message = resultSet.getString("message");
@@ -119,7 +125,11 @@ public class ProductionController implements Initializable {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                 String dateTime = resultSet.getString("date") + " " + resultSet.getString("time");
                 LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
-                arrayList.add(new Comment(fullName, message, username, userType, localDateTime, i));
+                String hasBought = resultSet.getString("hasBought");
+                System.out.println("hasBought = " + hasBought);
+                arrayList.add(new Comment(fullName, message, username, userType,
+                        localDateTime, i, hasBought.equals("true")));
+
                 System.out.println("fullName = " + fullName);
                 System.out.println("message = " + message);
                 System.out.println("username = " + username);
@@ -137,7 +147,7 @@ public class ProductionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // set cells
         commentsListView.setItems(comments);
         commentsListView.setCellFactory(listView -> new CommentCell());
 
@@ -149,19 +159,23 @@ public class ProductionController implements Initializable {
         // error text
         errorText.setVisible(false);
 
+        // new comment
         commentTextArea.textProperty().addListener((observableValue, oldValue, newValue) -> {
             Pattern pattern = Pattern.compile(MyRegex.commentRegex);
             Matcher matcher = pattern.matcher(newValue);
             int remaining;
-            final int LIMIT = 100;
+            final int LIMIT = 200;
             if (!matcher.matches()) {
                 commentTextArea.setText(oldValue);
-                remaining = 100 - oldValue.length();
+                remaining = LIMIT - oldValue.length();
             } else {
-                remaining = 100 - newValue.length();
+                remaining = LIMIT - newValue.length();
             }
             remainingCharsLabel.setText(remaining + "/" + LIMIT);
+            sendButton.setDisable(remaining >= LIMIT);
         });
+
+
     }
 
     public void toNewComment() {
@@ -169,7 +183,57 @@ public class ProductionController implements Initializable {
     }
 
     public void send() {
+        /**
+         * todo directly in comment table or awaiting list?
+         *
+         * */
         System.out.println("ProductionController.send");
+        String message = commentTextArea.getText().trim();
+
+        // todo global zone
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String time = formatter.format(LocalTime.now());
+        formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String date = formatter.format(LocalDate.now());
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+
+            // read from Purchases
+            Statement statement = connection.createStatement();
+            String sql = "select * from Purchases where " +
+                    "commodityId='" + commodity.getCommodityId() + "' and userId='" + user.getUsername() + "' and " +
+                    "user='" + userType + "'";
+            ResultSet resultSet1 = statement.executeQuery(sql);
+            boolean bought = false;
+            if (resultSet1.next()) {
+                bought = true;
+            }
+            System.out.println("bought = " + bought);
+
+            // insert into Comments
+            sql = "INSERT INTO Comments (userId, user, fullName, commodityId, message, date, time, hasBought) " +
+                    "VALUES ('" + user.getUsername() + "','" + userType + "','" + user.getFullName() + "','" +
+                    commodity.getCommodityId() + "','" + message + "','" + date + "','" + time + "','" + bought + "')";
+            int resultSet2 = statement.executeUpdate(sql);
+
+            if (resultSet2 != 1) { // failed
+                showError(errorText, "Comment sending failed.", 5, Color.RED);
+                throw new Exception("result set != 1");
+
+            } else { // sent
+                showError(errorText, "Comment successfully sent.", 5, Color.GREEN);
+                commentTextArea.setEditable(false);
+                sendButton.setDisable(true);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            showError(errorText, "Error in connecting to database", 5, Color.RED);
+            System.err.println(e);
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
     }
 
     public void add() {
@@ -189,15 +253,21 @@ public class ProductionController implements Initializable {
     }
 
     public void setAll(Commodity commodity, User user) {
-        /*commodity cant be null,
-         * user may be null*/
+        /**commodity cant be null,
+         * user may be null.
+         * New comment tab settings*/
         setCommodity(commodity);
         if (user != null) {
             setUser(user);
+            newCommentTab.setDisable(false); // user may send comment
+            newCommentTab.onSelectionChangedProperty().set(event -> { // clear text area if user has sent comment
+                if (!commentTextArea.isEditable()) {
+                    commentTextArea.setText("");
+                    commentTextArea.setEditable(true);
+                }
+            });
         }
         updateRatesAndVotes();
-
-        loadComments(); // todo remove
     }
 
     private boolean submitVote(int newVote) { // todo exception needed?
@@ -461,14 +531,18 @@ public class ProductionController implements Initializable {
          * */
 
         // 1. user:
-        this.user = user; // 1- obj
+        this.user = user; // obj todo not a complete obj
+        String table = "";
 
-        if (user instanceof Customer) { // 2- userType
+        if (user instanceof Customer) { // userType
             userType = "customer";
+
         } else if (user instanceof Seller) {
             userType = "seller";
+
         } else if (user instanceof Admin) {
             userType = "admin";
+
         } else {
             try {
                 throw new Exception("user type not exist.");
@@ -477,12 +551,13 @@ public class ProductionController implements Initializable {
             }
         }
 
-
         // 2. labels:
         usernameLabel.setText(user.getUsername() + " (" + userType + ")"); // username
 
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
+
+            // CommodityVotes:
             String sql = "select * from CommodityVotes where " +
                     "commodityId='" + commodity.getCommodityId() + "' and " +
                     "userId='" + user.getUsername() + "' and " +
@@ -492,7 +567,8 @@ public class ProductionController implements Initializable {
             if (resultSet.next()) {
                 int vote = resultSet.getInt("vote");
                 userVoteText.setText(vote + ""); // user vote
-                starImageViews[vote - 1].setOpacity(1.0); // vote image
+                if (vote > 0)
+                    starImageViews[vote - 1].setOpacity(1.0); // vote image
                 voteId = resultSet.getInt("voteId"); // voteId
 
             }

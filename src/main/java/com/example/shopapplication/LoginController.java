@@ -109,24 +109,26 @@ public class LoginController extends Application implements Initializable {
             else if (comboBox.getValue() == "Admin")
                 user = new Admin(username, password);
 
-            // check user & pass validation:
-            Login login = new Login(user);
-            boolean validation = false;
-            switch (comboBox.getValue()) { // verify base on combo box value
-                case "Customer":
-                    validation = login.validateCustomerLogin(username, password);
-                    break;
-                case "Seller":
-                    validation = login.validateSellerLogin(username, password);
-                    break;
-                case "Admin":
-                    validation = login.validateAdminLogin(username, password);
-                default:
-                    System.err.println(new Exception("combo box selection does not exist."));
-            }
+//            // check user & pass validation:
+//            Login login = new Login(user);
+//            boolean validation = false;
+//            switch (comboBox.getValue()) { // verify base on combo box value
+//                case "Customer":
+//                    validation = login.validateCustomerLogin(username, password);
+//                    break;
+//                case "Seller":
+//                    validation = login.validateSellerLogin(username, password);
+//                    break;
+//                case "Admin":
+//                    validation = login.validateAdminLogin(username, password);
+//                default:
+//                    System.err.println(new Exception("combo box selection does not exist."));
+//            }
+
+            user = Login.getCompleteUser(user);
 
             // make decision:
-            if (!validation) { // 1- invalid user & pass
+            if (user == null) { // 1- invalid user & pass
                 loginMessageLabel.setTextFill(Color.RED);
                 loginMessageLabel.setText("Username or password is invalid.");
 
@@ -144,7 +146,12 @@ public class LoginController extends Application implements Initializable {
 
                 try {
                     Thread.sleep(1000);
-                    login.loginToHome(loginButton);
+                    FXMLLoader loader = new FXMLLoader(Login.class.getResource("home.fxml"));
+                    Parent root = loader.load();
+                    HomeController homeController = loader.getController();
+                    homeController.setUser(user);
+                    Stage stage = (Stage) loginButton.getScene().getWindow();
+                    stage.setScene(new Scene(root));
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }

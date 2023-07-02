@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,10 +14,8 @@ public class CommentCell extends ListCell<Comment> implements Initializable {
     public Tooltip senderTooltip;
     public AnchorPane pane;
     public Label dateTimeLabel;
-    public Text messageText;
-    public Label numberLabel;
-
-
+    public TextArea messageTextArea;
+    public CheckBox hsaBoughtCheckBox;
 
     public CommentCell() {
     }
@@ -61,11 +58,11 @@ public class CommentCell extends ListCell<Comment> implements Initializable {
                 }
             }
 
-            senderLabel.setText(comment.getFullName() + " (" + comment.getUserType() + ")");
+            senderLabel.setText(comment.getNumber() + "- " + comment.getFullName() + " (" + comment.getUserType() + ")");
             senderTooltip.setText(comment.getUsername());
-            messageText.setText(comment.getMessage());
+            messageTextArea.setText(comment.getMessage());
             dateTimeLabel.setText(comment.getLocalDateTime().toString());
-            numberLabel.setText(comment.getNumber() + "- ");
+            hsaBoughtCheckBox.setSelected(comment.isBought());
 
             setText(null);
             setGraphic(pane);
