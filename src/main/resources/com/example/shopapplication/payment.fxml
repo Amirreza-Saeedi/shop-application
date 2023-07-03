@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="address" layoutX="323.0" layoutY="39.0" />
+      <TextField fx:id="telephone" layoutX="323.0" layoutY="77.0" />
+      <TextField fx:id="discountCode" layoutX="323.0" layoutY="125.0" />
+      <Text layoutX="498.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+      <Text layoutX="498.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="telephone" />
+      <Text layoutX="498.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount Code" />
+      <Button fx:id="btn_pay" layoutX="334.0" layoutY="468.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Pay" />
+   </children>
+</AnchorPane>

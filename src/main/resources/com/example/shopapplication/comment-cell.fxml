@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="135.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="senderLabel" layoutX="14.0" layoutY="15.0" prefHeight="20.0" prefWidth="431.0" text="0- Sender's name and lastname (as)" textFill="#717171">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+      <tooltip>
+         <Tooltip fx:id="senderTooltip" text="username" />
+      </tooltip>
+   </Label>
+   <VBox layoutX="480.0" layoutY="7.0">
+      <children>
+         <Label fx:id="dateTimeLabel" prefHeight="18.0" prefWidth="125.0" text="yyyy/mm/dd hh:mm:ss" />
+         <CheckBox fx:id="hsaBoughtCheckBox" disable="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Has Bought this commodity" />
+      </children>
+   </VBox>
+   <TextArea fx:id="messageTextArea" editable="false" layoutX="20.0" layoutY="48.0" prefHeight="78.0" prefWidth="630.0" />
+</AnchorPane>
