@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,17 +24,23 @@
 
 <SplitPane dividerPositions="0.005108556832694764" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="625.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ProductionController">
    <items>
-      <AnchorPane prefHeight="634.0" prefWidth="745.0">
+      <AnchorPane prefHeight="634.0" prefWidth="745.0" style="-fx-background-color: White;">
          <children>
             <ImageView fx:id="mainImageView" fitHeight="196.0" fitWidth="256.0" layoutX="26.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icons/no-photo-available.png" />
                </image>
+               <effect>
+                  <Blend mode="MULTIPLY" />
+               </effect>
             </ImageView>
-            <ImageView fx:id="addImageView" fitHeight="48.0" fitWidth="28.0" layoutX="268.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="addImageView" fitHeight="48.0" fitWidth="28.0" layoutX="268.0" layoutY="207.0" onMouseClicked="#add" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../add.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <Label fx:id="productLabel" layoutX="320.0" layoutY="36.0" prefHeight="35.0" prefWidth="307.0" text="Full name">
                <font>
@@ -209,7 +216,7 @@
                </children>
             </HBox>
             <Hyperlink fx:id="homeHyperlink" layoutX="26.0" layoutY="14.0" onAction="#toHome" text="Home" underline="true" />
-            <ImageView fitHeight="62.0" fitWidth="45.0" layoutX="659.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="46.0" fitWidth="28.0" layoutX="676.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
             <HBox alignment="CENTER_LEFT" layoutX="28.0" layoutY="235.0" prefHeight="20.0" prefWidth="256.0">
                <children>
                   <Label prefHeight="20.0" prefWidth="64.0" text="Your vote:">
@@ -230,6 +237,20 @@
                </children>
             </HBox>
             <Text fx:id="errorText" fill="RED" layoutX="296.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error message" textAlignment="CENTER" wrappingWidth="408.0" />
+            <HBox alignment="BOTTOM_CENTER" layoutX="631.0" layoutY="15.0">
+               <children>
+                  <ImageView fx:id="basketImageView" fitHeight="43.0" fitWidth="49.0" onMouseClicked="#toBasket" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../basket.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Label fx:id="basketLabel" alignment="CENTER" prefHeight="19.0" prefWidth="20.0" style="-fx-border-color: #7d008c; -fx-border-radius: 100;" text="0" textFill="#7d008c" />
+               </children>
+            </HBox>
+            <Label fx:id="inBasketLabel" alignment="CENTER" layoutX="238.0" layoutY="211.0" prefHeight="19.0" prefWidth="20.0" text="0" textFill="RED" underline="true" />
          </children>
       </AnchorPane>
       <TabPane prefHeight="117.0" prefWidth="751.0" tabClosingPolicy="UNAVAILABLE">

@@ -20,10 +20,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -78,7 +75,7 @@ public class ProductionController implements Initializable {
     private Tooltip productTooltip;
     @FXML
     private Text errorText;
-
+    // comment tab
     @FXML
     private TextArea commentTextArea;
     @FXML
@@ -87,6 +84,15 @@ public class ProductionController implements Initializable {
     private Button sendButton;
     @FXML
     private Tab newCommentTab;
+    // basket and add
+    @FXML
+    private Label basketLabel;
+    @FXML
+    private ImageView basketImageView;
+    @FXML
+    private ImageView addImageView;
+    @FXML
+    private Label inBasketLabel;
 
     private ObservableList<Comment> comments;
     private Commodity commodity;
@@ -94,6 +100,8 @@ public class ProductionController implements Initializable {
     private String userType;
     private boolean hasBought; // true means user has signed in & bought the product
     private int voteId; // != 0 means user takes a place in CommodityVotes table and new changes will be applied in that place
+    private int basketId; // != 0 not have any bast already
+    private int currentCommodityInBasket;
 
 
 
@@ -126,14 +134,14 @@ public class ProductionController implements Initializable {
                 String dateTime = resultSet.getString("date") + " " + resultSet.getString("time");
                 LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
                 String hasBought = resultSet.getString("hasBought");
-                System.out.println("hasBought = " + hasBought);
                 arrayList.add(new Comment(fullName, message, username, userType,
-                        localDateTime, i, hasBought.equals("true")));
+                            localDateTime, i, hasBought.equals("true")));
 
+                System.out.println("hasBought = " + hasBought);
                 System.out.println("fullName = " + fullName);
                 System.out.println("message = " + message);
                 System.out.println("username = " + username);
-                System.out.println("localDateTime = " + localDateTime);;
+                System.out.println("localDateTime = " + localDateTime);
             }
 
             comments.addAll(arrayList);
@@ -175,7 +183,9 @@ public class ProductionController implements Initializable {
             sendButton.setDisable(remaining >= LIMIT);
         });
 
-
+        // basket
+        basketImageView.setVisible(false);
+        basketLabel.setVisible(false);
     }
 
     public void toNewComment() {
@@ -237,6 +247,87 @@ public class ProductionController implements Initializable {
     }
 
     public void add() {
+        System.out.println("ProductionController.add");
+        if (user == null) { // user has to be singed in
+            showError(errorText, "You need to sign in first.", 5, Color.RED);
+            return;
+        }
+
+        if (commodity.getNumber() > currentCommodityInBasket) {
+            try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+                Statement statement = connection.createStatement();
+                String sql;
+                int resultSet;
+
+                if (basketId == 0) { // insert
+                    sql = "INSERT INTO Baskets (commodityId,number,userId,user) VALUES " +
+                            "('" + commodity.getCommodityId() +
+                            "','" + 1 +
+                            "','" + user.getUsername() +
+                            "','" + userType + "')";
+                    resultSet = statement.executeUpdate(sql);
+
+                    if (resultSet == 1) { // successful
+                        initializeBasketIdAndNumber();
+                        currentCommodityInBasket = 1;
+                    } else {
+                        throw new SQLException("resultSet = " + resultSet);
+                    }
+
+                } else { // update
+                    sql = "UPDATE Baskets SET " +
+                            "number='" + ++currentCommodityInBasket + "' where basketId='" + basketId + "'";
+                    resultSet = statement.executeUpdate(sql);
+
+                    if (resultSet != 1) { // failed
+                        throw new SQLException("resultSet = " + resultSet);
+                    }
+                }
+
+                // update commodity state in
+                showError(errorText, commodity.getTitle() + " added to your basket.", 5, Color.GREEN);
+                inBasketLabel.setText(currentCommodityInBasket + "");
+
+            } catch (SQLException | ClassNotFoundException e) {
+                showError(errorText, "Error in adding commodity to basket", 5, Color.RED);
+                System.err.println(e);
+                e.printStackTrace();
+            }
+
+
+        } else {
+            showError(errorText, "This commodity is not available any more.", 5, Color.RED);
+            System.out.println("commodity.getNumber() = " + commodity.getNumber());
+        }
+
+        loadBasket(); // at last
+    }
+
+    private void initializeBasketIdAndNumber() {
+        /**
+         * user is not null.
+         * */
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT basketId,number from Baskets where " +
+                    "commodityId='" + commodity.getCommodityId() + "' and " +
+                    "userId='" + user.getUsername() + "' and " +
+                    "user='" + userType + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                basketId = resultSet.getInt("basketId"); // basketId
+                currentCommodityInBasket = resultSet.getInt("number"); // number
+                System.out.println("basketId = " + basketId);
+                System.out.println("currentCommodityInBasket = " + currentCommodityInBasket);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            showError(errorText, "Error in database connection occurred.", 5, Color.RED);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void toBasket() {
+        System.out.println("ProductionController.toBasket");
     }
 
     public void toHome() throws IOException {
@@ -255,19 +346,56 @@ public class ProductionController implements Initializable {
     public void setAll(Commodity commodity, User user) {
         /**commodity cant be null,
          * user may be null.
-         * New comment tab settings*/
+         * New comment tab settings.
+         * Basket and add image view settings.
+         * */
         setCommodity(commodity);
         if (user != null) {
             setUser(user);
+            // comment
             newCommentTab.setDisable(false); // user may send comment
-            newCommentTab.onSelectionChangedProperty().set(event -> { // clear text area if user has sent comment
+            newCommentTab.onSelectionChangedProperty().set(event -> { // clear text area if user has sent comment earlier
                 if (!commentTextArea.isEditable()) {
                     commentTextArea.setText("");
                     commentTextArea.setEditable(true);
                 }
             });
+            // basket
+            basketImageView.setVisible(true);
+            basketLabel.setVisible(true);
+            loadBasket();
+            initializeBasketIdAndNumber();
+            inBasketLabel.setText(currentCommodityInBasket + "");
+
         }
         updateRatesAndVotes();
+    }
+
+    private void loadBasket() {
+        /**
+         * Called after add and user is not null.
+         * Calculate number of commodities in user basket,
+         * and sets basket label.
+         * */
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            // read addition of all commodities user have in Baskets
+            Statement statement = connection.createStatement();
+            String sql = "SELECT sum(number) as sum FROM Baskets where " +
+                    "userId='" + user.getUsername() + "' and " +
+                    "user='" + userType + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) { // if has any basket
+                basketLabel.setText(resultSet.getString("sum"));
+            }
+
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private boolean submitVote(int newVote) { // todo exception needed?
@@ -275,7 +403,8 @@ public class ProductionController implements Initializable {
          * Sets voteId if insertion is successful.
          * */
 
-        try(Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+
             Statement statement = connection.createStatement();
             String sql;
             // CommodityVotes table:
@@ -293,13 +422,12 @@ public class ProductionController implements Initializable {
             }
 
 
-
             return true;
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException | ClassNotFoundException e) {
+            showError(errorText, "Databse error.", 5, Color.RED);
+            System.err.println(e);
+            e.printStackTrace();
         } catch (Exception e) {
             System.err.println(e);
             e.printStackTrace();
@@ -488,9 +616,7 @@ public class ProductionController implements Initializable {
         System.out.println("ProductionController.setCommodity");
         System.out.println(commodity);
 
-        try { // 2- get others from database
-
-            Connection connection = new DatabaseConnectionJDBC().getConnection();
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()){ // 2- get others from database
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM AllCommodities WHERE commodityId='" + commodity.getCommodityId() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
