@@ -1,6 +1,7 @@
 package com.example.shopapplication;
 
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
     public Button btn_plus;
     public Button btn_minus;
 
+
     public CustomCell() {
 
 
@@ -41,7 +43,7 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
 
-//            loadFXML();
+            loadFXML();
         }
         catch (Exception e){
 
@@ -73,28 +75,25 @@ public class CustomCell extends ListCell<Commodity> implements Initializable {
 
 
             System.out.println(commodity);
-//            if(commodity.image != null)
+            if(commodity.getImage() != null)
                 image.setImage(new Image("E:\\Job\\Java Assignments\\shop-application-main\\src\\main\\resources\\bank.png"));
             price.setText(Integer.parseInt(commodity.getPrice()) * commodity.getNumber() + "");
             name.setText(commodity.getTitle());
             count.setText(commodity.getNumber() + "");
 
-           btn_minus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
-               @Override
-               public void handle(MouseEvent mouseEvent) {
-                   int number  = commodity.getNumber();
-                   number--;
-                   commodity.setNumber(number);
-                   updateItem(commodity,false);
-               }
-           });
+
+//           btn_minus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
+//               @Override
+//               public void handle(MouseEvent mouseEvent) {
+//                   commodity.number--;
+//                   updateItem(commodity,false);
+//               }
+//           });
 
            btn_plus.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
                @Override
                public void handle(MouseEvent mouseEvent) {
-                   int number = commodity.getNumber();
-                   number++;
-                   commodity.setNumber(number);
+                   commodity.setNumber(commodity.getNumber() + 1);
                    updateItem(commodity,false);
                }
            });

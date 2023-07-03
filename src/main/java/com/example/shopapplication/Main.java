@@ -20,7 +20,9 @@ public class Main extends Application {
         try {
             AppWorkflow.username = "reza";
             AppWorkflow.connection = new DatabaseConnectionJDBC().getConnection();
-            Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("basket.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("production-page.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
             System.out.println("YEEESssssssss");
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -32,5 +34,8 @@ public class Main extends Application {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        String str = "\n\n\nasd\n\n\nsdkfj\n\n\n\n\nksjd    fldsjfsjdf\n\n\n\n\n\n\n";
+        System.out.println(str.trim());
     }
 }

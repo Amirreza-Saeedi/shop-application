@@ -3,12 +3,14 @@ package com.example.shopapplication;
 import com.example.shopapplication.exceptions.*;
 import org.w3c.dom.ls.LSOutput;
 
+import javax.mail.internet.AddressException;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.mail.internet.AddressException;
+//import javax.mail.internet.AddressException;
+
 
 public class SignUp implements Validatable, Verifiable {
     private final User user;
@@ -30,7 +32,7 @@ public class SignUp implements Validatable, Verifiable {
 
     @Override
     public boolean validate() throws IllegalUsernameException, IllegalPasswordException,
-            IllegalFirstnameException, AddressException, IllegalLastnameException {
+            IllegalFirstnameException, IllegalLastnameException, AddressException {
         Validator validator = new Validator();
         boolean validation = validator.validateUserSignUp(user);
         if (validation) {

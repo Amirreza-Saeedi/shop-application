@@ -100,4 +100,47 @@ public class Login implements Verifiable {
             stage.setScene(new Scene(root));
 
     }
+
+    public static User getCompleteUser(User usernameUser) { // temp method
+        String table;
+        if (usernameUser instanceof Customer) {
+            table = "Customers";
+        } else if (usernameUser instanceof Seller) {
+            table = "Sellers";
+        } else if (usernameUser instanceof Admin) {
+            table = "Admins";
+        } else
+            return null;
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet;
+            String sql = "SELECT * FROM " + table + " WHERE username='" + usernameUser.getUsername() + "' AND password='" + usernameUser.getPassword() + "'";
+            resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                // create obj
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String firstname = resultSet.getString("firstname");
+                String lastname = resultSet.getString("lastname");
+                String email = resultSet.getString("email");
+
+                switch (table) {
+                    case "Customers":
+                        return new Customer(username, password, firstname, lastname, email);
+                    case "Sellers":
+                        String company = resultSet.getString("company");
+                        return new Seller(username, password, firstname, lastname, email, company);
+                    case "Admins":
+                        return new Admin(username, password, firstname, lastname, email);
+                }
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
 }

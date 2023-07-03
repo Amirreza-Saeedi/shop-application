@@ -270,7 +270,6 @@ public class HomeController implements Initializable {
             productRegistration.setVisible(true);
             manageCommodities.setVisible(true);
 
-            loginbutton.setText(user.getUsername());
             typeInfo.setText("you are a seller!");
         }
     }
@@ -1424,6 +1423,155 @@ public class HomeController implements Initializable {
         brandFilter.setItems(observableList2);
         brandFilter.getItems().add(0,"All brands");
         brandFilter.getSelectionModel().selectFirst();
+    }
+
+
+    private int getIndexOfAnchorPane(int row, int col) {
+        int pageNumber = Integer.parseInt(page.getText());
+        return (row * 7 + col) + (pageNumber-1) * 14;
+    }
+
+    public void toProduct(int row, int col) {
+        int index = getIndexOfAnchorPane(row, col);
+        System.out.println("HomeController.toProduct");
+        System.out.println("index = " + index);
+        System.out.println("row = " + row);
+        System.out.println("col = " + col);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("production-page.fxml"));
+            Parent root = loader.load();
+
+            ProductionController controller = loader.getController();
+            controller.setAll(commodities.get(index), user);
+
+            Stage stage = (Stage) loginbutton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void add(int row, int col) {
+        int index = getIndexOfAnchorPane(row, col);
+        System.out.println("HomeController.add");
+        System.out.println("index = " + index);
+        System.out.println("row = " + row);
+        System.out.println("col = " + col);
+    }
+
+    public void toProduct00() {
+        toProduct(0, 0);
+    }
+
+    public void toProduct10() {
+        toProduct(0, 1);
+    }
+
+    public void toProduct20() {
+        toProduct(0, 2);
+    }
+
+    public void toProduct30() {
+        toProduct(0, 3);
+    }
+
+    public void toProduct40() {
+        toProduct(0, 4);
+    }
+
+    public void toProduct50() {
+        toProduct(0, 5);
+    }
+
+    public void toProduct60() {
+        toProduct(0, 6);
+    }
+
+    public void toProduct01() {
+        toProduct(1, 0);
+    }
+
+    public void toProduct11() {
+        toProduct(1, 1);
+    }
+
+    public void toProduct21() {
+        toProduct(1, 2);
+    }
+
+    public void toProduct31() {
+        toProduct(1, 3);
+    }
+
+    public void toProduct41() {
+        toProduct(1, 4);
+    }
+
+    public void toProduct51() {
+        toProduct(1, 5);
+    }
+
+    public void toProduct61() {
+        toProduct(1, 6);
+    }
+
+
+    public void add00() {
+        add(0, 0);
+    }
+
+    public void add10() {
+        add(0, 1);
+    }
+
+    public void add20() {
+        add(0, 2);
+    }
+
+    public void add30() {
+        add(0, 3);
+    }
+
+    public void add40() {
+        add(0, 4);
+    }
+
+    public void add50() {
+        add(0, 5);
+    }
+
+    public void add60() {
+        add(0, 6);
+    }
+
+    public void add01() {
+        add(1, 0);
+    }
+
+    public void add11() {
+        add(1, 1);
+    }
+
+    public void add21() {
+        add(1, 2);
+    }
+
+    public void add31() {
+        add(1, 3);
+    }
+
+    public void add41() {
+        add(1, 4);
+    }
+
+    public void add51() {
+        add(1, 5);
+    }
+
+    public void add61() {
+        add(1, 6);
     }
 
     public void goToProductRegistrationPage(ActionEvent event){

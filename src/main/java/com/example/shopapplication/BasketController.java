@@ -3,6 +3,7 @@ package com.example.shopapplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -25,46 +26,52 @@ public class BasketController implements Initializable {
 
     public BasketController() {
         observableList = FXCollections.observableArrayList();
-        String userQuery = "SELECT * FROM USERS WHERE username='" + AppWorkflow.username + "';";
-        String commodityQuery = "SELECT * FROM AllCommodities";
+//        String userQuery = "SELECT * FROM USERS WHERE username='" + AppWorkflow.username + "';";
+//        String commodityQuery = "SELECT * FROM AllCommodities";
         try {
-            Statement stmt = AppWorkflow.connection.createStatement();
-            ResultSet rs = stmt.executeQuery(userQuery);
-            String basket_title = rs.getString("basket");
-            var item_list = basket_title.split(",");
-            rs = stmt.executeQuery(commodityQuery);
+////            Statement stmt = AppWorkflow.connection.createStatement();
+//            Statement stmt = new DatabaseConnectionJDBC().getConnection().createStatement();
+//            ResultSet rs = stmt.executeQuery(userQuery);
+//            String basket_title = rs.getString("basket");
+//            var item_list = basket_title.split(",");
+//            rs = stmt.executeQuery(commodityQuery);
 
-
-            ArrayList<Commodity> communist = new ArrayList<>();
-
-            while (rs.next()) {
-                for (int i = 0; i < item_list.length; i++) {
-                    String item_name = item_list[i].split(":")[0];
-                    int item_count = Integer.parseInt(item_list[i].split(":")[1]);
-                    if (rs.getString("Title").contains(item_name)) {
-
-                        Commodity c = new Commodity();
-                        try{
-
-                            c.setImage(new Image(new ByteArrayInputStream(rs.getBytes("image"))));
-                        }catch (Exception e){
-//                            e.printStackTrace();
-                            c.setImage(null);
-                        }
-                        c.setTitle(rs.getString("Title"));
-                        c.setNumber(item_count);
-                        c.setPrice(String.valueOf(rs.getInt("Price")));
-
-//                        System.out.println(c);
-                        communist.add(c);
-                    }
-                }
-
-            }
-            observableList.addAll(communist);
-        } catch (SQLException e) {
+//
+//            ArrayList<Commodity> communist = new ArrayList<>();
+//
+//            while (rs.next()) {
+//                for (int i = 0; i < item_list.length; i++) {
+//                    String item_name = item_list[i].split(":")[0];
+//                    int item_count = Integer.parseInt(item_list[i].split(":")[1]);
+//                    if (rs.getString("Title").contains(item_name)) {
+//
+//                        Commodity c = new Commodity();
+//                        try{
+//
+//                            c.setImage( new Image(new ByteArrayInputStream(rs.getBytes("image"))));
+//                        }catch (Exception e){
+////                            e.printStackTrace();
+//                            c.setImage(null);
+//                        }
+//                        c.setTitle(rs.getString("Title"));
+//                        c.setNumber(item_count);
+//                        c.setPrice(String.valueOf(rs.getInt("Price")));
+//
+////                        System.out.println(c);
+//                        communist.add(c);
+//                    }
+//                }
+//
+//            }
+            observableList.addAll(
+                    new Commodity("sdkflj", "lskdfj", "45", "4.4", "ksfld", 2, 2),
+                    new Commodity("sdkflj", "lskdfj", "456", "4.4", "ksfld", 2, 1));
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
+//        catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override
