@@ -12,10 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +65,11 @@ public class PortalPageController implements Initializable {
     private Label info6;
     @FXML
             private Label info7;
+    @FXML
+    private Pane captchaPane;
+    @FXML
+    private Text captchaText;
+    private  Captcha captcha;
     Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -127,6 +136,16 @@ public class PortalPageController implements Initializable {
                 emailTextField.setStyle("-fx-border-color: none;");
             }
         });
+
+        captcha = new Captcha(60_000_000, 5);
+        updateCaptcha();
+    }
+    public void updateCaptcha() { // change captcha code and color
+        Random random = new Random();
+        Color randomColor = new Color(random.nextDouble(), random.nextDouble(), random.nextDouble(), 1.0);
+        captchaText.setFill(randomColor);
+        captcha.newCode();
+        captchaText.setText(captcha.getCode());
     }
     public void setPayOnAction(ActionEvent event){
         if (cardNumberTextField.getText().length() != 16) {
@@ -150,7 +169,13 @@ public class PortalPageController implements Initializable {
         } else if (!emailPattern.matcher(emailTextField.getText()).matches() || emailTextField.getText() == null) {
             errorsLabel.setText("fill the email blank correct");
             emailTextField.setStyle("-fx-border-color: red;");
-        }else {
+        } else if (captcha.isExpired()) {
+            errorsLabel.setText("captcha is expired");
+            captchaTextField.setStyle("-fx-border-color: red;");
+        } else if (!captchaTextField.getText().equalsIgnoreCase(captcha.getCode())) {
+            errorsLabel.setText("Captcha mismatched.");
+            captchaTextField.setStyle("-fx-border-color: red;");
+        } else {
             info1.setVisible(false);
             info2.setVisible(false);
             info3.setVisible(false);

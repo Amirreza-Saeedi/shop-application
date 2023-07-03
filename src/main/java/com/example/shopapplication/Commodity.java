@@ -102,6 +102,7 @@ public class Commodity {
         this.ratio = ratio;
         this.title = title;
         this.number = number;
+        this.commodityId = commodityId;
     }
 
     @Override
