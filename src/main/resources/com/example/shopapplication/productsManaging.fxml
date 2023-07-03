@@ -93,7 +93,7 @@
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price00" layoutY="259.0" onAction="#setPrice00OnTextChanged" />
-                  <Spinner fx:id="number00" editable="true" layoutX="1.0" layoutY="213.0" onInputMethodTextChanged="#setNumber00OnTextChanged" />
+                  <Spinner fx:id="number00" editable="true" layoutX="1.0" layoutY="213.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane10" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="1">
@@ -112,7 +112,7 @@
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price10" layoutX="1.0" layoutY="260.0" onAction="#setPrice10OnTextChanged" />
-                  <Spinner fx:id="number10" editable="true" layoutX="2.0" layoutY="213.0" onInputMethodTextChanged="#setNumber10OnTextChanged" />
+                  <Spinner fx:id="number10" editable="true" layoutX="2.0" layoutY="213.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane20" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="2">
@@ -131,7 +131,7 @@
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price20" layoutX="1.0" layoutY="260.0" onAction="#setPrice20OnTextChanged" />
-                  <Spinner fx:id="number20" editable="true" layoutX="2.0" layoutY="213.0" onInputMethodTextChanged="#setNumber20OnTextChanged" />
+                  <Spinner fx:id="number20" editable="true" layoutX="2.0" layoutY="213.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane30" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="3">
@@ -143,7 +143,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number30" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber30OnTextChanged" />
+                  <Spinner fx:id="number30" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete30OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -162,7 +162,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number50" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber50OnTextChanged" />
+                  <Spinner fx:id="number50" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete50OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -181,7 +181,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number01" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber01OnTextChanged" />
+                  <Spinner fx:id="number01" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete01OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -200,7 +200,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number11" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber11OnTextChanged" />
+                  <Spinner fx:id="number11" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete11OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -219,7 +219,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number21" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber21OnTextChanged" />
+                  <Spinner fx:id="number21" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete21OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -238,7 +238,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number41" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber41OnTextChanged" />
+                  <Spinner fx:id="number41" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete41OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -257,7 +257,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number51" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber51OnTextChanged" />
+                  <Spinner fx:id="number51" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete51OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -276,7 +276,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number61" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber61OnTextChanged" />
+                  <Spinner fx:id="number61" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete61OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -295,7 +295,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number60" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber60OnTextChanged" />
+                  <Spinner fx:id="number60" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete60OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -309,7 +309,7 @@
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutY="188.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number31" editable="true" layoutX="2.0" layoutY="206.0" onInputMethodTextChanged="#setNumber31OnTextChanged" />
+                  <Spinner fx:id="number31" editable="true" layoutX="2.0" layoutY="206.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="110.0" layoutY="142.0" onMouseReleased="#setDelete31OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
@@ -333,7 +333,7 @@
                   </Label>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
-                  <Spinner fx:id="number40" editable="true" layoutY="211.0" onInputMethodTextChanged="#setNumber40OnTextChanged" />
+                  <Spinner fx:id="number40" editable="true" layoutY="211.0" />
                   <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete40OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
