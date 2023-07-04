@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="700.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.chartController">
+   <children>
+      <BarChart fx:id="chart" layoutX="49.0" layoutY="95.0" prefHeight="558.0" prefWidth="681.0" title="Cost and income">
+        <xAxis>
+          <CategoryAxis label="Date" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Money($)" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <TextField fx:id="userNameTextField" layoutX="315.0" layoutY="32.0" onAction="#showUserChart" promptText="Enter" />
+      <Label layoutX="315.0" layoutY="14.0" text="Enter seller user name " textFill="#0824dc" />
+      <Button layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#backToHome" style="-fx-background-color: GRAY;" text="&lt;- Back to home" textFill="#fcf7f7" />
+   </children>
+</AnchorPane>

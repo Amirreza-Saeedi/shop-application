@@ -270,6 +270,7 @@ public class productsManagingController implements Initializable {
         }
         this.user = user;
         typeInfo.setText(user.getUsername());
+        selectCommodities();
     }
 
     @Override
@@ -299,178 +300,7 @@ public class productsManagingController implements Initializable {
         number51.setValueFactory(numberValueFactory13);
         number61.setValueFactory(numberValueFactory14);
 
-//        number00.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14;
-//            int id = commodities.get(page).getCommodityId();
-////            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id ;
-////            try {
-////               stmt.executeUpdate(sql);
-////            } catch (SQLException e) {
-////                throw new RuntimeException(e);
-////            }
-////            while (true){
-////                try {
-////                    if (!rs.next()) break;
-////                } catch (SQLException e) {
-////                    throw new RuntimeException(e);
-////                }
-////
-////            }
-//            String sql = "UPDATE AllCommodities SET Number = ? WHERE commodityId = ?";
-//            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-//                pstmt.setInt(1, newValue);
-//                pstmt.setInt(2, id);
-//                pstmt.executeUpdate();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number10.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14 + 1;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number20.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14 + 2;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number30.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+3;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number40.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14 +4 ;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number50.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+5;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number60.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+6;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number01.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+7;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number11.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+8;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number21.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+9;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number31.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+10;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number41.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+11;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number51.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+12;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-//        number61.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//            int page = Integer.parseInt(this.page.getText());
-//            page = (page*14) - 14+13;
-//            int id = commodities.get(page).getCommodityId();
-//            String sql = "UPDATE AllCommodities SET Number = "+ newValue + " WHERE commodityId = " + id;
-//            try {
-//                stmt.executeQuery(sql);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
 
-        selectCommodities();
 
     }
 
@@ -478,8 +308,8 @@ public class productsManagingController implements Initializable {
 
         System.out.println(user);
 
-//        String sql = "SELECT * FROM AllCommodities WHERE userName = " + "'" + user.getUsername() + "'";
-            String sql  = "SELECT * FROM AllCommodities";
+        String sql = "SELECT * FROM AllCommodities WHERE userName = " + "'" + user.getUsername() + "'";
+//            String sql  = "SELECT * FROM AllCommodities";
         try {
             rs = stmt.executeQuery(sql);
         } catch (SQLException e) {

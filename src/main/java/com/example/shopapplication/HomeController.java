@@ -234,6 +234,10 @@ public class HomeController implements Initializable {
     private Button manageCommodities;
     @FXML
     private Button backToHomeButton;
+    @FXML
+    private Button sellersChartButton;
+    @FXML
+    private Button inventoryButton;
     private String choiceBoxOption = "Filter";
     private String groupListItem  = "All Commodities";
     private String brandListItem;
@@ -271,6 +275,9 @@ public class HomeController implements Initializable {
             manageCommodities.setVisible(true);
 
             typeInfo.setText("you are a seller!");
+        } else if (user instanceof Admin) {
+            sellersChartButton.setVisible(true);
+            inventoryButton.setVisible(true);
         }
     }
     private void hideAnchorPanes(){
@@ -734,6 +741,8 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        inventoryButton.setVisible(false);
+        sellersChartButton.setVisible(false);
 //        setIDs();
 //        Circle circle = new Circle(30);
 //        backToHomeButton.setShape(circle);
@@ -1388,6 +1397,7 @@ public class HomeController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        stage.centerOnScreen();
     }
     @FXML
     private void switchToLoginScene(ActionEvent event) {
@@ -1588,7 +1598,7 @@ public class HomeController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
 //        stage.show();
-        stage.setX(50);
+        stage.centerOnScreen();
         ProductRegistrationController productRegistrationController = loader.getController();
         productRegistrationController.setUser(user);
     }
@@ -1602,10 +1612,31 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        productsManagingController homeController = loader.getController();
-        homeController.setUser(user);
+        productsManagingController pmc = loader.getController();
+        pmc.setUser(user);
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+    }
+
+    public void setSellersChartButtonOnAction(ActionEvent event){
+        Node node = (Node) event.getSource();
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("chart.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        chartController c = loader.getController();
+        c.setUser(user);
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+    }
+
+    public void goToInventory(ActionEvent event){
+
     }
 
 }

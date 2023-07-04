@@ -19,6 +19,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -69,6 +73,8 @@ public class PortalPageController implements Initializable {
     private Pane captchaPane;
     @FXML
     private Text captchaText;
+    private User user;
+    private ArrayList<Commodity> basketCommodities = new ArrayList<>();
     private  Captcha captcha;
     Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
     @Override
@@ -176,6 +182,72 @@ public class PortalPageController implements Initializable {
             errorsLabel.setText("Captcha mismatched.");
             captchaTextField.setStyle("-fx-border-color: red;");
         } else {
+            Statement stmt;
+            PreparedStatement pstmt;
+            ResultSet rs;
+            String sql;
+            try(Connection connection = new DatabaseConnectionJDBC().getConnection()){
+                for (int i = 0; i < basketCommodities.size(); i++) {
+                    int id = basketCommodities.get(i).getCommodityId();
+                    int number = basketCommodities.get(i).getNumber();
+                    sql = "SELECT * FROM AllCommodities WHERE commodityId = " + id;
+                    stmt = connection.createStatement();
+                    rs = stmt.executeQuery(sql);
+                    while (rs.next()) {
+                        int lastNum = rs.getInt("Number");
+                        number = lastNum - number;
+                    }
+                    sql = "UPDATE AllCommodities SET Number = " + number + " WHERE commodityId = " + id;
+                    pstmt = connection.prepareStatement(sql);
+                    pstmt.executeUpdate();
+
+                    //update or insert price in sellersChart table
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
+                        String date = formatter.format(LocalDate.now());
+                        sql = "SELECT * FROM sellersChart WHERE date = '" + date + "' AND userName = '" + user.getUsername() + "'";
+                        rs = stmt.executeQuery(sql);
+                        String dateTest = "";
+                        String price;
+                        String lastPrice;
+                        while (rs.next()) {
+                            dateTest = rs.getString("date");
+                            if (dateTest.equals(date)) {
+                                //update const
+                                lastPrice = rs.getString("const");
+                                double p = Double.parseDouble(basketCommodities.get(i).getPrice()) + Double.parseDouble(lastPrice);
+                                price = String.valueOf(p);
+                                if (user instanceof Seller) {
+                                    sql = "UPDATE sellersChart SET const = '" + price + "' WHERE date = '" + date
+                                            + "' AND userName = '" + user.getUsername() + "'";
+                                } else if (user instanceof Customer) {
+                                    sql = "UPDATE sellersChart SET income = '" + price + "' WHERE date = '" + date
+                                            + "' AND userName = '" + user.getUsername() + "'";
+                                }
+                                pstmt = connection.prepareStatement(sql);
+                                pstmt.executeUpdate();
+                                break;
+                            }
+                        }
+                        if (!dateTest.equals(date)) {
+                            //insert const
+                            if (user instanceof Seller) {
+                                sql = "INSERT INTO sellersChart (userName, cost, date) VALUES ('" + user.getUsername()
+                                        + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
+                            } else if (user instanceof Customer) {
+                                sql = "INSERT INTO sellersChart (userName, income, date) VALUES ('" + user.getUsername()
+                                        + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
+                            }
+                            stmt.executeUpdate(sql);
+                        }
+
+                }
+            }catch (Exception e){
+                throw new RuntimeException();
+            }
+
+            for (int i = 0; i < basketCommodities.size(); i++) {
+
+            }
             info1.setVisible(false);
             info2.setVisible(false);
             info3.setVisible(false);
@@ -212,5 +284,17 @@ public class PortalPageController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        stage.centerOnScreen();
+    }
+
+    public void setCommodities(ArrayList<Commodity> commodities){
+        this.basketCommodities.addAll(commodities);
+    }
+
+    public void setUser(User user) {
+        if (user == null) {
+            throw new NullPointerException("User is null");
+        }
+        this.user = user;
     }
 }

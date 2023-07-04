@@ -67,6 +67,8 @@
                   <Font name="System Bold Italic" size="10.3" />
                </font>
             </Button>
+            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="24.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" />
+            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="63.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Line endX="1173.982177734375" endY="-10.171032905578613" fill="#d40a0a" layoutX="226.0" layoutY="116.0" rotate="0.5" startX="-222.00001525878906" startY="7.62939453125E-6" stroke="#666464" />
