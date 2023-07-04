@@ -152,6 +152,7 @@ public class LoginController extends Application implements Initializable {
                     homeController.setUser(user);
                     Stage stage = (Stage) loginButton.getScene().getWindow();
                     stage.setScene(new Scene(root));
+                    stage.centerOnScreen();
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
