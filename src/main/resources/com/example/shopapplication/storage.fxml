@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="674.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.StorageController">
+   <children>
+      <TableView fx:id="tableView" prefHeight="674.0" prefWidth="865.0">
+        <columns>
+          <TableColumn fx:id="rowColumn" prefWidth="47.20001143217087" text="Row" />
+          <TableColumn fx:id="idColumn" prefWidth="37.60000991821289" text="ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="140.80001831054688" text="Name" />
+            <TableColumn fx:id="amountColumn" prefWidth="59.99998474121094" text="Amount" />
+            <TableColumn fx:id="managerColumn" prefWidth="100.00006103515625" text="Manager" />
+            <TableColumn fx:id="addressColumn" prefWidth="116.0" text="Address" />
+            <TableColumn fx:id="actionsColumn" prefWidth="362.3999877929688" text="Actions" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
