@@ -227,17 +227,17 @@ public class ProductionController implements Initializable {
             int resultSet2 = statement.executeUpdate(sql);
 
             if (resultSet2 != 1) { // failed
-                showError(errorText, "Comment sending failed.", 5, Color.RED);
+                ErrorMessage.showError(errorText, "Comment sending failed.", 5, Color.RED);
                 throw new Exception("result set != 1");
 
             } else { // sent
-                showError(errorText, "Comment successfully sent.", 5, Color.GREEN);
+                ErrorMessage.showError(errorText, "Comment successfully sent.", 5, Color.GREEN);
                 commentTextArea.setEditable(false);
                 sendButton.setDisable(true);
             }
 
         } catch (SQLException | ClassNotFoundException e) {
-            showError(errorText, "Error in connecting to database", 5, Color.RED);
+            ErrorMessage.showError(errorText, "Error in connecting to database", 5, Color.RED);
             System.err.println(e);
             e.printStackTrace();
         } catch (Exception e) {
@@ -249,7 +249,7 @@ public class ProductionController implements Initializable {
     public void add() {
         System.out.println("ProductionController.add");
         if (user == null) { // user has to be singed in
-            showError(errorText, "You need to sign in first.", 5, Color.RED);
+            ErrorMessage.showError(errorText, "You need to sign in first.", 5, Color.RED);
             return;
         }
 
@@ -285,18 +285,18 @@ public class ProductionController implements Initializable {
                 }
 
                 // update commodity state in
-                showError(errorText, commodity.getTitle() + " added to your basket.", 5, Color.GREEN);
+                ErrorMessage.showError(errorText, commodity.getTitle() + " added to your basket.", 5, Color.GREEN);
                 inBasketLabel.setText(currentCommodityInBasket + "");
 
             } catch (SQLException | ClassNotFoundException e) {
-                showError(errorText, "Error in adding commodity to basket", 5, Color.RED);
+                ErrorMessage.showError(errorText, "Error in adding commodity to basket", 5, Color.RED);
                 System.err.println(e);
                 e.printStackTrace();
             }
 
 
         } else {
-            showError(errorText, "This commodity is not available any more.", 5, Color.RED);
+            ErrorMessage.showError(errorText, "This commodity is not available any more.", 5, Color.RED);
             System.out.println("commodity.getNumber() = " + commodity.getNumber());
         }
 
@@ -321,7 +321,7 @@ public class ProductionController implements Initializable {
                 System.out.println("currentCommodityInBasket = " + currentCommodityInBasket);
             }
         } catch (SQLException | ClassNotFoundException e) {
-            showError(errorText, "Error in database connection occurred.", 5, Color.RED);
+            ErrorMessage.showError(errorText, "Error in database connection occurred.", 5, Color.RED);
             throw new RuntimeException(e);
         }
     }
@@ -425,7 +425,7 @@ public class ProductionController implements Initializable {
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
-            showError(errorText, "Databse error.", 5, Color.RED);
+            ErrorMessage.showError(errorText, "Databse error.", 5, Color.RED);
             System.err.println(e);
             e.printStackTrace();
         } catch (Exception e) {
@@ -541,7 +541,7 @@ public class ProductionController implements Initializable {
             errorMessage = "You have not bought this commodity yet.";
 
         }
-        showError(errorText, errorMessage, 5, color);
+        ErrorMessage.showError(errorText, errorMessage, 5, color);
 
 
         return false;
@@ -720,10 +720,6 @@ public class ProductionController implements Initializable {
         }
     }
 
-
-
-
-
     /**Just specify which image is clicked*/
     public void vote1() {
         vote(1);
@@ -739,18 +735,6 @@ public class ProductionController implements Initializable {
     }
     public void vote5() {
         vote(5);
-    }
-
-
-    private void showError(Text text, String message, int durationSeconds, Color color) {
-        if (message.equals(""))
-            return;
-        text.setFill(color);
-        text.setText(message);
-        text.setVisible(true);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(durationSeconds),
-                event -> text.setVisible(false)));
-        timeline.play();
     }
 
 }
