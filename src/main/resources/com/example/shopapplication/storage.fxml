@@ -4,7 +4,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="674.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.StorageController">
    <children>
       <TableView fx:id="tableView" prefHeight="674.0" prefWidth="865.0">
