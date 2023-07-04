@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="471.0" prefWidth="597.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ChatController">
    <children>
       <AnchorPane layoutY="369.0" prefHeight="102.0" prefWidth="598.0" style="-fx-background-color: gray;">
@@ -21,7 +20,7 @@
               <columns>
                 <TableColumn fx:id="rowTableColumn" prefWidth="33.60000687837601" text="Row" />
                 <TableColumn fx:id="senderTableColumn" prefWidth="98.39995956420898" text="Sender" />
-                  <TableColumn fx:id="MessageTableColumn" prefWidth="326.3999786376953" text="Message" />
+                  <TableColumn fx:id="messageTableColumn" prefWidth="326.3999786376953" text="Message" />
                   <TableColumn fx:id="dateTimeTableColumn" prefWidth="138.39996337890625" text="Date&amp;Time" />
               </columns>
             </TableView>

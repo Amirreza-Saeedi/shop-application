@@ -14,8 +14,10 @@ public class ChatTest extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root1 = new FXMLLoader(getClass().getResource("chat.fxml")).load();
-        Parent root2 = new FXMLLoader(getClass().getResource("chat.fxml")).load();
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("chat.fxml"));
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("chat.fxml"));
+        Parent root1 = loader1.load();
+        Parent root2 = loader2.load();
         Scene scene1 = new Scene(root1);
         Scene scene2 = new Scene(root2);
 
@@ -23,18 +25,23 @@ public class ChatTest extends Application {
         ChatServer server = new ChatServer();
         Admin admin = new Admin("admin", "admin");
         Seller seller = new Seller("asghar", "asghar");
-        ChatController client1 = new ChatController(admin, seller);
-        ChatController client2 = new ChatController(seller, admin);
+        ChatController client1 = loader1.getController();
+        client1.setAll(admin, seller);
+        ChatController client2 = loader2.getController();
+        client2.setAll(seller, admin);
 
         Stage stage1 = new Stage();
         stage1.setScene(scene1);
-        stage1.setTitle("stage 1");
+        stage1.setTitle("Chat with " + seller.getUsername());
         stage1.setX(50);
 
         Stage stage2 = new Stage();
         stage2.setScene(scene2);
-        stage2.setTitle("stage 2");
+        stage2.setTitle("Chat with " + admin.getUsername());
         stage2.setX(700);
+
+        stage1.setResizable(false);
+        stage2.setResizable(false);
 
         stage1.show();
         stage2.show();
