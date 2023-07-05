@@ -1,7 +1,5 @@
 package com.example.shopapplication;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,18 +14,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -77,9 +71,19 @@ public class StorageController extends Application implements Initializable {
         managerColumn.setCellValueFactory(new PropertyValueFactory<>("manager"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         addButtonsToTable(); // action col
+
+        TableColumn[] columns = {rowColumn, idColumn, nameColumn, amountColumn,
+                valueColumn, managerColumn, addressColumn, actionsColumn};
+
+        for (TableColumn c : columns) {
+            c.setReorderable(false);
+        }
     }
 
     public void loadStorages() {
+        /**
+         * also fills observable list
+         * */
         ArrayList<Storage> list = new ArrayList<>();
 
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
@@ -129,24 +133,6 @@ public class StorageController extends Application implements Initializable {
 //        );
     }
 
-    public void add() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addStorageDialog.fxml"));
-        Parent parent = fxmlLoader.load();
-
-        AddStorageDialogController dialogController = fxmlLoader.getController();
-        dialogController.setAll(this, errorLabel);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-//        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("New Storage");
-        stage.setResizable(false);
-        stage.showAndWait(); // todo not a proper way to get result
-
-    }
-
     private void addButtonsToTable() {
 
         Callback<TableColumn<Storage, Void>, TableCell<Storage, Void>> callback = new Callback<>() {
@@ -168,7 +154,7 @@ public class StorageController extends Application implements Initializable {
                     private final Button editButton = new Button("Edit");
                     {
                         editButton.setOnAction(e -> {
-                            System.out.println("edit");
+                            edit(getTableView().getItems().get(getIndex()));
                         });
                     }
 
@@ -197,7 +183,29 @@ public class StorageController extends Application implements Initializable {
         actionsColumn.setCellFactory(callback);
     }
 
-    private void delete(Storage storage) {
+    public void add() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addStorageDialog.fxml"));
+        Parent parent = fxmlLoader.load();
+
+        AddStorageDialogController dialogController = fxmlLoader.getController();
+        dialogController.setAll(this, errorLabel);
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+//        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("New Storage");
+        stage.setResizable(false);
+        stage.showAndWait(); // todo not a proper way to get result
+        // todo load here
+
+    }
+
+    private ObservableList<Integer> createOptions(Storage storage) {
+        /**
+         * returns comboBox with storage ids except of given storage
+         * */
         // list of options
         ObservableList<Integer> options = FXCollections.observableArrayList();
         for (Storage value : storages) {
@@ -205,8 +213,12 @@ public class StorageController extends Application implements Initializable {
                 options.add(value.getId());
         }
 
+        return options;
+    }
+
+    private void delete(Storage storage) {
         // set combo box
-        ComboBox<Integer> comboBox = new ComboBox<>(options);
+        ComboBox<Integer> comboBox = new ComboBox<>(createOptions(storage));
         comboBox.setPromptText("Storage ID");
 
         // choice dialog
@@ -231,7 +243,7 @@ public class StorageController extends Application implements Initializable {
         // making decision
         Optional<Integer> result = dialog.showAndWait();
 
-         // result handling
+        // result handling
         result.ifPresent(selectedOption -> {
             /**
              * update and delete
@@ -268,6 +280,26 @@ public class StorageController extends Application implements Initializable {
             }
         });
 
+    }
+
+    private void edit(Storage storage)  {
+        System.out.println("edit");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("storage-management.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        StorageManagementController controller = loader.getController();
+        controller.setAll(storage, createOptions(storage)); // todo
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        loadStorages();
     }
 
 

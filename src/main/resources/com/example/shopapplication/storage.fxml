@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="674.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.StorageController">
    <children>
-      <TableView fx:id="tableView" layoutX="80.0" layoutY="126.0" prefHeight="443.0" prefWidth="892.0">
+      <TableView fx:id="tableView" editable="true" layoutX="80.0" layoutY="126.0" prefHeight="443.0" prefWidth="892.0">
         <columns>
           <TableColumn fx:id="rowColumn" prefWidth="47.20001143217087" text="Row" />
           <TableColumn fx:id="idColumn" prefWidth="47.999969482421875" text="ID" />
@@ -18,7 +18,7 @@
             <TableColumn fx:id="valueColumn" prefWidth="84.53329467773438" text="Value" />
             <TableColumn fx:id="managerColumn" prefWidth="100.00006103515625" text="Manager" />
             <TableColumn fx:id="addressColumn" prefWidth="227.7332763671875" text="Address" />
-            <TableColumn fx:id="actionsColumn" minWidth="0.0" prefWidth="189.86669921875" text="Actions" />
+            <TableColumn fx:id="actionsColumn" editable="false" minWidth="0.0" prefWidth="189.86669921875" text="Actions" />
         </columns>
       </TableView>
       <Label layoutX="86.0" layoutY="38.0" text="Storages">
