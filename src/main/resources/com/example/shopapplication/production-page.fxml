@@ -166,6 +166,7 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
+                  <Button fx:id="auctionButton" mnemonicParsing="false" onAction="#toAuction" prefHeight="26.0" prefWidth="115.0" text="To Auction" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
                <opaqueInsets>
                   <Insets />

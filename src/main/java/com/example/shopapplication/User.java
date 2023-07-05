@@ -6,6 +6,16 @@ public abstract class User {
     private String firstname;
     private String lastname;
     private String email;
+
+    public double getCharge() {
+        return charge;
+    }
+
+    public void setCharge(double charge) {
+        this.charge = charge;
+    }
+
+    private double charge;
     public User(String username, String password) {
         this.username = username;
         this.password = password;

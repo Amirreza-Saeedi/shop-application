@@ -12,6 +12,30 @@ public class Commodity {
     private int number;
     private int commodityId;
 
+    public int getAuctionId() {
+        return auctionId;
+    }
+
+    public Commodity(String type, String price, String ratio, String brand, String title, String properties, String date, int number, int commodityId, int auctionId) {
+        this.type = type;
+        this.price = price;
+        this.ratio = ratio;
+        this.brand = brand;
+        this.title = title;
+        this.properties = properties;
+        this.date = date;
+        this.number = number;
+        this.commodityId = commodityId;
+        this.auctionId = auctionId;
+    }
+
+    public void setAuctionId(int auctionId) {
+        this.auctionId = auctionId;
+    }
+
+    private int auctionId;
+
+
     public Commodity(){
 
     }
