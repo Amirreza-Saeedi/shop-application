@@ -1,5 +1,6 @@
 package com.example.shopapplication;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 public class Commodity {
@@ -9,6 +10,7 @@ public class Commodity {
     private Image image;
     private String properties;
     private String date;
+    private String sellerId;
     private int number;
     private int commodityId;
 
@@ -36,19 +38,12 @@ public class Commodity {
     private int auctionId;
 
 
-    public Commodity(){
-
+    public String getSellerId() {
+        return sellerId;
     }
 
-    public Commodity(String type,String brand,String price,String ratio,String title,
-                     int number, int commodityId) {
-        this.type = type;
-        this.brand = brand;
-        this.price = price;
-        this.ratio = ratio;
-        this.title = title;
-        this.number = number;
-        this.commodityId = commodityId;
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 
     public void setCommodityId(int commodityId) {
@@ -128,6 +123,36 @@ public class Commodity {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public Commodity(){
+
+    }
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId){
+        /**
+         * usage in most of program
+         * */
+        this.type = type;
+        this.brand = brand;
+        this.price = price;
+        this.ratio = ratio;
+        this.title = title;
+        this.number = number;
+        this.commodityId = commodityId;
+    }
+
+    public Commodity(String type, String price, String brand, String title, String date, String sellerId, int number, int commodityId) {
+        /**
+         * usage in some of tableViews
+         * */
+        this.type = type;
+        this.price = price;
+        this.brand = brand;
+        this.title = title;
+        this.date = date;
+        this.sellerId = sellerId;
+        this.number = number;
+        this.commodityId = commodityId;
     }
 
     @Override

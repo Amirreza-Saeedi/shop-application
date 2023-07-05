@@ -8,7 +8,7 @@ module com.example.shopproject {
     requires java.mail;
     requires java.desktop;
 //    requires java.mail;
-    requires org.simplejavamail;
+//    requires org.simplejavamail;
 //    requires org.simplejavamail.core;
 //    requires jakarta.mail;
 

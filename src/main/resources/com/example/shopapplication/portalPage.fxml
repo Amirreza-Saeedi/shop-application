@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="753.0" prefWidth="1000.0" style="-fx-background-color: #cfd8dc;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.PortalPageController">
    <children>
@@ -99,5 +103,19 @@
             <Font size="17.0" />
          </font>
       </Button>
+      <Pane fx:id="captchaPane" layoutX="455.0" layoutY="403.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseReleased="#updateCaptcha" prefHeight="33.0" prefWidth="80.0" style="-fx-border-radius: 3; -fx-border-color: gray; -fx-background-color: white; -fx-border-width: .7;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <children>
+            <Text fx:id="captchaText" fill="#595959" layoutX="15.0" layoutY="24.0" strikethrough="true" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.5" style="-fx-strikethrough: true;" text="CODE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Line endX="70.4000244140625" endY="-19.000015258789062" layoutY="19.0" startX="4.98583984375" startY="12.30712890625" stroke="#919191" />
+            <Line endX="71.5999755859375" endY="16.600006103515625" layoutX="6.0" layoutY="14.0" startX="-6.0" startY="4.5999908447265625" stroke="#535353" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
