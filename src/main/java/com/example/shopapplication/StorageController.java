@@ -49,8 +49,9 @@ public class StorageController extends Application implements Initializable {
     @FXML
     private Button addButton;
 
-    private ObservableList<Storage> storages = FXCollections.observableArrayList();
+    private Admin admin;
 
+    private ObservableList<Storage> storages = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -311,6 +312,28 @@ public class StorageController extends Application implements Initializable {
         Parent root = loader.load();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public void toHome() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+            Parent root = loader.load();
+
+            HomeController controller = loader.getController();
+            controller.setUser(admin);
+
+            Stage stage = (Stage) addButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }
