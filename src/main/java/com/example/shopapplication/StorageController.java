@@ -17,10 +17,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -49,6 +52,8 @@ public class StorageController extends Application implements Initializable {
     private TableColumn<Storage, Void> actionsColumn;
     @FXML
     private Label errorLabel;
+    @FXML
+    private Button addButton;
 
     private ObservableList<Storage> storages = FXCollections.observableArrayList();
 
@@ -59,7 +64,7 @@ public class StorageController extends Application implements Initializable {
         loadStorages(); // fill observableList
         tableView.setItems(storages); // link table values to storages
 
-
+        errorLabel.setVisible(false);
     }
 
     private void initializeColumns() {
@@ -74,7 +79,7 @@ public class StorageController extends Application implements Initializable {
         addButtonsToTable(); // action col
     }
 
-    private void loadStorages() {
+    public void loadStorages() {
         ArrayList<Storage> list = new ArrayList<>();
 
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
@@ -122,6 +127,24 @@ public class StorageController extends Application implements Initializable {
 //                new Storage("asdfl", 3, 3, 3, "alkdf", "lksdf"),
 //                new Storage("asdfl", 4, 4, 3, "alkdf", "lksdf")
 //        );
+    }
+
+    public void add() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addStorageDialog.fxml"));
+        Parent parent = fxmlLoader.load();
+
+        AddStorageDialogController dialogController = fxmlLoader.getController();
+        dialogController.setAll(this, errorLabel);
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+//        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("New Storage");
+        stage.setResizable(false);
+        stage.showAndWait(); // todo not a proper way to get result
+
     }
 
     private void addButtonsToTable() {

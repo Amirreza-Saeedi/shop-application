@@ -26,7 +26,7 @@
             <Font name="System Italic" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="882.0" layoutY="70.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="89.0" text="+ Storage">
+      <Button fx:id="addButton" layoutX="882.0" layoutY="70.0" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="89.0" text="+ Storage">
          <font>
             <Font size="14.0" />
          </font>
