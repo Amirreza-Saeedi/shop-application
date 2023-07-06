@@ -3,16 +3,19 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="753.0" prefWidth="1399.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="753.0" prefWidth="1399.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.productsManagingController">
    <children>
       <AnchorPane prefHeight="107.0" prefWidth="1397.0" style="-fx-background-color: #26c6da;">
          <children>
@@ -26,7 +29,7 @@
                   <Image url="@../../../icon.png" />
                </image>
             </ImageView>
-            <Label fx:id="typeInfo" alignment="CENTER" layoutX="1240.0" layoutY="42.0" prefHeight="26.0" prefWidth="126.0" text="Not registered">
+            <Label fx:id="typeInfo" alignment="CENTER" layoutX="1240.0" layoutY="42.0" prefHeight="26.0" prefWidth="126.0">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
@@ -39,7 +42,7 @@
          </children>
       </AnchorPane>
       <Line endX="1173.982177734375" endY="-10.171032905578613" fill="#d40a0a" layoutX="222.0" layoutY="112.0" rotate="0.5" startX="-222.00001525878906" startY="7.62939453125E-6" stroke="#666464" />
-      <Button fx:id="goToNextPageButton" alignment="CENTER" layoutX="817.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToNextPageButtonOnAction" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color: #64b5f6;" text="Next -&gt;">
+      <Button fx:id="goToNextPageButton" alignment="CENTER" layoutX="1268.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToNextPageButtonOnAction" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color: #64b5f6;" text="Next -&gt;" visible="false">
          <font>
             <Font size="17.0" />
          </font>
@@ -47,7 +50,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="goToPreviousPageButton" alignment="CENTER" layoutX="671.0" layoutY="704.0" mnemonicParsing="false" onAction="#goToPreviousPageButtonOnAction" style="-fx-background-color: #64b5f6;" text="&lt;- Previous">
+      <Button fx:id="goToPreviousPageButton" alignment="CENTER" layoutX="1113.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToPreviousPageButtonOnAction" style="-fx-background-color: #64b5f6;" text="&lt;- Previous" visible="false">
          <font>
             <Font size="17.0" />
          </font>
@@ -55,12 +58,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="page" alignment="CENTER" layoutX="790.0" layoutY="711.0" text="1">
+      <Label fx:id="page" alignment="CENTER" layoutX="1241.0" layoutY="712.0" text="1">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <GridPane fx:id="gridPane" layoutX="114.0" layoutY="109.0" prefHeight="572.0" prefWidth="1282.0">
+      <GridPane layoutX="114.0" layoutY="109.0" prefHeight="572.0" prefWidth="1282.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,512 +78,726 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <AnchorPane fx:id="anchorPane00" prefHeight="250.0" prefWidth="184.0" visible="false">
+            <AnchorPane fx:id="anchorPane00" prefHeight="250.0" prefWidth="184.0">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title00" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title00" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="110.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio00" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price00" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image00" fitHeight="107.0" fitWidth="184.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete00OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="145.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price00" layoutY="259.0" onAction="#setPrice00OnTextChanged" />
+                  <Spinner fx:id="number00" editable="true" layoutX="1.0" layoutY="213.0" />
+                  <Button fx:id="auction00" layoutY="2.0" mnemonicParsing="false" onAction="#setAuction00OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="number00" layoutX="68.0" layoutY="179.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options00" layoutX="-5.0" layoutY="30.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice00" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice00OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <ImageView fx:id="cancel00" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel00OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record00" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord00OnAction" text="Record" />
+                        <HBox layoutX="1.0" layoutY="76.0" prefHeight="18.0" prefWidth="162.0">
+                           <children>
+                              <Spinner fx:id="day00" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="hour00" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="minute00" prefHeight="26.0" prefWidth="54.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove00" layoutX="63.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove00OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
+                     </font></Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane10" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="1">
+            <AnchorPane fx:id="anchorPane10" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title10" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title10" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio10" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView10" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price10" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image10" fitHeight="103.0" fitWidth="200.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete10OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price10" layoutX="1.0" layoutY="260.0" onAction="#setPrice10OnTextChanged" />
+                  <Spinner fx:id="number10" editable="true" layoutX="2.0" layoutY="213.0" />
+                  <Button fx:id="auction10" layoutX="-5.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction10OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options10" layoutX="-9.0" layoutY="30.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice10" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice10OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <ImageView fx:id="cancel10" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel10OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record10" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord10OnAction" text="Record" />
+                        <HBox layoutX="4.0" layoutY="80.0" prefHeight="26.0" prefWidth="162.0">
+                           <children>
+                              <Spinner fx:id="day10" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="hour10" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="minute10" prefHeight="26.0" prefWidth="54.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove10" layoutX="57.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove10OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number10" layoutX="63.0" layoutY="179.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane20" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="2">
+            <AnchorPane fx:id="anchorPane20" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="2">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title20" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title20" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio20" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView20" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price20" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image20" fitHeight="103.0" fitWidth="200.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete20OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price20" layoutX="1.0" layoutY="260.0" onAction="#setPrice20OnTextChanged" />
+                  <Spinner fx:id="number20" editable="true" layoutX="2.0" layoutY="213.0" />
+                  <Button fx:id="auction20" layoutX="-4.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction20OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options20" layoutX="-9.0" layoutY="31.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice20" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice20OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <ImageView fx:id="cancel20" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel20OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record20" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord20OnAction" text="Record" />
+                        <HBox layoutX="8.0" layoutY="76.0" prefHeight="26.0" prefWidth="162.0">
+                           <children>
+                              <Spinner fx:id="day20" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="hour20" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="minute20" prefHeight="26.0" prefWidth="54.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove20" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove20OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number20" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane30" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="3">
+            <AnchorPane fx:id="anchorPane30" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="3">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title30" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title30" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio30" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView30" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price30" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image30" fitHeight="103.0" fitWidth="200.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number30" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete30OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price30" layoutX="-1.0" layoutY="259.0" onAction="#setPrice30OnTextChanged" />
+                  <Button fx:id="auction30" layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction30OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options30" layoutX="-6.0" layoutY="30.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice30" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice30OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <ImageView fx:id="cancel30" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel30OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record30" layoutX="10.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord30OnAction" text="Record" />
+                        <HBox layoutX="1.0" layoutY="76.0" prefHeight="26.0" prefWidth="162.0">
+                           <children>
+                              <Spinner fx:id="day30" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="hour30" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="minute30" prefHeight="26.0" prefWidth="54.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove30" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove30OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number30" layoutX="68.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane01" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane50" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="5">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title01" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title50" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio01" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView01" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price01" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image50" fitHeight="103.0" fitWidth="200.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number50" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete50OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price50" layoutX="2.0" layoutY="260.0" onAction="#setPrice50OnTextChanged" />
+                  <Button fx:id="auction50" layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction50OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options50" layoutX="-2.0" layoutY="31.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice50" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice50OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day50" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour50" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute50" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel50" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel50OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record50" layoutX="8.0" mnemonicParsing="false" onAction="#setRecord50OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove50" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove50OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number01" layoutX="65.0" layoutY="176.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane11" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane01" prefHeight="250.0" prefWidth="184.0" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title11" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title01" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="110.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio11" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price11" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image01" fitHeight="103.0" fitWidth="200.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number01" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete01OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="145.0" layoutY="202.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price01" layoutY="259.0" onAction="#setPrice01OnTextChanged" />
+                  <Button fx:id="auction01" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction01OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options01" layoutX="-2.0" layoutY="30.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice01" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice01OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day01" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour01" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute01" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel01" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel01OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record01" layoutX="8.0" layoutY="2.0" mnemonicParsing="false" onAction="#setRecord01OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove01" layoutX="56.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove01OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number11" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane21" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane11" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title21" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title11" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="110.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio21" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView21" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price21" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image11" fitHeight="107.0" fitWidth="200.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number11" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete11OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="143.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price11" layoutY="259.0" onAction="#setPrice11OnTextChanged" />
+                  <Button fx:id="auction11" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction11OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options11" layoutX="-2.0" layoutY="29.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice11" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice11OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day11" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour11" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute11" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel11" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel11OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record11" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord11OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove11" layoutX="56.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove11OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number21" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane31" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane21" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title31" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title21" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="110.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio31" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView31" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price31" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image21" fitHeight="107.0" fitWidth="200.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number21" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete21OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="144.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price21" layoutX="1.0" layoutY="260.0" onAction="#setPrice21OnTextChanged" />
+                  <Button fx:id="auction21" layoutX="-5.0" layoutY="3.0" mnemonicParsing="false" onAction="#setAuction21OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options21" layoutX="-10.0" layoutY="30.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice21" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice21OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day21" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour21" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute21" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel21" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel21OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record21" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord21OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove21" layoutX="48.0" layoutY="3.0" mnemonicParsing="false" onAction="#setRemove21OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number31" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane40" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="4">
+            <AnchorPane fx:id="anchorPane41" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title40" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title41" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio40" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView40" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price40" alignment="TOP_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image41" fitHeight="107.0" fitWidth="200.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number41" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete41OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="146.0" layoutY="202.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price41" layoutX="1.0" layoutY="260.0" onAction="#setPrice41OnTextChanged" />
+                  <Button fx:id="auction41" layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction41OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options41" layoutX="-2.0" layoutY="30.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice41" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice41OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day41" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour41" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute41" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel41" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel41OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record41" layoutX="10.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord41OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove41" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove41OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number40" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane41" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane51" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title41" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title51" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio41" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView41" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price41" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image51" fitHeight="103.0" fitWidth="200.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number51" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete51OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="145.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price51" layoutX="1.0" layoutY="260.0" onAction="#setPrice51OnTextChanged" />
+                  <Button fx:id="auction51" layoutX="1.0" layoutY="3.0" mnemonicParsing="false" onAction="#setAuction51OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options51" layoutX="-4.0" layoutY="31.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice51" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice51OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day51" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour51" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute51" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel51" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel51OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record51" layoutX="7.0" mnemonicParsing="false" onAction="#setRecord51OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove51" layoutX="52.0" layoutY="3.0" mnemonicParsing="false" onAction="#setRemove51OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number41" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane50" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="5">
+            <AnchorPane fx:id="anchorPane61" prefHeight="250.0" prefWidth="173.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title50" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title61" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="110.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio50" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView50" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price50" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image61" fitHeight="107.0" fitWidth="200.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number61" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="108.0" layoutY="135.0" onMouseReleased="#setDelete61OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="145.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price61" layoutX="2.0" layoutY="260.0" onAction="#setPrice61OnTextChanged" />
+                  <Button fx:id="auction61" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction61OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options61" layoutX="1.0" layoutY="28.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice61" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice61OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day61" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour61" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute61" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel61" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel61OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record61" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord61OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove61" layoutX="56.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove61OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number50" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane51" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane60" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="6">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title51" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title60" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio51" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView51" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price51" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image60" fitHeight="103.0" fitWidth="200.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number60" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete60OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="144.0" layoutY="203.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField fx:id="price60" layoutX="1.0" layoutY="260.0" onAction="#setPrice60OnTextChanged" />
+                  <Button fx:id="auction60" layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction60OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options60" layoutX="-2.0" layoutY="31.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice60" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice60OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day60" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour60" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute60" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel60" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel60OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record60" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord60OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove60" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove60OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number51" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane60" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="6">
+            <AnchorPane fx:id="anchorPane31" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image31" fitHeight="107.0" fitWidth="170.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutY="188.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number31" editable="true" layoutX="2.0" layoutY="206.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="110.0" layoutY="142.0" onMouseReleased="#setDelete31OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../star.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="title60" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <Label fx:id="title31" alignment="CENTER" layoutY="146.0" prefHeight="38.0" prefWidth="110.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio60" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
+                  <TextField fx:id="price31" layoutX="3.0" layoutY="260.0" onAction="#setPrice31OnTextChanged" />
+                  <Button fx:id="auction31" layoutX="3.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction31OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView60" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price60" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options31" layoutX="-8.0" layoutY="29.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice31" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice31OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <Spinner fx:id="day31" layoutX="3.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="hour31" layoutX="59.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Spinner fx:id="minute31" layoutX="111.0" layoutY="79.0" prefHeight="26.0" prefWidth="54.0" />
+                        <ImageView fx:id="cancel31" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel31OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record31" layoutX="10.0" layoutY="-1.0" mnemonicParsing="false" onAction="#setRecord31OnAction" text="Record" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove31" layoutX="48.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove31OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
                      <font>
-                        <Font size="25.0" />
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="146.0" layoutY="202.0" prefHeight="38.0" prefWidth="15.0" text="\$">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="number60" layoutX="68.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane61" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane40" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="4">
                <children>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../star.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title61" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="176.0" text="Title">
+                  <Label fx:id="title40" alignment="CENTER" layoutX="-2.0" layoutY="139.0" prefHeight="38.0" prefWidth="103.0" text="Title">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio61" alignment="CENTER_RIGHT" layoutY="177.0" prefHeight="22.0" prefWidth="34.0" text="Ratio">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView61" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="price61" alignment="CENTER_RIGHT" layoutY="200.0" prefHeight="46.0" prefWidth="136.0" text="Price">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image40" fitHeight="103.0" fitWidth="200.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="1.0" layoutY="195.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  <Spinner fx:id="number40" editable="true" layoutY="211.0" />
+                  <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="104.0" layoutY="135.0" onMouseReleased="#setDelete40OnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../add.png" />
+                        <Image url="@../../../recycleBin.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="144.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
+                  <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
+                  <TextField layoutX="1.0" layoutY="260.0" />
+                  <TextField fx:id="price40" layoutX="2.0" layoutY="260.0" onAction="#setPrice40OnTextChanged" />
+                  <Button fx:id="auction40" layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#setAuction40OnAction" prefHeight="26.0" prefWidth="90.0" text="Add to auction">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="11.0" />
+                     </font></Button>
+                  <AnchorPane fx:id="options40" layoutY="29.0" prefHeight="107.0" prefWidth="162.0">
+                     <children>
+                        <TextField fx:id="basePrice40" layoutX="8.0" layoutY="28.0" onAction="#setBasePrice40OnAction" promptText="Base price" />
+                        <HBox layoutX="8.0" layoutY="54.0" prefHeight="22.0" prefWidth="162.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Days" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Hours" />
+                              <Label prefHeight="18.0" prefWidth="60.0" text="Minutes" />
+                           </children>
+                        </HBox>
+                        <ImageView fx:id="cancel40" fitHeight="18.0" fitWidth="19.0" layoutX="140.0" layoutY="7.0" onMouseReleased="#setCancel40OnAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../cancel.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="record40" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord40OnAction" text="Record" />
+                        <HBox layoutX="1.0" layoutY="76.0" prefHeight="26.0" prefWidth="162.0">
+                           <children>
+                              <Spinner fx:id="day40" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="hour40" prefHeight="26.0" prefWidth="54.0" />
+                              <Spinner fx:id="minute40" prefHeight="26.0" prefWidth="54.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="remove40" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove40OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
+                     <font>
+                        <Font size="9.5" />
                      </font>
-                  </Label>
-                  <Label fx:id="number61" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
+                  </Button>
                </children>
             </AnchorPane>
          </children>
       </GridPane>
-      <Button fx:id="backToHomeButton" layoutX="14.0" layoutY="109.0" mnemonicParsing="false" onAction="#setBackToHomeButtonOnAction" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: LIGHTBLUE;" text="Button" />
+      <Button alignment="CENTER" layoutX="668.0" layoutY="699.0" mnemonicParsing="false" onAction="#setRecordButtonOnAction" prefHeight="46.0" prefWidth="174.0" style="-fx-background-color: #37474f;" text="Record" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label fx:id="errorForChangePageLabel" layoutX="1128.0" layoutY="681.0" prefHeight="18.0" prefWidth="226.0" text="Record or close all auction registrations" textFill="#fc0404" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

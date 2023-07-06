@@ -92,13 +92,13 @@ public class Login implements Verifiable {
     }
 
     public void loginToHome(Node node) throws IOException { // todo
-        FXMLLoader loader = new FXMLLoader(Login.class.getResource("home.fxml"));
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("Home.fxml"));
         Parent root = loader.load();
         HomeController homeController = loader.getController();
         homeController.setUser(user);
         Stage stage = (Stage) node.getScene().getWindow();
             stage.setScene(new Scene(root));
-
+        stage.centerOnScreen();
     }
 
     public static User getCompleteUser(User usernameUser) { // temp method
