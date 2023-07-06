@@ -18,8 +18,8 @@
             <TableColumn fx:id="amountColumn" prefWidth="57.066741943359375" text="Amount" />
             <TableColumn fx:id="valueColumn" prefWidth="84.53329467773438" text="Value" />
             <TableColumn fx:id="managerColumn" prefWidth="100.00006103515625" text="Manager" />
-            <TableColumn fx:id="addressColumn" prefWidth="227.7332763671875" text="Address" />
-            <TableColumn fx:id="actionsColumn" editable="false" minWidth="0.0" prefWidth="189.86669921875" text="Actions" />
+            <TableColumn fx:id="addressColumn" prefWidth="189.60003662109375" text="Address" />
+            <TableColumn fx:id="actionsColumn" editable="false" minWidth="0.0" prefWidth="228.800048828125" text="Actions" />
         </columns>
       </TableView>
       <Label layoutX="86.0" layoutY="38.0" text="Storages">

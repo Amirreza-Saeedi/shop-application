@@ -219,6 +219,10 @@ public class StorageManagementController implements Initializable {
             sql = "delete from baskets " + str;
             resultSet = statement.executeUpdate(sql);
 
+            // logs
+            StorageLog.logCommodityDeletion(storage.getId(), storage.getAmount(),
+                    storage.getValue().doubleValue(), commodity.getTitle(), connection);
+
             ErrorMessage.showError(errorLabel, commodity.getTitle() + " removed successfully.", 5, Color.GREEN);
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -253,6 +257,12 @@ public class StorageManagementController implements Initializable {
             String sql = "update AllCommodities set storageId='" + toStorageId + "' " +
                     "where commodityId='" + commodity.getCommodityId() + "'";
             int resultSet = statement.executeUpdate(sql);
+
+            // logs
+            StorageLog.logCommodityExportation(storage.getId(), storage.getAmount(),
+                    storage.getValue().doubleValue(), commodity.getTitle(), connection);
+            StorageLog.logCommodityImportation(storage.getId(), storage.getAmount(),
+                    storage.getValue().doubleValue(), commodity.getTitle(), connection);
 
             // successful
             ErrorMessage.showError(errorLabel, "Successfully transferred.", 5, Color.GREEN);
