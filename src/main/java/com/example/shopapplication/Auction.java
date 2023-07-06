@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class Auction {
 
-    public static void setWinner(int id) {
+    public void setWinner() {
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()){
             // update commodities
             Statement statement = connection.createStatement();
@@ -20,23 +20,27 @@ public class Auction {
             sql = "delete from auction where auctionid='" + id + "'";
             statement.executeUpdate(sql);
 
+//            // insert into purchases
+//            sql = "insert into purchases () values ()";
+//            statement.executeQuery(sql);
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
     private int id;
     String buyerName;
     String buyerType;
-    double basePrice;
-    double mostPrice;
+    int basePrice;
+    int mostPrice;
     String endDateTime;
 
     public int getId() {
         return id;
     }
 
-    public Auction(int id, String buyerName, String buyerType, double basePrice, double mostPrice, String dateTime) {
+    public Auction(int id, String buyerName, String buyerType, int basePrice, int mostPrice, String dateTime) {
         this.id = id;
         this.buyerName = buyerName;
         this.buyerType = buyerType;
@@ -65,19 +69,19 @@ public class Auction {
         this.buyerType = buyerType;
     }
 
-    public double getBasePrice() {
+    public int getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(double basePrice) {
+    public void setBasePrice(int basePrice) {
         this.basePrice = basePrice;
     }
 
-    public double getMostPrice() {
+    public int getMostPrice() {
         return mostPrice;
     }
 
-    public void setMostPrice(double mostPrice) {
+    public void setMostPrice(int mostPrice) {
         this.mostPrice = mostPrice;
     }
 

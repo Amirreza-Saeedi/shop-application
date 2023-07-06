@@ -114,12 +114,10 @@ public class AuctionController implements Initializable {
                 String buyerName = resultSet.getString("buyerUsername");
                 buyerTextField.setText(buyerName);
                 String buyerType = resultSet.getString("buyerType");
-                double basePrice = resultSet.getDouble("basePrice");
-                BigDecimal baseDecimal = new BigDecimal(basePrice);
-                reservePriceTextField.setText(baseDecimal.setScale(2).toString());
-                double mostPrice = resultSet.getDouble("mostPrice");
-                BigDecimal mostDecimal = new BigDecimal(mostPrice);
-                mostPriceTextField.setText(mostDecimal.setScale(2).toString());
+                int basePrice = resultSet.getInt("basePrice");
+                reservePriceTextField.setText(basePrice + "");
+                int mostPrice = resultSet.getInt("mostPrice");
+                mostPriceTextField.setText(mostPrice + "");
                 String endDateTime = resultSet.getString("date");
                 endDateTextField.setText(endDateTime);
 
@@ -349,7 +347,7 @@ public class AuctionController implements Initializable {
         /**
          * delete auction and update commodity
          * */
-        Auction.setWinner(auction.getId());
+        auction.setWinner();
     }
 
     public void close() {
