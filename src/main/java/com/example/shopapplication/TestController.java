@@ -314,6 +314,7 @@ public class TestController implements Initializable {
             String ratio1;
             String title1;
             int commodityId;
+            int isAuction;
             try {
                 number1 = rs.getInt("Number");
                 type1 = rs.getString("Type");
@@ -322,10 +323,11 @@ public class TestController implements Initializable {
                 ratio1 = rs.getString("Ratio");
                 title1 = rs.getString("Title");
                 commodityId = rs.getInt("commodity-id");
+                isAuction = rs.getInt("isAuction");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId));
+            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction));
 
         }
 

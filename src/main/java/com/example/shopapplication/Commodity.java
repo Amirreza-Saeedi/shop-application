@@ -13,6 +13,7 @@ public class Commodity {
     private String sellerId;
     private int number;
     private int commodityId;
+    public int isAuction;
 
     public int getAuctionId() {
         return auctionId;
@@ -53,10 +54,10 @@ public class Commodity {
     public int getCommodityId() {
         return commodityId;
     }
+
     public void setDate(String date){
         this.date= date;
     }
-
     public String getDate(){
         return date;
     }
@@ -129,28 +130,11 @@ public class Commodity {
 
     }
     public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId){
-        /**
-         * usage in most of program
-         * */
         this.type = type;
         this.brand = brand;
         this.price = price;
         this.ratio = ratio;
         this.title = title;
-        this.number = number;
-        this.commodityId = commodityId;
-    }
-
-    public Commodity(String type, String price, String brand, String title, String date, String sellerId, int number, int commodityId) {
-        /**
-         * usage in some of tableViews
-         * */
-        this.type = type;
-        this.price = price;
-        this.brand = brand;
-        this.title = title;
-        this.date = date;
-        this.sellerId = sellerId;
         this.number = number;
         this.commodityId = commodityId;
     }
