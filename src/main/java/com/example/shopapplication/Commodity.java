@@ -19,6 +19,17 @@ public class Commodity {
         return auctionId;
     }
 
+    Commodity(String type1, String brand1, String price1, String ratio1, String title1, int number1, int commodityId) {
+        type = type1;
+        brand = brand1;
+        price = price1;
+        ratio = ratio1;
+        title = title1;
+        number = number1;
+        this.commodityId = commodityId;
+    }
+
+
     public Commodity(String type, String price, String ratio, String brand, String title, String properties, String date, int number, int commodityId, int auctionId) {
         this.type = type;
         this.price = price;

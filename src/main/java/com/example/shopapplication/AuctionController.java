@@ -347,7 +347,12 @@ public class AuctionController implements Initializable {
         /**
          * delete auction and update commodity
          * */
-        auction.setWinner();
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()){
+            auction.setWinner(connection);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void close() {

@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class HomeController implements Initializable {
@@ -149,6 +150,8 @@ public class HomeController implements Initializable {
     private Label ratio61;
     @FXML
     private TextField search;
+    @FXML
+    private Label commoditiesNumber;
 //    @FXML
 //    private ImageView imageView00;
 //    @FXML
@@ -772,7 +775,7 @@ public class HomeController implements Initializable {
             Auction auction = new Auction(auctionId, buyerUsername, buyerType, base, most, date);
 
             if (now.compareToIgnoreCase(date) > 0) {
-                auction.setWinner();
+                auction.setWinner(connection);
             }
         }
 

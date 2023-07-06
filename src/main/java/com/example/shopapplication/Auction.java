@@ -7,26 +7,24 @@ import java.time.LocalDateTime;
 
 public class Auction {
 
-    public void setWinner() {
-        try (Connection connection = new DatabaseConnectionJDBC().getConnection()){
-            // update commodities
-            Statement statement = connection.createStatement();
-            String sql = "update allCommodities set number='" + 0 + "', isAuction='" + 0 +
-                    "' where isAuction='" + id + "'";
-            statement.executeUpdate(sql);
+    public void setWinner(Connection connection) throws SQLException {
+
+        // update commodities
+        Statement statement = connection.createStatement();
+        String sql = "update allCommodities set number='" + 0 + "', isAuction='" + 0 +
+                "' where isAuction='" + id + "'";
+        statement.executeUpdate(sql);
 
 
-            // delete auction
-            sql = "delete from auction where auctionid='" + id + "'";
-            statement.executeUpdate(sql);
+        // delete auction
+        sql = "delete from auction where auctionid='" + id + "'";
+        statement.executeUpdate(sql);
 
 //            // insert into purchases
 //            sql = "insert into purchases () values ()";
 //            statement.executeQuery(sql);
 
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     private int id;
