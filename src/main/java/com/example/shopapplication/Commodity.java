@@ -13,6 +13,7 @@ public class Commodity {
     private String sellerId;
     private int number;
     private int commodityId;
+    public int isAuction;
 
     public int getAuctionId() {
         return auctionId;
@@ -53,10 +54,10 @@ public class Commodity {
     public int getCommodityId() {
         return commodityId;
     }
+
     public void setDate(String date){
         this.date= date;
     }
-
     public String getDate(){
         return date;
     }
@@ -128,7 +129,7 @@ public class Commodity {
     public Commodity(){
 
     }
-    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId){
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction){
         /**
          * usage in most of program
          * */
