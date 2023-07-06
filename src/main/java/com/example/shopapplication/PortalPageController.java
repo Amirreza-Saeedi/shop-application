@@ -74,9 +74,11 @@ public class PortalPageController implements Initializable {
     @FXML
     private Text captchaText;
     private User user;
+    private  ArrayList<Commodity> commodities = new ArrayList<>();
     private ArrayList<Commodity> basketCommodities = new ArrayList<>();
     private  Captcha captcha;
-    Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
+    private double price;
+    private Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Pattern numberPattern = Pattern.compile(MyRegex.numberRegex);
@@ -116,12 +118,7 @@ public class PortalPageController implements Initializable {
         yearDateTextField.textProperty().addListener((observableValue, s, t1) -> {
             yearDateTextField.setStyle("-fx-border-color: none;");
         });
-        captchaTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            Matcher matcher = numberPattern.matcher(newValue);
-            if (!matcher.matches()) {
-                captchaTextField.setText(oldValue);
-            }
-        });
+
         captchaTextField.textProperty().addListener((observableValue, s, t1) -> {
             captchaTextField.setStyle("-fx-border-color: none;");
         });
@@ -255,6 +252,7 @@ public class PortalPageController implements Initializable {
             info5.setVisible(false);
             info6.setVisible(false);
             info7.setVisible(false);
+            captchaPane.setVisible(false);
             payButton.setVisible(false);
             cash.setVisible(false);
             BankIcon.setVisible(false);
@@ -296,5 +294,12 @@ public class PortalPageController implements Initializable {
             throw new NullPointerException("User is null");
         }
         this.user = user;
+    }
+    public void setCommoditiesPortalPage(ArrayList<Commodity> commodities){
+        this.commodities.addAll(commodities);
+    }
+    public void setPricePortalPage(double price){
+        this.price = price;
+        cash.setText(String.valueOf(price));
     }
 }

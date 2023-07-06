@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -151,6 +152,8 @@ public class HomeController implements Initializable {
     private Label ratio61;
     @FXML
     private TextField search;
+    @FXML
+    private Button basketButton;
 //    @FXML
 //    private ImageView imageView00;
 //    @FXML
@@ -275,14 +278,27 @@ public class HomeController implements Initializable {
             placeAuction.setVisible(true);
             productRegistration.setVisible(true);
             manageCommodities.setVisible(true);
+            sellersChartButton.setVisible(false);
+            inventoryButton.setVisible(false);
 
             typeInfo.setText("you are a seller!");
             loginbutton.setText(user.getUsername());
         } else if (user instanceof Admin) {
             sellersChartButton.setVisible(true);
             inventoryButton.setVisible(true);
+            placeAuction.setVisible(false);
+            productRegistration.setVisible(false);
+            manageCommodities.setVisible(false);
 
             typeInfo.setText("ADMIN");
+            loginbutton.setText(user.getUsername());
+        } else if (user instanceof Customer) {
+            placeAuction.setVisible(false);
+            productRegistration.setVisible(false);
+            manageCommodities.setVisible(false);
+            sellersChartButton.setVisible(false);
+            inventoryButton.setVisible(false);
+            typeInfo.setText("Customer");
             loginbutton.setText(user.getUsername());
         }
     }
@@ -756,6 +772,9 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
+        ImageView imageView = new ImageView(image);
+        basketButton.setGraphic(imageView);
         inventoryButton.setVisible(false);
         sellersChartButton.setVisible(false);
 //        setIDs();
@@ -1667,6 +1686,27 @@ public class HomeController implements Initializable {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.centerOnScreen();
+    }
+
+    public void setBasketOnAction(ActionEvent event){
+        if (user == null){
+            System.out.println("can't go there");
+        }else {
+            Node node = (Node) event.getSource();
+            FXMLLoader loader = new FXMLLoader(Login.class.getResource("basket.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            BasketController basketController = loader.getController();
+            basketController.setUser(user);
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+        }
     }
 
     public void goToInventory(ActionEvent event){

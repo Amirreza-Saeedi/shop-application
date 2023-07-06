@@ -13,6 +13,7 @@ public class Commodity {
     private int number;
     private int commodityId;
     public int isAuction;
+    private int basketId;
 
     public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
@@ -92,6 +93,10 @@ public class Commodity {
     public void setNumber(int number) {
         this.number = number;
     }
+    public void setBasketId(int basketId){this.basketId = basketId;}
+    public int getBasketId(){
+        return basketId;
+    }
 
     public Commodity(){
 
@@ -105,6 +110,17 @@ public class Commodity {
         this.number = number;
         this.commodityId = commodityId;
         this.isAuction = isAuction;
+    }
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction,int basketId){
+        this.type = type;
+        this.brand = brand;
+        this.price = price;
+        this.ratio = ratio;
+        this.title = title;
+        this.number = number;
+        this.commodityId = commodityId;
+        this.isAuction = isAuction;
+        this.basketId = basketId;
     }
 
     @Override

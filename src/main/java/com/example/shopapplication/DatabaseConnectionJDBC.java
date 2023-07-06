@@ -5,6 +5,16 @@ import java.sql.*;
 public class DatabaseConnectionJDBC {
     private Connection connection = null;
 
+//    public static final Connection CONNECTION;
+//    static {
+//        try {
+//            Class.forName("org.sqlite.JDBC");
+//            CONNECTION = DriverManager.getConnection("jdbc:sqlite:src/database.db");
+//        } catch (SQLException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
     public DatabaseConnectionJDBC() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection("jdbc:sqlite:src/database.db");

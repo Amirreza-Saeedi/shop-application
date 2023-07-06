@@ -22,11 +22,6 @@
       <AnchorPane layoutX="3.0" prefHeight="107.0" prefWidth="1397.0" style="-fx-background-color: #26c6da;">
          <children>
             <TextField fx:id="search" layoutX="562.0" layoutY="30.0" onAction="#search" prefHeight="46.0" prefWidth="499.0" promptText="Search" />
-            <ImageView fitHeight="46.0" fitWidth="49.0" layoutX="1339.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../basket.png" />
-               </image>
-            </ImageView>
             <Button fx:id="loginbutton" alignment="CENTER" layoutX="1191.0" layoutY="34.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="28.0" prefWidth="126.0" text="Login/Sign up">
                <font>
                   <Font name="A Nahar-Bold" size="16.0" />
@@ -69,6 +64,7 @@
             </Button>
             <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="24.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" />
             <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="63.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" />
+            <Button fx:id="basketButton" layoutX="1338.0" layoutY="29.0" mnemonicParsing="false" onAction="#setBasketOnAction" prefHeight="42.0" prefWidth="46.0" />
          </children>
       </AnchorPane>
       <Line endX="1173.982177734375" endY="-10.171032905578613" fill="#d40a0a" layoutX="226.0" layoutY="116.0" rotate="0.5" startX="-222.00001525878906" startY="7.62939453125E-6" stroke="#666464" />
