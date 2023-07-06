@@ -22,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -52,6 +53,9 @@ public class ProductRegistrationController implements Initializable {
     private Label error;
     @FXML
     private Button cancelButton;
+    @FXML
+    private ComboBox<String> storeRoomBox;
+    private ObservableList<String> storeRoomBoxOptions;
     private User user;
     private File selectedFile;
     private String group;
@@ -99,8 +103,26 @@ public class ProductRegistrationController implements Initializable {
             group = makeCorrectGroup(newValue);
             fillTypeBox(group);
         });
+
+        fillStoreBox();
     }
 
+    private void fillStoreBox(){
+        ArrayList<String> storages = new ArrayList<>();
+        try(Connection connection = new DatabaseConnectionJDBC().getConnection()){
+            String sql = "SELECT * FROM Storages";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                String name = rs.getString("name");
+                storages.add(name);
+            }
+            storeRoomBoxOptions = FXCollections.observableArrayList(storages);
+            storeRoomBox.setItems(storeRoomBoxOptions);
+        }catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+    }
     public void recordOnAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         if (groupSelector.getValue().equals("Select group")){
             error.setText("Choose a group");
@@ -123,7 +145,10 @@ public class ProductRegistrationController implements Initializable {
         } else if (properties.getText().length() == 0) {
             error.setText("Write some properties");
             properties.setStyle("-fx-border-color: red;");
-        }else {
+        } else if (storeRoomBox.getValue().equals(null)) {
+            error.setText("Select a store room");
+            storeRoomBox.setStyle("-fx-border-color: red;");
+        } else {
             DatabaseConnectionJDBC databaseConnection = new DatabaseConnectionJDBC();
             try (Connection connection = databaseConnection.getConnection();
             Statement statement = connection.createStatement()) {
@@ -133,6 +158,7 @@ public class ProductRegistrationController implements Initializable {
                 brand = brand.toLowerCase();
                 String price = priceTextField.getText();
                 String title = titleTextField.getText();
+                String storage = storeRoomBox.getValue();
 
                 int number = Integer.parseInt(numberTextField.getText());
                 String propertiesText = properties.getText();
@@ -148,9 +174,9 @@ public class ProductRegistrationController implements Initializable {
                 }
                 byte[] imageBytes = outputStream.toByteArray();
 
-                String sql = "INSERT INTO AllCommodities (Type, Brand, Price, Ratio, Title, Number, groupp, properties, image, userName) VALUES ('"
+                String sql = "INSERT INTO AllCommodities (Type, Brand, Price, Ratio, Title, Number, groupp, properties, image, userName, storage) VALUES ('"
                         + type + "', '" + brand + "', '" + price + "', '" +"0', '"+ title + "', " + number + ", '" + group
-                        + "', '" + propertiesText + "', '" + Base64.getEncoder().encodeToString(imageBytes) + "', '" + user.getUsername() + "')";
+                        + "', '" + propertiesText + "', '" + Base64.getEncoder().encodeToString(imageBytes) + "', '" + user.getUsername() + "', '" + storage + "')";
 //            String sql = "INSERT INTO AllCommodities (Type, Brand, Price, Title, Number, groupp, properties) VALUES ('jam', 'jamavaran', '9', 'jamavaran jam', 5, 'BreackFastCommodities', 'delisous jam')";
 
                 statement.executeUpdate(sql);

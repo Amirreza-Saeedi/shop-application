@@ -86,6 +86,7 @@ public class LoginController extends Application implements Initializable {
         Parent root = loader.load();
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.centerOnScreen();
     }
 
     public void login() {
@@ -152,6 +153,7 @@ public class LoginController extends Application implements Initializable {
                     homeController.setUser(user);
                     Stage stage = (Stage) loginButton.getScene().getWindow();
                     stage.setScene(new Scene(root));
+                    stage.centerOnScreen();
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -164,6 +166,7 @@ public class LoginController extends Application implements Initializable {
         Parent root = loader.load();
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.centerOnScreen();
     }
 
     public void switchToPasswordRestoration() {
@@ -203,6 +206,7 @@ public class LoginController extends Application implements Initializable {
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
+        stage.centerOnScreen();
     }
 
     public void updateCaptcha() { // change captcha code and color

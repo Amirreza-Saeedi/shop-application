@@ -1,5 +1,7 @@
 package com.example.shopapplication;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javax.imageio.ImageIO;
 import javafx.collections.ObservableList;
@@ -275,9 +277,13 @@ public class HomeController implements Initializable {
             manageCommodities.setVisible(true);
 
             typeInfo.setText("you are a seller!");
+            loginbutton.setText(user.getUsername());
         } else if (user instanceof Admin) {
             sellersChartButton.setVisible(true);
             inventoryButton.setVisible(true);
+
+            typeInfo.setText("ADMIN");
+            loginbutton.setText(user.getUsername());
         }
     }
     private void hideAnchorPanes(){
@@ -471,9 +477,10 @@ public class HomeController implements Initializable {
                         String ratio1 = rs.getString("Ratio");
                         String title1 = rs.getString("Title");
                         int commodityId =rs.getInt("commodityId");
+                        int isAuction1 = rs.getInt("isAuction");
 //                        InputStream is = rs.getBinaryStream("image");
 //                        BufferedImage image = ImageIO.read(is);
-                        commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId));
+                        commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction1));
 
                         String date = rs.getString("Date");
                         System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
@@ -606,8 +613,11 @@ public class HomeController implements Initializable {
         }
     }
     public void select(){
-        if (choiceFilter.getValue().equals("Filters") || choiceFilter.getValue().equals("Clear filters")) selectCommodities(groupingList.getSelectionModel().getSelectedItem(),orderBy,isLowToHigh,brandListItem);
-        else selectCommoditiesByChoiceFilter(groupingList.getSelectionModel().getSelectedItem(),choiceFilter.getValue());
+        if (isAuction.isSelected()) System.out.println("isSelected");
+        makeGroupCorrect();
+        if (choiceFilter.getValue().equals("Filters") || choiceFilter.getValue().equals("Clear filters"))
+            selectCommodities(groupListItem,orderBy,isLowToHigh,brandFilter.getSelectionModel().getSelectedItem());
+        else selectCommoditiesByChoiceFilter(groupListItem,choiceFilter.getValue());
     }
 
     private void selectCommodities(String group,String orderBy,boolean isLowToHigh,String brand) {
@@ -648,29 +658,33 @@ public class HomeController implements Initializable {
             if (!isAuction.isSelected()) {
                 while (rs.next()) {
                     int number1 = rs.getInt("Number");
-                    if (number1 > 0) {
+                    int isAuction1 = rs.getInt("isAuction");
+                    if (isAuction1 == 0){
+                        if (number1 > 0) {
 //                        InputStream is = rs.getBinaryStream("image");
 
-                        // 6. Create an Image object from the InputStream
+                            // 6. Create an Image object from the InputStream
 //                        BufferedImage image = ImageIO.read(is);
-                        String type1 = rs.getString("Type");
-                        String brand1 = rs.getString("Brand");
-                        String price1 = rs.getString("Price");
-                        String ratio1 = rs.getString("Ratio");
-                        String title1 = rs.getString("Title");
-                        int commodityId =rs.getInt("commodityId");
-                        commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId));
+                            String type1 = rs.getString("Type");
+                            String brand1 = rs.getString("Brand");
+                            String price1 = rs.getString("Price");
+                            String ratio1 = rs.getString("Ratio");
+                            String title1 = rs.getString("Title");
+                            int commodityId = rs.getInt("commodityId");
+//                        int isAuction1 = rs.getInt("isAuction");
+                            commodities.add(new Commodity(type1, brand1, price1, ratio1, title1, number1, commodityId, 0));
 
-                        String date = rs.getString("Date");
-                        System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
+                            String date = rs.getString("Date");
+                            System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
 
 
-                    }
+                        }
+                }
                 }
             }else{
                 while (rs.next()) {
-                    String isAuction = rs.getString("isAuction");
-                    if (isAuction.equals("true")){
+                    int isAuction1 = rs.getInt("isAuction");
+                    if (isAuction1 != 0){
                         int number1 = rs.getInt("Number");
                         if (number1 > 0) {
                             String type1 = rs.getString("Type");
@@ -681,7 +695,8 @@ public class HomeController implements Initializable {
 //                            InputStream is = rs.getBinaryStream("image");
 //                            BufferedImage image = ImageIO.read(is);
                             int commodityId =rs.getInt("commodityId");
-                            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId));
+                            int isAuction2 = rs.getInt("isAuction");
+                            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction2));
 
                             String date = rs.getString("Date");
                             System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
@@ -1019,39 +1034,58 @@ public class HomeController implements Initializable {
         });
         brandFilter.valueProperty().addListener((observableValue, oldValue, newValue) -> {
             groupListItem = groupingList.getSelectionModel().getSelectedItem();
-//            switch (groupListItem){
-//                case "All Commodities":
-//                    groupListItem = "AllCommodities";
-//                    break;
-//                case "Grocery":
-//                    groupListItem = "GroceryCommodities";
-//                    break;
-//                case "Break fast":
-//                    groupListItem = "BreakFastCommodities";
-//                    break;
-//                case "Protein":
-//                    groupListItem = "ProteinCommodities";
-//                    break;
-//                case "Dairy":
-//                    groupListItem = "DairyCommodities";
-//                    break;
-//                case "Fruit and Vegetables":
-//                    groupListItem = "FruitAndVegetablesCommodities";
-//                    break;
-//                case "Snacks":
-//                    groupListItem = "SnackCommodities";
-//                    break;
+//            switch (groupListItem) {
+//                case "All Commodities" -> groupListItem = "AllCommodities";
+//                case "Grocery" -> groupListItem = "GroceryCommodities";
+//                case "Break fast" -> groupListItem = "BreakFastCommodities";
+//                case "Protein" -> groupListItem = "ProteinCommodities";
+//                case "Dairy" -> groupListItem = "DairyCommodities";
+//                case "Fruit and Vegetables" -> groupListItem = "FruitAndVegetablesCommodities";
+//                case "Snacks" -> groupListItem = "SnackCommodities";
 //            }
             brandListItem = newValue;
             brandName.setText("Brand: " + newValue);
             selectCommoditiesByChoiceFilter(groupListItem,choiceFilter.getValue());
 
         });
+
+
         checkToVisibleNextButton();
         checkToVisiblePreviousButton();
 
     }
+
+    private void makeGroupCorrect(){
+        groupListItem = groupingList.getSelectionModel().getSelectedItem();
+        switch (groupListItem){
+            case "All Commodities":
+                groupListItem = "AllCommodities";
+                break;
+            case "Grocery":
+                groupListItem = "GroceryCommodities";
+                break;
+            case "Break fast":
+                groupListItem = "BreakFastCommodities";
+                break;
+            case "Protein":
+                groupListItem = "ProteinCommodities";
+                break;
+            case "Dairy":
+                groupListItem = "DairyCommodities";
+                break;
+            case "Fruit and Vegetables":
+                groupListItem = "FruitAndVegetablesCommodities";
+                break;
+            case "Snacks":
+                groupListItem = "SnackCommodities";
+                break;
+        }
+    }
     private void selectCommoditiesByChoiceFilter(String groupListItem,String newValue){
+        brandListItem = brandFilter.getValue();
+        System.out.println("brandfilter.getValue: " + brandFilter.getValue());
+
+        System.out.println("Brandfilter.getSelectionModal.get... :" + brandFilter.getSelectionModel().getSelectedItem());
         switch (groupListItem){
             case  "All Commodities":
                 groupListItem = "AllCommodities";

@@ -12,6 +12,7 @@ public class Commodity {
     private String date;
     private int number;
     private int commodityId;
+    public int isAuction;
 
     public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
@@ -95,7 +96,7 @@ public class Commodity {
     public Commodity(){
 
     }
-    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId){
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction){
         this.type = type;
         this.brand = brand;
         this.price = price;
@@ -103,6 +104,7 @@ public class Commodity {
         this.title = title;
         this.number = number;
         this.commodityId = commodityId;
+        this.isAuction = isAuction;
     }
 
     @Override
