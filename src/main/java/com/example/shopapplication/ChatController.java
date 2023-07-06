@@ -223,7 +223,7 @@ public class ChatController implements Initializable {
         messageTableColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
         messageTableColumn.setSortable(false);
 
-        dateTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        dateTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
         dateTimeTableColumn.setSortable(false);
 
         rowTableColumn.setCellValueFactory(new PropertyValueFactory<>("row"));

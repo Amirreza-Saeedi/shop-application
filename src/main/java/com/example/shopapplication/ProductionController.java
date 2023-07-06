@@ -355,6 +355,8 @@ public class ProductionController implements Initializable {
          * New comment tab settings.
          * Basket and add image view settings.
          * */
+        this.commodity = commodity;
+        this.user = user;
         loadCommodity(commodity.getCommodityId());
 
         if (user != null) {
@@ -375,6 +377,7 @@ public class ProductionController implements Initializable {
             inBasketLabel.setText(currentCommodityInBasket + "");
 
         }
+
         updateRatesAndVotes();
     }
 
@@ -691,6 +694,8 @@ public class ProductionController implements Initializable {
     }
 
     private void setAuctionNodes(int auctionId) {
+        System.out.println("auctionId = " + auctionId);
+        System.out.println("user == null = " + user == null);
         auctionButton.setVisible(user != null && auctionId != 0);
         auctionText.setText((auctionId != 0) ? "Yes" : "No");
     }

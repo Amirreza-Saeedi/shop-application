@@ -12,7 +12,7 @@ public abstract class User {
     }
 
     public void setCharge(double charge) {
-        this.charge = charge;
+        this.charge = charge < 0 ? this.charge : charge;
     }
 
     private double charge;
