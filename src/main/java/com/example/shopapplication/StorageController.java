@@ -96,10 +96,10 @@ public class StorageController extends Application implements Initializable {
             ResultSet resultSet2;
             for (int i = 1; resultSet1.next();i++) {
                 // init storage
+                int id = resultSet1.getInt("storageId");
                 String manager = resultSet1.getString("manager");
                 String name = resultSet1.getString("name");
                 String address = resultSet1.getString("address");
-                int id = resultSet1.getInt("storageId");
                 int amount = 0;
                 int value  = 0;
 
@@ -159,7 +159,14 @@ public class StorageController extends Application implements Initializable {
                         });
                     }
 
-                    private final HBox hBox = new HBox(editButton, deleteButton);
+                    private final Button chartButton = new Button("Chart");
+                    { // chart button
+                        chartButton.setOnAction(event -> {
+                            chart(getTableView().getItems().get(getIndex()));
+                        });
+                    }
+
+                    private final HBox hBox = new HBox(editButton, deleteButton, chartButton);
                     {
                         hBox.setSpacing(5);
                     }
@@ -182,6 +189,10 @@ public class StorageController extends Application implements Initializable {
         };
 
         actionsColumn.setCellFactory(callback);
+    }
+
+    private void chart(Storage storage) {
+        System.out.println("StorageManagementController.chart");
     }
 
     public void add() throws IOException {

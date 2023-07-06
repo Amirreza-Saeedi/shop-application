@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -148,8 +149,16 @@ public class StorageManagementController implements Initializable {
                         });
 
                     }
+                    private final Button deleteButton = new Button("Delete");
+                    { // delete button
+                        deleteButton.setOnAction(event -> {
+                            delete(getTableView().getItems().get(getIndex()));
+                        });
+                    }
 
-                    private final HBox hBox = new HBox(comboBox, applyButton);
+                    private final VBox vBox = new VBox(comboBox, applyButton);
+
+                    private final HBox hBox = new HBox(vBox, deleteButton);
                     {
                         hBox.setSpacing(5);
                     }
@@ -172,6 +181,15 @@ public class StorageManagementController implements Initializable {
 
         transportColumn.setCellFactory(callback);
     }
+
+    private void delete(Commodity commodity) {
+        System.out.println("StorageManagementController.delete");
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.showAndWait()
+    }
+
+
 
     public void setAll(Storage storage, ObservableList<Integer> options) {
         setTransportCell(options); // customize cell
