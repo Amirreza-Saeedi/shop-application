@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -64,9 +65,11 @@ public class ProductionController implements Initializable {
 
     public Text userVoteText;
 
-    public ListView commentsListView;
+    public ListView<Comment> commentsListView;
     @FXML
     private Hyperlink homeHyperlink;
+    @FXML
+    private Button auctionButton;
     @FXML
     private TextArea detailsTextArea;
     @FXML
@@ -227,17 +230,17 @@ public class ProductionController implements Initializable {
             int resultSet2 = statement.executeUpdate(sql);
 
             if (resultSet2 != 1) { // failed
-                ErrorMessage.showError(errorText, "Comment sending failed.", 5, Color.RED);
+                showError(errorText, "Comment sending failed.", 5, Color.RED);
                 throw new Exception("result set != 1");
 
             } else { // sent
-                ErrorMessage.showError(errorText, "Comment successfully sent.", 5, Color.GREEN);
+                showError(errorText, "Comment successfully sent.", 5, Color.GREEN);
                 commentTextArea.setEditable(false);
                 sendButton.setDisable(true);
             }
 
         } catch (SQLException | ClassNotFoundException e) {
-            ErrorMessage.showError(errorText, "Error in connecting to database", 5, Color.RED);
+            showError(errorText, "Error in connecting to database", 5, Color.RED);
             System.err.println(e);
             e.printStackTrace();
         } catch (Exception e) {
@@ -249,8 +252,10 @@ public class ProductionController implements Initializable {
     public void add() {
         System.out.println("ProductionController.add");
         if (user == null) { // user has to be singed in
-            ErrorMessage.showError(errorText, "You need to sign in first.", 5, Color.RED);
+            showError(errorText, "You need to sign in first.", 5, Color.RED);
             return;
+        } else if (commodity.getAuctionId() != 0) {
+            showError(errorText, "This commodity is on auction.", 5, Color.RED);
         }
 
         if (commodity.getNumber() > currentCommodityInBasket) {
@@ -285,18 +290,18 @@ public class ProductionController implements Initializable {
                 }
 
                 // update commodity state in
-                ErrorMessage.showError(errorText, commodity.getTitle() + " added to your basket.", 5, Color.GREEN);
+                showError(errorText, commodity.getTitle() + " added to your basket.", 5, Color.GREEN);
                 inBasketLabel.setText(currentCommodityInBasket + "");
 
             } catch (SQLException | ClassNotFoundException e) {
-                ErrorMessage.showError(errorText, "Error in adding commodity to basket", 5, Color.RED);
+                showError(errorText, "Error in adding commodity to basket", 5, Color.RED);
                 System.err.println(e);
                 e.printStackTrace();
             }
 
 
         } else {
-            ErrorMessage.showError(errorText, "This commodity is not available any more.", 5, Color.RED);
+            showError(errorText, "This commodity is not available any more.", 5, Color.RED);
             System.out.println("commodity.getNumber() = " + commodity.getNumber());
         }
 
@@ -321,7 +326,7 @@ public class ProductionController implements Initializable {
                 System.out.println("currentCommodityInBasket = " + currentCommodityInBasket);
             }
         } catch (SQLException | ClassNotFoundException e) {
-            ErrorMessage.showError(errorText, "Error in database connection occurred.", 5, Color.RED);
+            showError(errorText, "Error in database connection occurred.", 5, Color.RED);
             throw new RuntimeException(e);
         }
     }
@@ -341,6 +346,7 @@ public class ProductionController implements Initializable {
 
         Stage stage = (Stage) homeHyperlink.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.centerOnScreen();
     }
 
     public void setAll(Commodity commodity, User user) {
@@ -349,7 +355,10 @@ public class ProductionController implements Initializable {
          * New comment tab settings.
          * Basket and add image view settings.
          * */
-        setCommodity(commodity);
+        this.commodity = commodity;
+        this.user = user;
+        loadCommodity(commodity.getCommodityId());
+
         if (user != null) {
             setUser(user);
             // comment
@@ -368,6 +377,7 @@ public class ProductionController implements Initializable {
             inBasketLabel.setText(currentCommodityInBasket + "");
 
         }
+
         updateRatesAndVotes();
     }
 
@@ -425,7 +435,7 @@ public class ProductionController implements Initializable {
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
-            ErrorMessage.showError(errorText, "Databse error.", 5, Color.RED);
+            showError(errorText, "Databse error.", 5, Color.RED);
             System.err.println(e);
             e.printStackTrace();
         } catch (Exception e) {
@@ -541,7 +551,7 @@ public class ProductionController implements Initializable {
             errorMessage = "You have not bought this commodity yet.";
 
         }
-        ErrorMessage.showError(errorText, errorMessage, 5, color);
+        showError(errorText, errorMessage, 5, color);
 
 
         return false;
@@ -591,56 +601,103 @@ public class ProductionController implements Initializable {
         return false;
     }
 
-    public void setCommodity(Commodity commodity) { // set commodity and its labels
-        if (commodity == null) {
-            throw new NullPointerException("commodity is null");
-        }
+//    public void setCommodity(Commodity commodity) { // set commodity and its labels
+//        if (commodity == null) {
+//            throw new NullPointerException("commodity is null");
+//        }
+//
+//        // 1- commodity object
+//        this.commodity = commodity;
+//
+//        productLabel.setText(commodity.getTitle());
+//        productTooltip.setText(commodity.getTitle());
+//        typeText.setText(commodity.getType());
+//        priceText.setText(commodity.getPrice());
+//        brandText.setText(commodity.getBrand());
+//        rateText.setText(commodity.getRatio());
+//        availableText.setText(commodity.getNumber() + "");
+//        if (commodity.getImage() != null) {
+//            mainImageView.setImage(commodity.getImage());
+//        }
+//        if (commodity.getProperties() != null && !commodity.getProperties().equals("")) {
+//            detailsTextArea.setText(commodity.getProperties());
+//        }
+//
+//        System.out.println("ProductionController.setCommodity");
+//        System.out.println(commodity);
+//
+//        try (Connection connection = new DatabaseConnectionJDBC().getConnection()){ // 2- get others from database
+//            Statement statement = connection.createStatement();
+//            String sql = "SELECT * FROM AllCommodities WHERE commodityId='" + commodity.getCommodityId() + "'";
+//            ResultSet resultSet = statement.executeQuery(sql);
+//
+//            if (resultSet.next()) {
+//                System.out.println("isAuction = " + resultSet.getString("isAuction"));
+//                auctionText.setText(resultSet.getString("isAuction").equals("true") ? "Yes" : "No");
+//                dateText.setText(resultSet.getString("date"));
+//
+//            } else {
+//                throw new Exception("commodity not exist");
+//            }
+//
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            e.printStackTrace();
+//        }
+//
+//
+////        rateText.setText(commodity.getRate());
+////        availableText.setText(commodity.getNumber());
+////        votesText.setText(commodity.getVotes());
+//
+//
+//    }
 
-        // 1- commodity object
-        this.commodity = commodity;
-
-        productLabel.setText(commodity.getTitle());
-        productTooltip.setText(commodity.getTitle());
-        typeText.setText(commodity.getType());
-        priceText.setText(commodity.getPrice());
-        brandText.setText(commodity.getBrand());
-        rateText.setText(commodity.getRatio());
-        availableText.setText(commodity.getNumber() + "");
-        if (commodity.getImage() != null) {
-            mainImageView.setImage(commodity.getImage());
-        }
-        if (commodity.getProperties() != null && !commodity.getProperties().equals("")) {
-            detailsTextArea.setText(commodity.getProperties());
-        }
-
-        System.out.println("ProductionController.setCommodity");
-        System.out.println(commodity);
-
-        try (Connection connection = new DatabaseConnectionJDBC().getConnection()){ // 2- get others from database
+    private void loadCommodity(int commodityId) {
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM AllCommodities WHERE commodityId='" + commodity.getCommodityId() + "'";
+            String sql = "select * from allCommodities where commodityId='" + commodityId + "'";
             ResultSet resultSet = statement.executeQuery(sql);
-
             if (resultSet.next()) {
-                System.out.println("isAuction = " + resultSet.getString("isAuction"));
-                auctionText.setText(resultSet.getString("isAuction").equals("true") ? "Yes" : "No");
-                dateText.setText(resultSet.getString("date"));
+                String type = resultSet.getString("type");
+                String brand = resultSet.getString("brand");
+                String price = resultSet.getString("price");
+                String ratio = resultSet.getString("ratio");
+                String title = resultSet.getString("title");
+                int number = resultSet.getInt("number");
+                String date = resultSet.getString("date");
+                String properties = resultSet.getString("properties");
+                // todo image
+                String sellerId = resultSet.getString("userName");
+                int auctionId = resultSet.getInt("isAuction");
 
-            } else {
-                throw new Exception("commodity not exist");
+                Commodity c = new Commodity(type, price, ratio, brand, title, properties, date, number, commodityId, auctionId);
+
+                typeText.setText(c.getType());
+                brandText.setText(c.getBrand());
+                priceText.setText(c.getPrice());
+                rateText.setText(c.getRatio());
+                productLabel.setText(c.getTitle());
+                availableText.setText(c.getNumber() + "");
+                dateText.setText(c.getDate());
+                detailsTextArea.setText(c.getProperties());
+
+                setAuctionNodes(c.getAuctionId());
+
+                this.commodity = c;
             }
 
-        } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
+    }
 
-
-//        rateText.setText(commodity.getRate());
-//        availableText.setText(commodity.getNumber());
-//        votesText.setText(commodity.getVotes());
-
-
+    private void setAuctionNodes(int auctionId) {
+        System.out.println("auctionId = " + auctionId);
+        System.out.println("user == null = " + user == null);
+        auctionButton.setVisible(user != null && auctionId != 0);
+        auctionText.setText((auctionId != 0) ? "Yes" : "No");
     }
 
 
@@ -720,6 +777,30 @@ public class ProductionController implements Initializable {
         }
     }
 
+    public void toAuction() {
+        System.out.println("ProductionController.toAuction");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("auction.fxml"));
+            Parent root = loader.load();
+
+            AuctionController controller = loader.getController();
+            controller.setAll(user, userType, commodity);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            loadCommodity(commodity.getCommodityId());
+//            loadBasket();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     /**Just specify which image is clicked*/
     public void vote1() {
         vote(1);
@@ -735,6 +816,18 @@ public class ProductionController implements Initializable {
     }
     public void vote5() {
         vote(5);
+    }
+
+
+    private void showError(Text text, String message, int durationSeconds, Color color) {
+        if (message.equals(""))
+            return;
+        text.setFill(color);
+        text.setText(message);
+        text.setVisible(true);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(durationSeconds),
+                event -> text.setVisible(false)));
+        timeline.play();
     }
 
 }

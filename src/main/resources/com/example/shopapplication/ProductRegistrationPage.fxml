@@ -45,11 +45,12 @@
             <Font name="System Bold Italic" size="43.0" />
          </font>
       </Label>
-      <TextArea fx:id="properties" layoutX="237.0" layoutY="474.0" prefHeight="150.0" prefWidth="526.0" style="-fx-border-color: BLACK;" />
-      <Label layoutX="237.0" layoutY="456.0" text="Properties" />
+      <TextArea fx:id="properties" layoutX="237.0" layoutY="538.0" prefHeight="86.0" prefWidth="526.0" style="-fx-border-color: BLACK;" />
+      <Label layoutX="237.0" layoutY="520.0" text="Properties" />
       <ComboBox fx:id="groupSelector" layoutX="402.0" layoutY="86.0" prefHeight="38.0" prefWidth="194.0" promptText="Select group" />
       <Label fx:id="error" alignment="CENTER" layoutX="403.0" layoutY="624.0" prefHeight="32.0" prefWidth="194.0" />
       <Button fx:id="cancelButton" cancelButton="true" layoutX="442.0" layoutY="713.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: GRAY;" text="Cancel" />
       <ComboBox fx:id="typeBox" layoutX="403.0" layoutY="150.0" prefHeight="38.0" prefWidth="194.0" promptText="Select type" />
+      <ComboBox fx:id="storeRoomBox" layoutX="402.0" layoutY="477.0" prefHeight="38.0" prefWidth="194.0" promptText="Store room" />
    </children>
 </AnchorPane>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="380.0" prefWidth="681.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.AuctionController">
+   <children>
+      <Label layoutX="25.0" layoutY="26.0" prefHeight="34.0" prefWidth="167.0" text="Auction Page">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="50.0" layoutY="113.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label layoutX="10.0" layoutY="47.0" text="Title" />
+            <Label text="Number" GridPane.rowIndex="3" />
+            <Label layoutX="10.0" layoutY="16.0" text="Reserve Price" GridPane.rowIndex="4" />
+            <Label layoutX="10.0" layoutY="77.0" text="Bidder" GridPane.rowIndex="2" />
+            <Label layoutX="10.0" layoutY="108.0" text="Current Buyer" GridPane.rowIndex="6" />
+            <Label layoutX="10.0" layoutY="47.0" text="Most Price" GridPane.rowIndex="5" />
+            <TextField fx:id="titleTextField" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="bidderTextField" editable="false" layoutX="110.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="numberTextField" editable="false" layoutX="110.0" layoutY="43.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="reservePriceTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="mostPriceTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="buyerTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label layoutX="10.0" layoutY="16.0" text="End Date" GridPane.rowIndex="1" />
+            <TextField fx:id="endDateTextField" editable="false" layoutX="110.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane hgap="10.0" layoutX="374.0" layoutY="224.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Add to Bid" GridPane.rowIndex="1" />
+            <TextField fx:id="newTextField" promptText="Place a new bid" GridPane.columnIndex="1" />
+            <TextField fx:id="addTextField" promptText="Increase your bid" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="New Bid" />
+         </children>
+      </GridPane>
+      <HBox layoutX="240.0" layoutY="30.0" prefHeight="18.0" prefWidth="157.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="150.0" text="Your Charge">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="chargeTextField" editable="false" />
+         </children>
+      </HBox>
+      <Label fx:id="errorLabel" layoutX="408.0" layoutY="34.0" prefHeight="18.0" prefWidth="167.0" text="error" textFill="RED" />
+      <Label layoutX="263.0" layoutY="151.0" text="Timer" />
+      <HBox layoutX="440.0" layoutY="300.0" spacing="10.0">
+         <children>
+            <Button fx:id="closeButton" cancelButton="true" mnemonicParsing="false" onAction="#close" text="Close" />
+            <Button fx:id="applyButton" mnemonicParsing="false" onAction="#apply" text="Apply" />
+         </children>
+      </HBox>
+      <Label layoutX="50.0" layoutY="85.0" text="- Auction Details:" />
+      <Label layoutX="374.0" layoutY="190.0" text="- Bid:" />
+   </children>
+</AnchorPane>

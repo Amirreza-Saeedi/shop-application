@@ -29,4 +29,10 @@ public class ErrorMessage {
                 event -> text.setVisible(false)));
         timeline.play();
     }
+
+    public static void showError(Label label, String message, Color color) {
+        label.setTextFill(color);
+        label.setText(message);
+        label.setVisible(true);
+    }
 }
