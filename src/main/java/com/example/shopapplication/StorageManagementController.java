@@ -219,10 +219,13 @@ public class StorageManagementController implements Initializable {
             sql = "delete from baskets " + str;
             resultSet = statement.executeUpdate(sql);
 
+            ErrorMessage.showError(errorLabel, commodity.getTitle() + " removed successfully.", 5, Color.GREEN);
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        loadCommodities(storage.getId());
     }
 
 
