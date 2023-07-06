@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -186,9 +185,45 @@ public class StorageManagementController implements Initializable {
         System.out.println("StorageManagementController.delete");
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.showAndWait()
+        alert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Are you sure?");
+        alert.setContentText("Click 'YES' and this commodity will be removed for good.");
+        if (alert.showAndWait().get() == ButtonType.YES) {
+            deleteCommodity(commodity);
+        }
     }
 
+    private void deleteCommodity(Commodity commodity) {
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String str = "where commodityId='" + commodity.getCommodityId() + "'";
+
+            // commodities:
+            String sql = "delete from allCommodities " + str;
+            int resultSet = statement.executeUpdate(sql);
+
+            // auction:
+            sql = "delete from auction " + str;
+            resultSet = statement.executeUpdate(sql);
+
+            // commodityVotes:
+            sql = "delete from commodityVotes " + str;
+            resultSet = statement.executeUpdate(sql);
+
+            // comments:
+            sql = "delete from comments " + str;
+            resultSet = statement.executeUpdate(sql);
+
+            // baskets:
+            sql = "delete from baskets " + str;
+            resultSet = statement.executeUpdate(sql);
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public void setAll(Storage storage, ObservableList<Integer> options) {
