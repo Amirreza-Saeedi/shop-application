@@ -20,7 +20,6 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -159,14 +158,7 @@ public class StorageController extends Application implements Initializable {
                         });
                     }
 
-                    private final Button logs = new Button("Logs");
-                    { // logs button
-                        logs.setOnAction(event -> {
-                            logs(getTableView().getItems().get(getIndex()));
-                        });
-                    }
-
-                    private final HBox hBox = new HBox(editButton, deleteButton, chartButton, logs);
+                    private final HBox hBox = new HBox(editButton, deleteButton, chartButton);
                     {
                         hBox.setSpacing(5);
                     }
@@ -279,9 +271,9 @@ public class StorageController extends Application implements Initializable {
 
                 loadStorages(); // reload
                 // logs
-                StorageLog.logStorageDeletion(storage.getId(), storage.getAmount(),
+                StorageLog.logStorageDeletion(fromId, storage.getAmount(),
                         storage.getValue().doubleValue(), toId, connection);
-                StorageLog.logStorageMerger(storage.getId(), storage.getAmount(),
+                StorageLog.logStorageMerger(toId, storage.getAmount(),
                         storage.getValue().doubleValue(), storage.getName(), connection);
                 // showError: successful
                 ErrorMessage.showError(errorLabel, "Deletion is done successfully.", 5, Color.GREEN);
@@ -326,8 +318,24 @@ public class StorageController extends Application implements Initializable {
         stage.show();
     }
 
-    private void logs(Storage storage) {
+    public void logs() {
         System.out.println("StorageController.logs");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("storage-logs.fxml"));
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        StorageLogsController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        loadStorages();
+
     }
 
     public void setAdmin(Admin admin) {

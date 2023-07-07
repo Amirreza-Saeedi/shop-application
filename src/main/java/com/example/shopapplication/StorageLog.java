@@ -10,7 +10,9 @@ import java.time.format.DateTimeFormatter;
 
 public class StorageLog {
     private int row;
+
     private int id;
+
     private int storageId;
     private int amount;
     private double value;
@@ -18,25 +20,24 @@ public class StorageLog {
     private String time;
     private String type;
     private String descriptions;
-
     public StorageLog(int row, int id, int storageId, int amount, double value, String date, String time, String type, String descriptions) {
         this.row = row;
-        this.id = id;
         this.storageId = storageId;
         this.amount = amount;
         this.value = value;
         this.date = date;
         this.time = time;
         this.type = type;
+        this.id = id;
         this.descriptions = descriptions;
-    }
-
-    public int getRow() {
-        return row;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getRow() {
+        return row;
     }
 
     public int getStorageId() {
@@ -75,6 +76,7 @@ public class StorageLog {
         this.amount = amount;
         this.value = value;
         this.descriptions = descriptions;
+        this.type = type;
     }
 
     public static void logPurchase(int storageId, int amount, double value, String seller, String buyer, String buyerType, Connection connection) throws SQLException {
@@ -143,7 +145,7 @@ public class StorageLog {
         log.time = LocalTime.now().format(formatter).toString();
         log.date = LocalDate.now().toString();
 
-        String sql = "insert into StorageLogs (type,descriptions,amount,value,date,time) values (?,?,?,?,?,?);";
+        String sql = "insert into StorageLogs (type,descriptions,amount,value,date,time,storageId) values (?,?,?,?,?,?,?);";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, log.type);
         statement.setString(2, log.descriptions);
@@ -151,8 +153,8 @@ public class StorageLog {
         statement.setDouble(4, log.value);
         statement.setString(5, log.date);
         statement.setString(6, log.time);
-        int resultSet = statement.executeUpdate(sql);
-
+        statement.setInt(7, log.storageId);
+        int resultSet = statement.executeUpdate();
 
         // todo register total properties
     }

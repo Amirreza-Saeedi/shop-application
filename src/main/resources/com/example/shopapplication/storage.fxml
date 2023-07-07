@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="674.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.StorageController">
@@ -27,11 +28,20 @@
             <Font name="System Italic" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="addButton" layoutX="882.0" layoutY="70.0" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="89.0" text="+ Storage">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
+      <HBox layoutX="817.0" layoutY="69.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#logs" prefWidth="54.0" text="Logs">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="89.0" text="+ Storage">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <Label fx:id="errorLabel" alignment="CENTER" layoutX="239.0" layoutY="75.0" prefHeight="19.0" prefWidth="574.0" text="error" textFill="RED" />
       <Hyperlink fx:id="homeHyperlink" layoutX="931.0" layoutY="26.0" onAction="#toHome" text="Home" underline="true" />
    </children>
