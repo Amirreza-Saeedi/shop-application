@@ -185,6 +185,24 @@ public class StorageController extends Application implements Initializable {
 
     private void chart(Storage storage) {
         System.out.println("StorageManagementController.chart");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("storage-chart.fxml"));
+
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        StorageChartController controller = loader.getController();
+        controller.setAll(storage);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+        loadStorages();
     }
 
     public void add() throws IOException {
