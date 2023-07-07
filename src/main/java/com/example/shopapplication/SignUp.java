@@ -107,9 +107,10 @@ public class SignUp implements Validatable, Verifiable {
              Statement statement = connection.createStatement()) {
 
             if (user instanceof Customer) { // add customer directly to customers
-                String sql = "INSERT INTO Customers (username, password, firstname, lastname, email)" +
+                String sql = "INSERT INTO Customers (username, password, firstname, lastname, email, phone)" +
                         " VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "', '" +
-                        user.getFirstname() + "', '" + user.getLastname() + "', '" + user.getEmail() + "')";
+                        user.getFirstname() + "', '" + user.getLastname() + "', '" + user.getEmail() + "', '" +
+                        user.getPhone() + "')";
 //            statement.execute(sql);
                 System.out.println("statement.executeUpdate(sql) = " + statement.executeUpdate(sql));
                 connection.close();
@@ -118,10 +119,10 @@ public class SignUp implements Validatable, Verifiable {
             } else if (user instanceof Seller) { // add seller to waiting list
                 Seller seller = (Seller) user;
                 // todo admin section
-                String sql = "INSERT INTO waitingSellers (username,password,firstname,lastname,email,company)" +
+                String sql = "INSERT INTO waitingSellers (username,password,firstname,lastname,email,company, phone)" +
                         " VALUES ('" + seller.getUsername() + "', '" + seller.getPassword() + "', '" +
                         seller.getFirstname() + "', '" + seller.getLastname() + "', '" + seller.getEmail() + "', '" +
-                        seller.getCompany() + "')";
+                        seller.getCompany() + "', '" + user.getPhone() + "')";;
 //            statement.execute(sql);
                 System.out.println("statement.executeUpdate(sql) = " + statement.executeUpdate(sql));
                 connection.close();

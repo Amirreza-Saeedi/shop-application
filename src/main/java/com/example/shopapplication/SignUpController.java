@@ -1,5 +1,6 @@
 package com.example.shopapplication;
 
+import com.example.shopapplication.regex.MyRegex;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -20,6 +21,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpController extends Application implements Initializable {
     @FXML
@@ -34,6 +37,8 @@ public class SignUpController extends Application implements Initializable {
     private PasswordField passwordPasswordField;
     @FXML
     private TextField passwordTextField;
+    @FXML
+    private TextField phoneTextField;
     @FXML
     private PasswordField passwordConfirmationPasswordField;
     @FXML
@@ -86,6 +91,14 @@ public class SignUpController extends Application implements Initializable {
         for (TextField textField : textFields) {
             textField.textProperty().addListener(changeListener);
         }
+
+        phoneTextField.textProperty().addListener((observableValue, oldVal, newVal) -> {
+            Pattern pattern = Pattern.compile(MyRegex.phoneRegex);
+            Matcher matcher = pattern.matcher(newVal);
+            if (!matcher.matches() && !newVal.isEmpty()) {
+                phoneTextField.setText(oldVal);
+            }
+        });
 
         // images
         try {
@@ -154,11 +167,12 @@ public class SignUpController extends Application implements Initializable {
             String email = emailTextField.getText();
             String comboBoxValue = comboBox.getValue();
             String company = companyTextField.getText();
+            String phone = phoneTextField.getText();
 
             if (comboBoxValue == "Customer") {
-                user = new Customer(username, password, firstname, lastname, email);
+                user = new Customer(username, password, firstname, lastname, email, phone);
             } else if (comboBoxValue == "Seller") {
-                user = new Seller(username, password, firstname, lastname, email, company);
+                user = new Seller(username, password, firstname, lastname, email, phone, company);
             }
 
             signUp = new SignUp(user);
@@ -210,6 +224,7 @@ public class SignUpController extends Application implements Initializable {
         if (usernameTextField.getText().equals("") || getPassword().equals("") || // keep next button disabled
                 firstnameTextField.getText().equals("") || lastnameTextField.getText().equals("") ||
                 emailTextField.getText().equals("") ||
+                phoneTextField.getText().equals("")||
                 (comboBox.getSelectionModel().isSelected(1) && companyTextField.getText().equals(""))) {
             nextButton.setDisable(true);
         } else {
@@ -243,6 +258,7 @@ public class SignUpController extends Application implements Initializable {
         passwordPasswordField.setText(user.getPassword());
         passwordConfirmationPasswordField.setText(user.getPassword());
         emailTextField.setText(user.getEmail());
+        phoneTextField.setText(user.getPhone());
         if (user instanceof Seller) {
             Seller seller = (Seller) user;
             comboBox.setValue(comboBox.getItems().get(1));

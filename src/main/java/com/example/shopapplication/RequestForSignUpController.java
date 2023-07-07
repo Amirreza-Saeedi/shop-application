@@ -35,6 +35,8 @@ public class RequestForSignUpController implements Initializable {
     private TextField emailTextField;
     @FXML
     private TextField companyTextField;
+    @FXML
+    private TextField phoneTextField;
 
     private SignUp signUp;
     @Override
@@ -62,6 +64,7 @@ public class RequestForSignUpController implements Initializable {
             usernameTextField.setText(user.getUsername());
             nameTextField.setText(user.getFirstname() + " " + user.getLastname());
             emailTextField.setText(user.getEmail());
+            phoneTextField.setText(user.getPhone());
             if (user instanceof Seller) {
                 titleLabel.setText("Seller identities:");
                 companyLabel.setVisible(true);

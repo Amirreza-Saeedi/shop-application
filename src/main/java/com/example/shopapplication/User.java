@@ -6,6 +6,16 @@ public abstract class User {
     private String firstname;
     private String lastname;
     private String email;
+    private String phone;
+    private double charge;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public double getCharge() {
         return charge;
@@ -15,18 +25,18 @@ public abstract class User {
         this.charge = charge < 0 ? this.charge : charge;
     }
 
-    private double charge;
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User(String username, String password, String firstname, String lastname, String email) {
+    public User(String username, String password, String firstname, String lastname, String email, String phone) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+        this.phone = phone;
     }
 
     public String getFirstname() {
