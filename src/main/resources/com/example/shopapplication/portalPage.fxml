@@ -73,7 +73,7 @@
             <Font name="System Italic" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="cash" layoutX="547.0" layoutY="628.0" prefHeight="35.0" prefWidth="398.0">
+      <Label fx:id="cash" layoutX="547.0" layoutY="610.0" prefHeight="35.0" prefWidth="398.0">
          <font>
             <Font size="24.0" />
          </font>

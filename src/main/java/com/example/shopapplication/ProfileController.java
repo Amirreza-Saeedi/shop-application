@@ -1,102 +1,137 @@
 package com.example.shopapplication;
 
-import javafx.event.EventHandler;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.channels.AcceptPendingException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class ProfileController implements Initializable {
-    public Text name;
-    public Text username;
-    public TableColumn content;
-    public TableColumn type;
-    public Button btn_basket;
-    public Button btn_history;
-    public Button btn_deposit;
-    public AnchorPane pane;
-    public TableView table;
+    @FXML
+    private Button btn_basket;
+    @FXML
+    private Button btn_deposit;
+    @FXML
+    private Button btn_history;
+    @FXML
+    private TableColumn<User, String> company;
+    @FXML
+    private TableColumn<User, String> email;
+    @FXML
+    private TableColumn<User, String> lastName;
+    @FXML
+    private TableColumn<User, String> name;
+    @FXML
+    private TableColumn<User, String> numberPhone;
+    @FXML
+    private AnchorPane pane;
+    @FXML
+    private TableColumn<User, String> password;
+    @FXML
+    private TableView<User> table;
+    @FXML
+    private TableColumn<User, String> userName;
+    @FXML
+    private TableColumn<User,String> userType;
+    @FXML
+    private ListView<String> discountCodesList;
+    private User user;
+    private String companyName = "";
+    private ObservableList<User> list;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resources) {
 
-        if(AppWorkflow.username == null){
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("No user Logon");
-            errorAlert.setContentText("please login first!");
-            errorAlert.showAndWait();
-            Stage stage = (Stage) pane.getScene().getWindow();
-            stage.close();
-        }else {
-            String query = "SELECT * FROM USERS WHERE username='"+AppWorkflow.username+"';";
-            try {
-                Statement stmt = AppWorkflow.connection.createStatement();
-                ResultSet rs = stmt.executeQuery(query);
-                name.setText(rs.getString("firstName")+" " + rs.getString("lastName"));
-                username.setText(rs.getString("username"));
-                TableColumn nameColumn = new TableColumn("Info");
-                nameColumn.setCellValueFactory(new PropertyValueFactory<>("info"));
 
-                TableColumn surnameColumn = new TableColumn("Value");
-                surnameColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+    }
+    private void setTable(){
+        list = FXCollections.observableArrayList(user);
+        company.setCellValueFactory(new PropertyValueFactory<User,String>("company"));
+        email.setCellValueFactory(new PropertyValueFactory<User,String>("email"));
+        lastName.setCellValueFactory(new PropertyValueFactory<User,String>("lastname"));
+        name.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
+        password.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+        userName.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
+        if (user instanceof Seller){
+            userType.setCellValueFactory(new PropertyValueFactory("seller"));
+            userType.setCellFactory(column -> new TableCell<User, String>() {
+                @Override
+                protected void updateItem(String type, boolean empty) {
+                    super.updateItem(type, empty);
 
-                table.getColumns().addAll(nameColumn, surnameColumn);
-
-                TableRow mail = new TableRow("email", rs.getString("email"));
-                TableRow number = new TableRow("telephone", rs.getString("phoneNumber"));
-                TableRow password = new TableRow("password", rs.getString("password"));
-                TableRow role = new TableRow("role", rs.getString("role"));
-                if(role.getValue() == "Seller"){
-                    role.setValue(role.value + " : " + "company"); // set company
+                        setText(type);
                 }
-                TableRow balance = new TableRow("balance", rs.getString("balance"));
-                TableRow disCode = new TableRow("discount Code", rs.getString("discount"));
+            });
+        } else if (user instanceof Customer) {
+            userType.setCellValueFactory(new PropertyValueFactory("customer"));
+        } else if (user instanceof Admin) {
+            userType.setCellValueFactory(new PropertyValueFactory("admin"));
+        }
+//            numberPhone.setCellValueFactory(new PropertyValueFactory<User,String>(user.getName()));
 
-                table.getItems().add(mail);
-                table.getItems().add(number);
-                table.getItems().add(password);
-                table.getItems().add(role);
-                table.getItems().add(balance);
-                table.getItems().add(disCode);
-
-
-                btn_basket.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-
-                    }
-                });
-                btn_deposit.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // load stage
-                    }
-                });
-                btn_history.onMouseClickedProperty().setValue(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // load stage
-                    }
-                });
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        table.setItems(list);
+    }
+    public void showDiscountCodes(){
+        try(Connection connection = new DatabaseConnectionJDBC().getConnection()){
+            String sql = "SELECT * FROM Purchases WHERE userId = '" + user.getUsername() + "' AND user = '" + user.toString() + "'";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                String code = rs.getString("discountCode");
+                if (!code.equals("null"))
+                discountCodesList.getItems().add(code);
             }
 
+        }catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+    }
+    public void backToHome(ActionEvent event) throws IOException {
+        new Login(user).loginToHome((Node) event.getSource());
+    }
+    public void goToBasket(ActionEvent event){
+        Node node = (Node) event.getSource();
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("basket.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
+        BasketController basketController = loader.getController();
+        basketController.setUser(user);
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(root));
 
-
+    }
+    public void setUser(User user){
+        if (user == null){
+            throw new NullPointerException("user is null");
+        }
+        this.user = user;
+        if (user instanceof  Seller){
+            companyName = ((Seller) user).getCompany();
+        }
+        setTable();
+        showDiscountCodes();
     }
 }

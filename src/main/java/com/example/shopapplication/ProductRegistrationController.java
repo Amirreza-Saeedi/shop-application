@@ -54,8 +54,8 @@ public class ProductRegistrationController implements Initializable {
     @FXML
     private Button cancelButton;
     @FXML
-    private ComboBox<String> storeRoomBox;
-    private ObservableList<String> storeRoomBoxOptions;
+    private ComboBox<Integer> storeRoomBox;
+    private ObservableList<Integer> storeRoomBoxOptions;
     private User user;
     private File selectedFile;
     private String group;
@@ -108,14 +108,14 @@ public class ProductRegistrationController implements Initializable {
     }
 
     private void fillStoreBox(){
-        ArrayList<String> storages = new ArrayList<>();
+        ArrayList<Integer> storages = new ArrayList<>();
         try(Connection connection = new DatabaseConnectionJDBC().getConnection()){
             String sql = "SELECT * FROM Storages";
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()){
-                String name = rs.getString("name");
-                storages.add(name);
+                int storageId = rs.getInt("storageId");
+                storages.add(storageId);
             }
             storeRoomBoxOptions = FXCollections.observableArrayList(storages);
             storeRoomBox.setItems(storeRoomBoxOptions);
@@ -149,8 +149,8 @@ public class ProductRegistrationController implements Initializable {
             error.setText("Select a store room");
             storeRoomBox.setStyle("-fx-border-color: red;");
         } else {
-            DatabaseConnectionJDBC databaseConnection = new DatabaseConnectionJDBC();
-            try (Connection connection = databaseConnection.getConnection();
+
+            try (Connection connection = new DatabaseConnectionJDBC().getConnection();
             Statement statement = connection.createStatement()) {
                 String type = typeBox.getValue();
                 type = type.toLowerCase();
@@ -158,26 +158,31 @@ public class ProductRegistrationController implements Initializable {
                 brand = brand.toLowerCase();
                 String price = priceTextField.getText();
                 String title = titleTextField.getText();
-                String storage = storeRoomBox.getValue();
+                int storageId = storeRoomBox.getValue();
 
                 int number = Integer.parseInt(numberTextField.getText());
                 String propertiesText = properties.getText();
                 String username = user.getUsername();
 
                 // Read the image file into a byte array
-                InputStream inputStream = new FileInputStream(selectedFile.getPath());
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                byte[] buffer = new byte[4096];
-                int bytesRead = -1;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-                byte[] imageBytes = outputStream.toByteArray();
+//                InputStream inputStream = new FileInputStream(selectedFile.getPath());
+//                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//                byte[] buffer = new byte[4096];
+//                int bytesRead = -1;
+//                while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                    outputStream.write(buffer, 0, bytesRead);
+//                }
+//                byte[] imageBytes = outputStream.toByteArray();
 
-                String sql = "INSERT INTO AllCommodities (Type, Brand, Price, Ratio, Title, Number, groupp, properties, image, userName, storage) VALUES ('"
-                        + type + "', '" + brand + "', '" + price + "', '" +"0', '"+ title + "', " + number + ", '" + group
-                        + "', '" + propertiesText + "', '" + Base64.getEncoder().encodeToString(imageBytes) + "', '" + user.getUsername() + "', '" + storage + "')";
+                String imageName = selectedFile.getName();
+//                String sql = "INSERT INTO AllCommodities (Type, Brand, Price, Ratio, Title, Number, groupp, properties, image, userName, storageId) VALUES ('"
+//                        + type + "', '" + brand + "', '" + price + "', '" +"0', '"+ title + "', " + number + ", '" + group
+//                        + "', '" + propertiesText + "', '" + Base64.getEncoder().encodeToString(imageBytes) + "', '" + user.getUsername() + "', " + storageId + ")";
 //            String sql = "INSERT INTO AllCommodities (Type, Brand, Price, Title, Number, groupp, properties) VALUES ('jam', 'jamavaran', '9', 'jamavaran jam', 5, 'BreackFastCommodities', 'delisous jam')";
+
+                String sql = "INSERT INTO AllCommodities (Type, Brand, Price, Ratio, Title, Number, groupp, properties, userName, storageId, imageName) VALUES ('"
+                        + type + "', '" + brand + "', '" + price + "', '" +"0', '"+ title + "', " + number + ", '" + group
+                        + "', '" + propertiesText + "', '" + user.getUsername() + "', " + storageId + ", '" + imageName +  "')";
 
                 statement.executeUpdate(sql);
 

@@ -10,53 +10,10 @@ public class Commodity {
     private Image image;
     private String properties;
     private String date;
-    private String sellerId;
     private int number;
     private int commodityId;
     public int isAuction;
-
-    public int getAuctionId() {
-        return auctionId;
-    }
-
-    Commodity(String type1, String brand1, String price1, String ratio1, String title1, int number1, int commodityId) {
-        type = type1;
-        brand = brand1;
-        price = price1;
-        ratio = ratio1;
-        title = title1;
-        number = number1;
-        this.commodityId = commodityId;
-    }
-
-
-    public Commodity(String type, String price, String ratio, String brand, String title, String properties, String date, int number, int commodityId, int auctionId) {
-        this.type = type;
-        this.price = price;
-        this.ratio = ratio;
-        this.brand = brand;
-        this.title = title;
-        this.properties = properties;
-        this.date = date;
-        this.number = number;
-        this.commodityId = commodityId;
-        this.auctionId = auctionId;
-    }
-
-    public void setAuctionId(int auctionId) {
-        this.auctionId = auctionId;
-    }
-
-    private int auctionId;
-
-
-    public String getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(String sellerId) {
-        this.sellerId = sellerId;
-    }
+    private int basketId;
 
     public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
@@ -136,14 +93,15 @@ public class Commodity {
     public void setNumber(int number) {
         this.number = number;
     }
+    public void setBasketId(int basketId){this.basketId = basketId;}
+    public int getBasketId(){
+        return basketId;
+    }
 
     public Commodity(){
 
     }
-    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction){
-        /**
-         * usage in most of program
-         * */
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction,Image image){
         this.type = type;
         this.brand = brand;
         this.price = price;
@@ -151,20 +109,20 @@ public class Commodity {
         this.title = title;
         this.number = number;
         this.commodityId = commodityId;
+        this.isAuction = isAuction;
+        this.image = image;
     }
-
-    public Commodity(String type, String price, String brand, String title, String date, String sellerId, int number, int commodityId) {
-        /**
-         * usage in some of tableViews
-         * */
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction,int basketId,Image image){
         this.type = type;
-        this.price = price;
         this.brand = brand;
+        this.price = price;
+        this.ratio = ratio;
         this.title = title;
-        this.date = date;
-        this.sellerId = sellerId;
         this.number = number;
         this.commodityId = commodityId;
+        this.isAuction = isAuction;
+        this.basketId = basketId;
+        this.image = image;
     }
 
     @Override

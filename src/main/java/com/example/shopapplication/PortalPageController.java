@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
@@ -73,10 +74,12 @@ public class PortalPageController implements Initializable {
     private Pane captchaPane;
     @FXML
     private Text captchaText;
+    private String discountCode;
     private User user;
     private ArrayList<Commodity> basketCommodities = new ArrayList<>();
     private  Captcha captcha;
-    Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
+    private double price;
+    private Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Pattern numberPattern = Pattern.compile(MyRegex.numberRegex);
@@ -116,12 +119,7 @@ public class PortalPageController implements Initializable {
         yearDateTextField.textProperty().addListener((observableValue, s, t1) -> {
             yearDateTextField.setStyle("-fx-border-color: none;");
         });
-        captchaTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            Matcher matcher = numberPattern.matcher(newValue);
-            if (!matcher.matches()) {
-                captchaTextField.setText(oldValue);
-            }
-        });
+
         captchaTextField.textProperty().addListener((observableValue, s, t1) -> {
             captchaTextField.setStyle("-fx-border-color: none;");
         });
@@ -213,15 +211,15 @@ public class PortalPageController implements Initializable {
                             dateTest = rs.getString("date");
                             if (dateTest.equals(date)) {
                                 //update const
-                                lastPrice = rs.getString("const");
+                                lastPrice = rs.getString("cost");
                                 double p = Double.parseDouble(basketCommodities.get(i).getPrice()) + Double.parseDouble(lastPrice);
                                 price = String.valueOf(p);
                                 if (user instanceof Seller) {
-                                    sql = "UPDATE sellersChart SET const = '" + price + "' WHERE date = '" + date
-                                            + "' AND userName = '" + user.getUsername() + "'";
+                                    sql = "UPDATE sellersChart SET cost = '" + price + "' WHERE date = '" + date
+                                            + "' AND userName = '" + user.getUsername() + "';";
                                 } else if (user instanceof Customer) {
                                     sql = "UPDATE sellersChart SET income = '" + price + "' WHERE date = '" + date
-                                            + "' AND userName = '" + user.getUsername() + "'";
+                                            + "' AND userName = '" + user.getUsername() + "';";
                                 }
                                 pstmt = connection.prepareStatement(sql);
                                 pstmt.executeUpdate();
@@ -239,15 +237,26 @@ public class PortalPageController implements Initializable {
                             }
                             stmt.executeUpdate(sql);
                         }
+                        sql = "DELETE FROM Baskets WHERE basketId = " + basketCommodities.get(i).getBasketId();
+                        pstmt = connection.prepareStatement(sql);
+                        pstmt.executeUpdate();
 
+                        LocalDateTime localDateTime = LocalDateTime.now();
+                        String date1 = localDateTime.toString();
+                        sql = "INSERT INTO Purchases (commodityId, userId, date, user, discountCode, Type, Number, PriceOfOne, Brand) VALUES ("
+                                + basketCommodities.get(i).getCommodityId() + ", '" + user.getUsername() + "', '"
+                                + date + "', '" + user.toString() + "', '" + discountCode + "', '" + basketCommodities.get(i).getType()
+                                + "', " + basketCommodities.get(i).getNumber() + ", '" + basketCommodities.get(i).getPrice()
+                                + "', '" + basketCommodities.get(i).getBrand() + "')";
+                        stmt.executeUpdate(sql);
                 }
             }catch (Exception e){
                 throw new RuntimeException();
             }
 
-            for (int i = 0; i < basketCommodities.size(); i++) {
-
-            }
+//            for (int i = 0; i < basketCommodities.size(); i++) {
+//
+//            }
             info1.setVisible(false);
             info2.setVisible(false);
             info3.setVisible(false);
@@ -255,6 +264,7 @@ public class PortalPageController implements Initializable {
             info5.setVisible(false);
             info6.setVisible(false);
             info7.setVisible(false);
+            captchaPane.setVisible(false);
             payButton.setVisible(false);
             cash.setVisible(false);
             BankIcon.setVisible(false);
@@ -270,31 +280,25 @@ public class PortalPageController implements Initializable {
             backToHomeButton.setVisible(true);
         }
     }
-    public void setBackToHomeButtonOnAction(ActionEvent event){
-        Stage stage;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(  "Home.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setX(60);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
+    public void setBackToHomeButtonOnAction(ActionEvent event) throws IOException {
+        new Login(user).loginToHome((Node) event.getSource());
     }
 
-    public void setCommodities(ArrayList<Commodity> commodities){
-        this.basketCommodities.addAll(commodities);
-    }
 
     public void setUser(User user) {
         if (user == null) {
             throw new NullPointerException("User is null");
         }
         this.user = user;
+    }
+    public void setCommoditiesPortalPage(ArrayList<Commodity> commodities){
+        this.basketCommodities.addAll(commodities);
+    }
+    public void setDiscountCode(String discountCode){
+        this.discountCode = discountCode;
+    }
+    public void setPricePortalPage(double price){
+        this.price = price;
+        cash.setText(String.valueOf(price) + "$");
     }
 }
