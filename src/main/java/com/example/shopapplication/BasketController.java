@@ -188,6 +188,7 @@ public class BasketController implements Initializable {
             commodityIds.clear();
             commodityNumbers.clear();
             commodities.clear();
+            basketIds.clear();
             while (rs.next()){
                 commodityIds.add(rs.getInt("commodityId"));
                 commodityNumbers.add(rs.getInt("number"));
@@ -380,7 +381,7 @@ public class BasketController implements Initializable {
         page = (page*6) - 6;
         if (page < commodities.size()){
             anchorPane00.setVisible(true);
-            number00ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxNumbers.get(page));
+            number00ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,maxNumbers.get(page));
             number00ValueFactory.setValue(commodities.get(page).getNumber());
             number00.setValueFactory(number00ValueFactory);
             double price = Double.parseDouble(commodities.get(page).getPrice())*commodities.get(page).getNumber();
@@ -393,7 +394,7 @@ public class BasketController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane10.setVisible(true);
-            number10ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxNumbers.get(page));
+            number10ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,maxNumbers.get(page));
             number10ValueFactory.setValue(commodities.get(page).getNumber());
             number10.setValueFactory(number10ValueFactory);
             double price = Double.parseDouble(commodities.get(page).getPrice())*commodities.get(page).getNumber();
@@ -406,7 +407,7 @@ public class BasketController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane01.setVisible(true);
-            number01ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxNumbers.get(page));
+            number01ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,maxNumbers.get(page));
             number01ValueFactory.setValue(commodities.get(page).getNumber());
             number01.setValueFactory(number01ValueFactory);
             double price = Double.parseDouble(commodities.get(page).getPrice())*commodities.get(page).getNumber();
@@ -419,7 +420,7 @@ public class BasketController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane11.setVisible(true);
-            number11ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxNumbers.get(page));
+            number11ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,maxNumbers.get(page));
             number11ValueFactory.setValue(commodities.get(page).getNumber());
             number11.setValueFactory(number11ValueFactory);
             double price = Double.parseDouble(commodities.get(page).getPrice())*commodities.get(page).getNumber();
@@ -432,7 +433,7 @@ public class BasketController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane02.setVisible(true);
-            number02ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxNumbers.get(page));
+            number02ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,maxNumbers.get(page));
             number02ValueFactory.setValue(commodities.get(page).getNumber());
             number02.setValueFactory(number02ValueFactory);
             double price = Double.parseDouble(commodities.get(page).getPrice())*commodities.get(page).getNumber();
@@ -445,7 +446,7 @@ public class BasketController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane12.setVisible(true);
-            number12ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxNumbers.get(page));
+            number12ValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,maxNumbers.get(page));
             number12ValueFactory.setValue(commodities.get(page).getNumber());
             number12.setValueFactory(number12ValueFactory);
             double price = Double.parseDouble(commodities.get(page).getPrice())*commodities.get(page).getNumber();
@@ -480,7 +481,6 @@ public class BasketController implements Initializable {
         int page = Integer.parseInt(this.page.getText());
         page = (page*6) - 6;
         String sql = "DELETE FROM Baskets WHERE basketId = " + commodities.get(page).getBasketId();
-        commodities.remove(page);
 
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(sql);
@@ -491,7 +491,6 @@ public class BasketController implements Initializable {
         int page = Integer.parseInt(this.page.getText());
         page = (page*6) - 6+1;
         String sql = "DELETE FROM Baskets WHERE basketId = " + commodities.get(page).getBasketId();
-        commodities.remove(page);
 
              stmt = connection.createStatement();
             stmt.executeUpdate(sql);
@@ -502,7 +501,6 @@ public class BasketController implements Initializable {
         int page = Integer.parseInt(this.page.getText());
         page = (page*6) - 6+2;
         String sql = "DELETE FROM Baskets WHERE basketId = " + commodities.get(page).getBasketId();
-        commodities.remove(page);
 
              stmt = connection.createStatement();
             stmt.executeUpdate(sql);
@@ -513,7 +511,6 @@ public class BasketController implements Initializable {
         int page = Integer.parseInt(this.page.getText());
         page = (page*6) - 6+3;
         String sql = "DELETE FROM Baskets WHERE basketId = " + commodities.get(page).getBasketId();
-        commodities.remove(page);
 
              stmt = connection.createStatement();
             stmt.executeUpdate(sql);
@@ -524,7 +521,6 @@ public class BasketController implements Initializable {
         int page = Integer.parseInt(this.page.getText());
         page = (page*6) - 6+4;
         String sql = "DELETE FROM Baskets WHERE basketId = " + commodities.get(page).getBasketId();
-        commodities.remove(page);
 
              stmt = connection.createStatement();
             stmt.executeUpdate(sql);
@@ -535,7 +531,6 @@ public class BasketController implements Initializable {
         int page = Integer.parseInt(this.page.getText());
         page = (page*6) - 6+5;
         String sql = "DELETE FROM Baskets WHERE basketId = " + commodities.get(page).getBasketId();
-        commodities.remove(page);
 
              stmt = connection.createStatement();
             stmt.executeUpdate(sql);
@@ -551,6 +546,10 @@ public class BasketController implements Initializable {
                 errorLabel.setText("some of your commodities are in the\n auction!\t\t\n delete them from your basket first.");
                 break;
             }
+        }
+        if (commodities.size() == 0){
+            isAllowedToSubmit = false;
+            errorLabel.setText("No commodities on basket!");
         }
         if (isAllowedToSubmit){
             Node node = (Node) event.getSource();

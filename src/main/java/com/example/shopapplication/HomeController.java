@@ -184,6 +184,8 @@ public class HomeController implements Initializable {
 //    private ImageView imageView61;
 
     @FXML
+    private Button goToDiscountCodeRegistrationPageButton;
+    @FXML
     private Label number00 ;
     @FXML
     private Label number10;
@@ -280,12 +282,14 @@ public class HomeController implements Initializable {
             manageCommodities.setVisible(true);
             sellersChartButton.setVisible(false);
             inventoryButton.setVisible(false);
+            goToDiscountCodeRegistrationPageButton.setVisible(false);
 
             typeInfo.setText("you are a seller!");
             loginbutton.setText(user.getUsername());
         } else if (user instanceof Admin) {
             sellersChartButton.setVisible(true);
             inventoryButton.setVisible(true);
+            goToDiscountCodeRegistrationPageButton.setVisible(true);
             placeAuction.setVisible(false);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
@@ -298,6 +302,7 @@ public class HomeController implements Initializable {
             manageCommodities.setVisible(false);
             sellersChartButton.setVisible(false);
             inventoryButton.setVisible(false);
+            goToDiscountCodeRegistrationPageButton.setVisible(false);
             typeInfo.setText("Customer");
             loginbutton.setText(user.getUsername());
         }
@@ -777,6 +782,7 @@ public class HomeController implements Initializable {
         basketButton.setGraphic(imageView);
         inventoryButton.setVisible(false);
         sellersChartButton.setVisible(false);
+        goToDiscountCodeRegistrationPageButton.setVisible(false);
 //        setIDs();
 //        Circle circle = new Circle(30);
 //        backToHomeButton.setShape(circle);
@@ -1707,6 +1713,22 @@ public class HomeController implements Initializable {
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
         }
+    }
+    public void goToDiscountCodeRegistrationPage(ActionEvent event){
+        Node node = (Node) event.getSource();
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("discountCodeRegistration.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        DiscountRegistrationController d = loader.getController();
+        d.setUser(user);
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
     }
 
     public void goToInventory(ActionEvent event){

@@ -1,5 +1,8 @@
 package com.example.shopapplication;
 
+import com.example.shopapplication.regex.MyRegex;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +26,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.IntBinaryOperator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PaymentController implements Initializable {
     @FXML
@@ -42,6 +47,7 @@ public class PaymentController implements Initializable {
     @FXML
     private Button edit;
     private User user;
+    private String discount = null;
 
     private double price;
     private double currentPrice;
@@ -49,7 +55,13 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Pattern numberPattern = Pattern.compile(MyRegex.numberRegex);
+        telephone.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            Matcher matcher = numberPattern.matcher(newValue);
+            if (!matcher.matches()) {
+                telephone.setText(oldValue);
+            }
+        });
     }
     public void setEditButtonOnAction(){
         submit.setVisible(true);
@@ -76,20 +88,39 @@ public class PaymentController implements Initializable {
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 boolean isCorrect = false;
-                while(rs.next()){
+                outerLoop:while(rs.next()){
                     code = rs.getString("code");
                     if (code.equals(discountCode.getText())){
+                        String sql2 = "SELECT * FROM Purchases WHERE userId = '" + user.getUsername()
+                                + "' AND user = '" + user.toString() + "'";
+                        rs = stmt.executeQuery(sql2);
+                        while (rs.next()){
+                            String code1 = rs.getString("discountCode");
+                            if (code1.equals(code)){
+                                isCorrect = false;
+                                break outerLoop;
+                            }
+                        }
+                        discount = discountCode.getText();
+                        rs = stmt.executeQuery(sql);
                         percent = rs.getInt("percent");
                         isCorrect = true;
                         percent = 100.0 - percent;
                         currentPrice = (percent/100.0) * price;
                         priceLabel.setText(String.valueOf(currentPrice));
+                        address.setEditable(false);
+                        telephone.setEditable(false);
+                        discountCode.setEditable(false);
+                        submit.setVisible(false);
+                        edit.setVisible(true);
                         payBtn.setVisible(true);
                         break;
                     }
                 }
                 if (!isCorrect){
                     payBtn.setVisible(false);
+                    submit.setVisible(true);
+                    edit.setVisible(false);
                     errorLabel.setText("Wrong discount code!");
                     discountCode.setStyle("-fx-border-color: red;");
                 }
@@ -98,9 +129,9 @@ public class PaymentController implements Initializable {
             }
         }else{
             currentPrice = price;
-            discountCode.setStyle("-fx-border-color: none");
-            address.setStyle("-fx-border-color: none");
-            telephone.setStyle("-fx-border-color: none");
+            discountCode.setStyle("-fx-border-color: none;");
+            address.setStyle("-fx-border-color: none;");
+            telephone.setStyle("-fx-border-color: none;");
             errorLabel.setText("");
             address.setEditable(false);
             telephone.setEditable(false);
@@ -139,6 +170,7 @@ public class PaymentController implements Initializable {
         }
         PortalPageController portalPageController = loader.getController();
         portalPageController.setUser(user);
+        portalPageController.setDiscountCode(discount);
         portalPageController.setPricePortalPage(currentPrice);
         portalPageController.setCommoditiesPortalPage(commodities);
         Stage stage = (Stage) node.getScene().getWindow();

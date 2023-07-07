@@ -22,7 +22,7 @@
       <AnchorPane layoutX="3.0" prefHeight="107.0" prefWidth="1397.0" style="-fx-background-color: #26c6da;">
          <children>
             <TextField fx:id="search" layoutX="562.0" layoutY="30.0" onAction="#search" prefHeight="46.0" prefWidth="499.0" promptText="Search" />
-            <Button fx:id="loginbutton" alignment="CENTER" layoutX="1191.0" layoutY="34.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="28.0" prefWidth="126.0" text="Login/Sign up">
+            <Button fx:id="loginbutton" alignment="CENTER" layoutX="1191.0" layoutY="51.0" mnemonicParsing="false" onAction="#switchToLoginScene" prefHeight="28.0" prefWidth="126.0" text="Login/Sign up">
                <font>
                   <Font name="A Nahar-Bold" size="16.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Font name="System Bold Italic" size="11.0" />
                </font>
             </Button>
-            <Label fx:id="typeInfo" alignment="CENTER" layoutX="1191.0" layoutY="68.0" prefHeight="26.0" prefWidth="126.0" text="Not registered">
+            <Label fx:id="typeInfo" alignment="CENTER" layoutX="1191.0" layoutY="88.0" prefHeight="18.0" prefWidth="126.0" text="Not registered">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
@@ -62,9 +62,15 @@
                   <Font name="System Bold Italic" size="10.3" />
                </font>
             </Button>
-            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="24.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" />
-            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="63.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" />
+            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="11.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" />
+            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="42.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" />
             <Button fx:id="basketButton" layoutX="1338.0" layoutY="29.0" mnemonicParsing="false" onAction="#setBasketOnAction" prefHeight="42.0" prefWidth="46.0" />
+            <Button fx:id="goToDiscountCodeRegistrationPageButton" layoutX="1079.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Button>
+            <Button layoutX="1202.0" layoutY="12.0" mnemonicParsing="false" text="user information" />
          </children>
       </AnchorPane>
       <Line endX="1173.982177734375" endY="-10.171032905578613" fill="#d40a0a" layoutX="226.0" layoutY="116.0" rotate="0.5" startX="-222.00001525878906" startY="7.62939453125E-6" stroke="#666464" />

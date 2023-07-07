@@ -18,6 +18,18 @@ public abstract class User {
         this.lastname = lastname;
         this.email = email;
     }
+    public String toString(){
+        if (this instanceof Customer){
+            return "customer";
+        }
+        if (this instanceof Seller){
+            return "seller";
+        }
+        if (this instanceof Admin){
+            return "admin";
+        }
+        return null;
+    }
 
     public String getFirstname() {
         return firstname;
