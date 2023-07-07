@@ -177,7 +177,7 @@ public class StorageLogsController implements Initializable {
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         TableColumn[] columns = {rowColumn, storageColumn, amountColumn,
-                valueColumn, descriptionsColumn, typeColumn, dateColumn, timeColumn};
+                valueColumn, descriptionsColumn, typeColumn, dateColumn, timeColumn, actionColumn};
         for (TableColumn c : columns) {
             c.setReorderable(false);
         }
@@ -195,12 +195,11 @@ public class StorageLogsController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Logs as CSV File");
 
-        // Set the initial directory to the user's home directory
-//        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        // Set the initial directory
         FileSystemView fileSystemView = FileSystemView.getFileSystemView();
         fileChooser.setInitialDirectory(fileSystemView.getHomeDirectory());
 
-        // restrict the user to only saving files with a .csv extension
+        // restrict the user to only save files with a .csv extension
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
 

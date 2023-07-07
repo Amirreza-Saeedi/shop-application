@@ -1,12 +1,11 @@
 package com.example.shopapplication;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 
 public class StorageLog {
     private int row;
@@ -122,26 +121,26 @@ public class StorageLog {
     }
 
 
-    public static void logCommodityDeletion(int storageId, int amount, double value, String commodity, Connection connection) throws SQLException {
+    public static void logCommodityDeletion(int storageId, int number, double price, String commodity, Connection connection) throws SQLException {
         String descriptions = "Commodity '" + commodity + "' deleted.";
-        StorageLog log = new StorageLog(storageId, amount, value, descriptions, OUT);
+        StorageLog log = new StorageLog(storageId, number, price, descriptions, OUT);
         log(log, connection);
     }
 
-    public static void logCommodityExportation(int storageId, int amount, double value, String commodity, Connection connection) throws SQLException {
+    public static void logCommodityExportation(int storageId, int number, double price, String commodity, Connection connection) throws SQLException {
         String descriptions = "Commodity '" + commodity + "' exported.";
-        StorageLog log = new StorageLog(storageId, amount, value, descriptions, OUT);
+        StorageLog log = new StorageLog(storageId, number, price, descriptions, OUT);
         log(log, connection);
     }
 
-    public static void logCommodityImportation(int storageId, int amount, double value, String commodity, Connection connection) throws SQLException {
+    public static void logCommodityImportation(int storageId, int number, double price, String commodity, Connection connection) throws SQLException {
         String descriptions = "Commodity '" + commodity + "' imported.";
-        StorageLog log = new StorageLog(storageId, amount, value, descriptions, IN);
+        StorageLog log = new StorageLog(storageId, number, price, descriptions, IN);
         log(log, connection);
     }
 
     private static void log(StorageLog log, Connection connection) throws SQLException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         log.time = LocalTime.now().format(formatter).toString();
         log.date = LocalDate.now().toString();
 
@@ -157,7 +156,47 @@ public class StorageLog {
         int resultSet = statement.executeUpdate();
 
         // todo register total properties
+        logProperties(log, connection);
+
     }
+
+    private static void logProperties(StorageLog log, Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String daily = LocalDate.now().format(formatter);
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        String monthly = LocalDate.now().format(formatter);
+        formatter = DateTimeFormatter.ofPattern("yyyy");
+        String yearly = LocalDate.now().format(formatter);
+
+        // read amount & value
+        String sql = "SELECT sum(number) as amount, sum(price*number) as value from allCommodities " +
+                "where storageId='" + log.getStorageId() + "'";
+        ResultSet resultSet = statement.executeQuery(sql);
+        int amount = 0;
+        double value = 0;
+        if (resultSet.next()) {
+            amount = resultSet.getInt("amount");
+            value = resultSet.getDouble("value");
+        }
+
+        // first try to update
+        sql = "update StorageProperties set value='" + value + "',amount='" + amount + "' " +
+                "where daily='" + daily + "' and storageId='" + log.getStorageId() + "'";
+        int result = statement.executeUpdate(sql);
+
+        if (result == 0) { // if not exist
+            // insert
+            sql = "insert into StorageProperties " +
+                    "(storageId, amount, value, daily, monthly, yearly) " +
+                    "values ('" + log.getStorageId() + "','" + amount + "','" + value
+                    + "','" + daily + "','" + monthly + "','" + yearly + "')";
+            statement.executeUpdate(sql);
+        }
+
+    }
+
 
 
 

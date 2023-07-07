@@ -270,6 +270,7 @@ public class StorageController extends Application implements Initializable {
 
 
                 loadStorages(); // reload
+
                 // logs
                 StorageLog.logStorageDeletion(fromId, storage.getAmount(),
                         storage.getValue().doubleValue(), toId, connection);

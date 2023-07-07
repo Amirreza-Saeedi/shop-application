@@ -220,8 +220,8 @@ public class StorageManagementController implements Initializable {
             resultSet = statement.executeUpdate(sql);
 
             // logs
-            StorageLog.logCommodityDeletion(storage.getId(), storage.getAmount(),
-                    storage.getValue().doubleValue(), commodity.getTitle(), connection);
+            StorageLog.logCommodityDeletion(storage.getId(), commodity.getNumber(),
+                    Double.parseDouble(commodity.getPrice()), commodity.getTitle(), connection);
 
             ErrorMessage.showError(errorLabel, commodity.getTitle() + " removed successfully.", 5, Color.GREEN);
 
@@ -259,10 +259,10 @@ public class StorageManagementController implements Initializable {
             int resultSet = statement.executeUpdate(sql);
 
             // logs
-            StorageLog.logCommodityExportation(storage.getId(), storage.getAmount(),
-                    storage.getValue().doubleValue(), commodity.getTitle(), connection);
-            StorageLog.logCommodityImportation(storage.getId(), storage.getAmount(),
-                    storage.getValue().doubleValue(), commodity.getTitle(), connection);
+            StorageLog.logCommodityExportation(storage.getId(), commodity.getNumber(),
+                    Double.parseDouble(commodity.getPrice()), commodity.getTitle(), connection);
+            StorageLog.logCommodityImportation(toStorageId, commodity.getNumber(),
+                    Double.parseDouble(commodity.getPrice()), commodity.getTitle(), connection);
 
             // successful
             ErrorMessage.showError(errorLabel, "Successfully transferred.", 5, Color.GREEN);

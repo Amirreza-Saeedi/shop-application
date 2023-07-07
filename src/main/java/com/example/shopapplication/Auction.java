@@ -13,6 +13,7 @@ public class Auction {
         Statement statement = connection.createStatement();
         String sql = "select * from allcommodities where isAuction='" + id + "'";
         ResultSet resultSet = statement.executeQuery(sql);
+
         if (resultSet.next()) { // if exists
             // logs
             int storageId = resultSet.getInt("storageId");
@@ -21,8 +22,8 @@ public class Auction {
             BigDecimal value = new BigDecimal(price).multiply(new BigDecimal(amount));
             String seller = resultSet.getString("userName");
             String title = resultSet.getString("title");
-            StorageLog.logAuction(storageId, amount, value.doubleValue(), seller, title, connection);
 
+            StorageLog.logAuction(storageId, amount, value.doubleValue(), seller, title, connection);
 
             // update commodities
             sql = "update allCommodities set number='" + 0 + "', isAuction='" + 0 +
