@@ -74,6 +74,8 @@ public class PortalPageController implements Initializable {
     private Pane captchaPane;
     @FXML
     private Text captchaText;
+    private String table;
+    public boolean isWallet = false;
     private String discountCode;
     private User user;
     private ArrayList<Commodity> basketCommodities = new ArrayList<>();
@@ -180,104 +182,113 @@ public class PortalPageController implements Initializable {
             errorsLabel.setText("Captcha mismatched.");
             captchaTextField.setStyle("-fx-border-color: red;");
         } else {
-            Statement stmt;
-            PreparedStatement pstmt;
-            ResultSet rs;
-            String sql;
-            try(Connection connection = new DatabaseConnectionJDBC().getConnection()){
-                for (int i = 0; i < basketCommodities.size(); i++) {
-                    int id = basketCommodities.get(i).getCommodityId();
-                    int number = basketCommodities.get(i).getNumber();
-                    sql = "SELECT * FROM AllCommodities WHERE commodityId = " + id;
-                    stmt = connection.createStatement();
-                    rs = stmt.executeQuery(sql);
-                    while (rs.next()) {
-                        int lastNum = rs.getInt("Number");
-                        number = lastNum - number;
-                    }
-                    sql = "UPDATE AllCommodities SET Number = " + number + " WHERE commodityId = " + id;
-                    pstmt = connection.prepareStatement(sql);
-                    pstmt.executeUpdate();
+                Statement stmt;
+                PreparedStatement pstmt;
+                ResultSet rs;
+                String sql;
+                try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+                    if (!isWallet){
+                        for (int i = 0; i < basketCommodities.size(); i++) {
+                            int id = basketCommodities.get(i).getCommodityId();
+                            int number = basketCommodities.get(i).getNumber();
+                            sql = "SELECT * FROM AllCommodities WHERE commodityId = " + id;
+                            stmt = connection.createStatement();
+                            rs = stmt.executeQuery(sql);
+                            while (rs.next()) {
+                                int lastNum = rs.getInt("Number");
+                                number = lastNum - number;
+                            }
+                            sql = "UPDATE AllCommodities SET Number = " + number + " WHERE commodityId = " + id;
+                            pstmt = connection.prepareStatement(sql);
+                            pstmt.executeUpdate();
 
-                    //update or insert price in sellersChart table
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
-                        String date = formatter.format(LocalDate.now());
-                        sql = "SELECT * FROM sellersChart WHERE date = '" + date + "' AND userName = '" + user.getUsername() + "'";
-                        rs = stmt.executeQuery(sql);
-                        String dateTest = "";
-                        String price;
-                        String lastPrice;
-                        while (rs.next()) {
-                            dateTest = rs.getString("date");
-                            if (dateTest.equals(date)) {
-                                //update const
-                                lastPrice = rs.getString("cost");
-                                double p = Double.parseDouble(basketCommodities.get(i).getPrice()) + Double.parseDouble(lastPrice);
-                                price = String.valueOf(p);
-                                if (user instanceof Seller) {
-                                    sql = "UPDATE sellersChart SET cost = '" + price + "' WHERE date = '" + date
-                                            + "' AND userName = '" + user.getUsername() + "';";
-                                } else if (user instanceof Customer) {
-                                    sql = "UPDATE sellersChart SET income = '" + price + "' WHERE date = '" + date
-                                            + "' AND userName = '" + user.getUsername() + "';";
+                            //update or insert price in sellersChart table
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
+                            String date = formatter.format(LocalDate.now());
+                            sql = "SELECT * FROM sellersChart WHERE date = '" + date + "' AND userName = '" + user.getUsername() + "'";
+                            rs = stmt.executeQuery(sql);
+                            String dateTest = "";
+                            String price;
+                            String lastPrice;
+                            while (rs.next()) {
+                                dateTest = rs.getString("date");
+                                if (dateTest.equals(date)) {
+                                    //update const
+                                    lastPrice = rs.getString("cost");
+                                    double p = Double.parseDouble(basketCommodities.get(i).getPrice()) + Double.parseDouble(lastPrice);
+                                    price = String.valueOf(p);
+                                    if (user instanceof Seller) {
+                                        sql = "UPDATE sellersChart SET cost = '" + price + "' WHERE date = '" + date
+                                                + "' AND userName = '" + user.getUsername() + "';";
+                                    } else if (user instanceof Customer) {
+                                        sql = "UPDATE sellersChart SET income = '" + price + "' WHERE date = '" + date
+                                                + "' AND userName = '" + user.getUsername() + "';";
+                                    }
+                                    pstmt = connection.prepareStatement(sql);
+                                    pstmt.executeUpdate();
+                                    break;
                                 }
-                                pstmt = connection.prepareStatement(sql);
-                                pstmt.executeUpdate();
-                                break;
                             }
-                        }
-                        if (!dateTest.equals(date)) {
-                            //insert const
-                            if (user instanceof Seller) {
-                                sql = "INSERT INTO sellersChart (userName, cost, date) VALUES ('" + user.getUsername()
-                                        + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
-                            } else if (user instanceof Customer) {
-                                sql = "INSERT INTO sellersChart (userName, income, date) VALUES ('" + user.getUsername()
-                                        + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
+                            if (!dateTest.equals(date)) {
+                                //insert const
+                                if (user instanceof Seller) {
+                                    sql = "INSERT INTO sellersChart (userName, cost, date) VALUES ('" + user.getUsername()
+                                            + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
+                                } else if (user instanceof Customer) {
+                                    sql = "INSERT INTO sellersChart (userName, income, date) VALUES ('" + user.getUsername()
+                                            + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
+                                }
+                                stmt.executeUpdate(sql);
                             }
+                            sql = "DELETE FROM Baskets WHERE basketId = " + basketCommodities.get(i).getBasketId();
+                            pstmt = connection.prepareStatement(sql);
+                            pstmt.executeUpdate();
+
+                            LocalDateTime localDateTime = LocalDateTime.now();
+                            String date1 = localDateTime.toString();
+                            sql = "INSERT INTO Purchases (commodityId, userId, date, user, discountCode, Type, Number, PriceOfOne, Brand) VALUES ("
+                                    + basketCommodities.get(i).getCommodityId() + ", '" + user.getUsername() + "', '"
+                                    + date + "', '" + user.toString() + "', '" + discountCode + "', '" + basketCommodities.get(i).getType()
+                                    + "', " + basketCommodities.get(i).getNumber() + ", '" + basketCommodities.get(i).getPrice()
+                                    + "', '" + basketCommodities.get(i).getBrand() + "')";
                             stmt.executeUpdate(sql);
                         }
-                        sql = "DELETE FROM Baskets WHERE basketId = " + basketCommodities.get(i).getBasketId();
-                        pstmt = connection.prepareStatement(sql);
-                        pstmt.executeUpdate();
 
-                        LocalDateTime localDateTime = LocalDateTime.now();
-                        String date1 = localDateTime.toString();
-                        sql = "INSERT INTO Purchases (commodityId, userId, date, user, discountCode, Type, Number, PriceOfOne, Brand) VALUES ("
-                                + basketCommodities.get(i).getCommodityId() + ", '" + user.getUsername() + "', '"
-                                + date + "', '" + user.toString() + "', '" + discountCode + "', '" + basketCommodities.get(i).getType()
-                                + "', " + basketCommodities.get(i).getNumber() + ", '" + basketCommodities.get(i).getPrice()
-                                + "', '" + basketCommodities.get(i).getBrand() + "')";
-                        stmt.executeUpdate(sql);
+                }else {
+                        double newPrice = price + user.getCharge();
+                        user.setCharge(newPrice);
+                         sql = "UPDATE " + table + " SET charge = ? WHERE username = ?";
+                         pstmt = connection.prepareStatement(sql);
+                         pstmt.setInt(1, (int) newPrice);
+                         pstmt.setString(2,user.getUsername());
+                         pstmt.executeUpdate();
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException();
                 }
-            }catch (Exception e){
-                throw new RuntimeException();
-            }
 
-//            for (int i = 0; i < basketCommodities.size(); i++) {
-//
-//            }
-            info1.setVisible(false);
-            info2.setVisible(false);
-            info3.setVisible(false);
-            info4.setVisible(false);
-            info5.setVisible(false);
-            info6.setVisible(false);
-            info7.setVisible(false);
-            captchaPane.setVisible(false);
-            payButton.setVisible(false);
-            cash.setVisible(false);
-            BankIcon.setVisible(false);
-            errorsLabel.setVisible(false);
-            cardNumberTextField.setVisible(false);
-            cvv2TextField.setVisible(false);
-            monthDateTextField.setVisible(false);
-            yearDateTextField.setVisible(false);
-            captchaTextField.setVisible(false);
-            cardPassTextField.setVisible(false);
-            emailTextField.setVisible(false);
-            paymentNotify.setVisible(true);
-            backToHomeButton.setVisible(true);
+                info1.setVisible(false);
+                info2.setVisible(false);
+                info3.setVisible(false);
+                info4.setVisible(false);
+                info5.setVisible(false);
+                info6.setVisible(false);
+                info7.setVisible(false);
+                captchaPane.setVisible(false);
+                payButton.setVisible(false);
+                cash.setVisible(false);
+                BankIcon.setVisible(false);
+                errorsLabel.setVisible(false);
+                cardNumberTextField.setVisible(false);
+                cvv2TextField.setVisible(false);
+                monthDateTextField.setVisible(false);
+                yearDateTextField.setVisible(false);
+                captchaTextField.setVisible(false);
+                cardPassTextField.setVisible(false);
+                emailTextField.setVisible(false);
+                paymentNotify.setVisible(true);
+                backToHomeButton.setVisible(true);
+
         }
     }
     public void setBackToHomeButtonOnAction(ActionEvent event) throws IOException {
@@ -290,6 +301,13 @@ public class PortalPageController implements Initializable {
             throw new NullPointerException("User is null");
         }
         this.user = user;
+        if (user instanceof Admin){
+            table = "Admins";
+        } else if (user instanceof Seller) {
+            table = "Sellers";
+        } else if (user instanceof Customer) {
+            table = "Customers";
+        }
     }
     public void setCommoditiesPortalPage(ArrayList<Commodity> commodities){
         this.basketCommodities.addAll(commodities);

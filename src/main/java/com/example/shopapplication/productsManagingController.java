@@ -516,16 +516,19 @@ public class productsManagingController implements Initializable {
         page = page*14 - 14;
         if (page < commodities.size()){
             anchorPane00.setVisible(true);
+            image00.setImage(commodities.get(page).getImage());
             title00.setText(commodities.get(page).getTitle());
             price00.setText(commodities.get(page).getPrice());
             numberValueFactory.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove00.setVisible(true);
+                image00.setVisible(true);
                 number00.setVisible(false);
                 price00.setVisible(false);
                 record00.setVisible(false);
             }else {
                 remove00.setVisible(false);
+                image00.setVisible(true);
                 number00.setVisible(true);
                 price00.setVisible(true);
                 record00.setVisible(true);
@@ -534,16 +537,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane10.setVisible(true);
+            image10.setImage(commodities.get(page).getImage());
             title10.setText(commodities.get(page).getTitle());
             price10.setText(commodities.get(page).getPrice());
             numberValueFactory2.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove10.setVisible(true);
+                image10.setVisible(true);
                 number10.setVisible(false);
                 price10.setVisible(false);
                 record10.setVisible(false);
             }else {
                 remove10.setVisible(false);
+                image10.setVisible(true);
                 number10.setVisible(true);
                 price10.setVisible(true);
                 record10.setVisible(true);
@@ -552,16 +558,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane20.setVisible(true);
+            image20.setImage(commodities.get(page).getImage());
             title20.setText(commodities.get(page).getTitle());
             price20.setText(commodities.get(page).getPrice());
             numberValueFactory3.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove20.setVisible(true);
+                image20.setVisible(true);
                 number20.setVisible(false);
                 price20.setVisible(false);
                 record20.setVisible(false);
             }else {
                 remove20.setVisible(false);
+                image20.setVisible(true);
                 number20.setVisible(true);
                 price20.setVisible(true);
                 record20.setVisible(true);
@@ -570,16 +579,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane30.setVisible(true);
+            image30.setImage(commodities.get(page).getImage());
             title30.setText(commodities.get(page).getTitle());
             price30.setText(commodities.get(page).getPrice());
             numberValueFactory4.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove30.setVisible(true);
+                image30.setVisible(true);
                 number30.setVisible(false);
                 price30.setVisible(false);
                 record30.setVisible(false);
             }else {
                 remove30.setVisible(false);
+                image30.setVisible(true);
                 number30.setVisible(true);
                 price30.setVisible(true);
                 record30.setVisible(true);
@@ -588,16 +600,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane40.setVisible(true);
+            image40.setImage(commodities.get(page).getImage());
             title40.setText(commodities.get(page).getTitle());
             price40.setText(commodities.get(page).getPrice());
             numberValueFactory5.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove40.setVisible(true);
+                image40.setVisible(true);
                 number40.setVisible(false);
                 price40.setVisible(false);
                 record40.setVisible(false);
             }else {
                 remove40.setVisible(false);
+                image40.setVisible(true);
                 number40.setVisible(true);
                 price40.setVisible(true);
                 record40.setVisible(true);
@@ -606,16 +621,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane50.setVisible(true);
+            image50.setImage(commodities.get(page).getImage());
             title50.setText(commodities.get(page).getTitle());
             price50.setText(commodities.get(page).getPrice());
             numberValueFactory6.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove50.setVisible(true);
+                image50.setVisible(true);
                 number50.setVisible(false);
                 price50.setVisible(false);
                 record50.setVisible(false);
             }else {
                 remove50.setVisible(false);
+                image50.setVisible(true);
                 number50.setVisible(true);
                 price50.setVisible(true);
                 record50.setVisible(true);
@@ -625,16 +643,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane60.setVisible(true);
+            image60.setImage(commodities.get(page).getImage());
             title60.setText(commodities.get(page).getTitle());
             price60.setText(commodities.get(page).getPrice());
             numberValueFactory7.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove60.setVisible(true);
+                image60.setVisible(true);
                 number60.setVisible(false);
                 price60.setVisible(false);
                 record60.setVisible(false);
             }else {
                 remove60.setVisible(false);
+                image60.setVisible(true);
                 number60.setVisible(true);
                 price60.setVisible(true);
                 record60.setVisible(true);
@@ -643,16 +664,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane01.setVisible(true);
+            image01.setImage(commodities.get(page).getImage());
             title01.setText(commodities.get(page).getTitle());
             price01.setText(commodities.get(page).getPrice());
             numberValueFactory8.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove01.setVisible(true);
+                image01.setVisible(true);
                 number01.setVisible(false);
                 price01.setVisible(false);
                 record01.setVisible(false);
             }else {
                 remove01.setVisible(false);
+                image01.setVisible(true);
                 number01.setVisible(true);
                 price01.setVisible(true);
                 record01.setVisible(true);
@@ -661,16 +685,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane11.setVisible(true);
+            image11.setImage(commodities.get(page).getImage());
             title11.setText(commodities.get(page).getTitle());
             price11.setText(commodities.get(page).getPrice());
             numberValueFactory9.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove11.setVisible(true);
+                image11.setVisible(true);
                 number11.setVisible(false);
                 price11.setVisible(false);
                 record11.setVisible(false);
             }else {
                 remove11.setVisible(false);
+                image11.setVisible(true);
                 number11.setVisible(true);
                 price11.setVisible(true);
                 record11.setVisible(true);
@@ -679,16 +706,19 @@ public class productsManagingController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane21.setVisible(true);
+            image21.setImage(commodities.get(page).getImage());
             title21.setText(commodities.get(page).getTitle());
             price21.setText(commodities.get(page).getPrice());
             numberValueFactory10.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove21.setVisible(true);
+                image21.setVisible(true);
                 number21.setVisible(false);
                 price21.setVisible(false);
                 record21.setVisible(false);
             }else {
                 remove21.setVisible(false);
+                image21.setVisible(true);
                 number21.setVisible(true);
                 price21.setVisible(true);
                 record21.setVisible(true);
@@ -697,16 +727,19 @@ public class productsManagingController implements Initializable {
         }else  return;
         if (page < commodities.size()){
             anchorPane31.setVisible(true);
+            image31.setImage(commodities.get(page).getImage());
             title31.setText(commodities.get(page).getTitle());
             price31.setText(commodities.get(page).getPrice());
             numberValueFactory11.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove31.setVisible(true);
+                image31.setVisible(true);
                 number31.setVisible(false);
                 price31.setVisible(false);
                 record31.setVisible(false);
             }else {
                 remove31.setVisible(false);
+                image31.setVisible(true);
                 number31.setVisible(true);
                 price31.setVisible(true);
                 record31.setVisible(true);
@@ -715,16 +748,19 @@ public class productsManagingController implements Initializable {
         }else  return;
         if (page < commodities.size()){
             anchorPane41.setVisible(true);
+            image41.setImage(commodities.get(page).getImage());
             title41.setText(commodities.get(page).getTitle());
             price41.setText(commodities.get(page).getPrice());
             numberValueFactory12.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove41.setVisible(true);
+                image41.setVisible(true);
                 number41.setVisible(false);
                 price41.setVisible(false);
                 record41.setVisible(false);
             }else {
                 remove41.setVisible(false);
+                image41.setVisible(true);
                 number41.setVisible(true);
                 price41.setVisible(true);
                 record41.setVisible(true);
@@ -733,16 +769,19 @@ public class productsManagingController implements Initializable {
         }else  return;
         if (page < commodities.size()){
             anchorPane51.setVisible(true);
+            image51.setImage(commodities.get(page).getImage());
             title51.setText(commodities.get(page).getTitle());
             price51.setText(commodities.get(page).getPrice());
             numberValueFactory13.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove51.setVisible(true);
+                image51.setVisible(true);
                 number51.setVisible(false);
                 price51.setVisible(false);
                 record51.setVisible(false);
             }else {
                 remove51.setVisible(false);
+                image51.setVisible(true);
                 number51.setVisible(true);
                 price51.setVisible(true);
                 record51.setVisible(true);
@@ -751,16 +790,19 @@ public class productsManagingController implements Initializable {
         }else  return;
         if (page < commodities.size()){
             anchorPane61.setVisible(true);
+            image61.setImage(commodities.get(page).getImage());
             title61.setText(commodities.get(page).getTitle());
             price61.setText(commodities.get(page).getPrice());
             numberValueFactory14.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
                 remove61.setVisible(true);
+                image61.setVisible(true);
                 number61.setVisible(false);
                 price61.setVisible(false);
                 record61.setVisible(false);
             }else {
                 remove61.setVisible(false);
+                image61.setVisible(true);
                 number61.setVisible(true);
                 price61.setVisible(true);
                 record61.setVisible(true);
@@ -914,7 +956,6 @@ public class productsManagingController implements Initializable {
         System.out.println(user);
 
         String sql = "SELECT * FROM AllCommodities WHERE userName = " + "'" + user.getUsername() + "'";
-//            String sql  = "SELECT * FROM AllCommodities";
         try {
             rs = stmt.executeQuery(sql);
         } catch (SQLException e) {

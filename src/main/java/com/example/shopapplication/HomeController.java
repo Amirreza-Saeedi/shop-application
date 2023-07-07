@@ -4,6 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -641,7 +644,18 @@ public class HomeController implements Initializable {
         }
     }
     public void select(){
-        if (isAuction.isSelected()) System.out.println("isSelected");
+        if (isAuction.isSelected()){
+            try {
+                Sound.auction();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("isSelected");
+        }
         makeGroupCorrect();
         if (choiceFilter.getValue().equals("Filters") || choiceFilter.getValue().equals("Clear filters"))
             selectCommodities(groupListItem,orderBy,isLowToHigh,brandFilter.getSelectionModel().getSelectedItem());
@@ -796,6 +810,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        hideAnchorPanes();
         if (user == null) infoButton.setVisible(false);
         Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
         ImageView imageView = new ImageView(image);
@@ -862,6 +877,15 @@ public class HomeController implements Initializable {
                 brandFilter.getSelectionModel().selectFirst();
                 switch (selectedItem){
                     case "All Commodities" :
+                        try {
+                            Sound.allCommodities();
+                        } catch (UnsupportedAudioFileException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (LineUnavailableException e) {
+                            throw new RuntimeException(e);
+                        }
                         groupListItem = "AllCommodities";
                         switch (choiceBoxOption) {
                             case "Clear filters", "Filters":
@@ -887,6 +911,15 @@ public class HomeController implements Initializable {
                         }
                         break;
                             case "Grocery" :
+                                try {
+                                    Sound.grocery();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "GroceryCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -912,6 +945,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Break fast" :
+                                try {
+                                    Sound.breakFast();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "BreakFastCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -937,6 +979,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case  "Protein" :
+                                try {
+                                    Sound.protein();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "ProteinCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -962,6 +1013,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Dairy" :
+                                try {
+                                    Sound.dairy();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "DairyCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -987,6 +1047,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Fruit and Vegetables" :
+                                try {
+                                    Sound.fruitAndVegetables();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "FruitAndVegetablesCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -1012,6 +1081,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Snacks" :
+                                try {
+                                    Sound.snacks();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "SnackCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -1664,6 +1742,15 @@ public class HomeController implements Initializable {
     }
 
     public void goToProductRegistrationPage(ActionEvent event){
+        try {
+            Sound.productRegistration();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
 //        switchScene(event,"ProductRegistrationPage");
         FXMLLoader loader = new FXMLLoader(getClass().getResource( "ProductRegistrationPage.fxml"));
         Parent root = null;
@@ -1683,6 +1770,15 @@ public class HomeController implements Initializable {
     }
     public void setManageCommoditiesOnAction(ActionEvent event){
 //        switchScene(event,"productsManaging");
+        try {
+            Sound.productsManaging();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
         Node node = (Node) event.getSource();
         FXMLLoader loader = new FXMLLoader(Login.class.getResource("productsManaging.fxml"));
         Parent root = null;
@@ -1716,8 +1812,26 @@ public class HomeController implements Initializable {
 
     public void setBasketOnAction(ActionEvent event){
         if (user == null){
+            try {
+                Sound.basketError();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("can't go there");
         }else {
+            try {
+                Sound.basket();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
             Node node = (Node) event.getSource();
             FXMLLoader loader = new FXMLLoader(Login.class.getResource("basket.fxml"));
             Parent root = null;
@@ -1751,6 +1865,15 @@ public class HomeController implements Initializable {
         stage.centerOnScreen();
     }
     public void goToUserInfo(ActionEvent event){
+        try {
+            Sound.userInfo();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
         Node node = (Node) event.getSource();
         FXMLLoader loader = new FXMLLoader(Login.class.getResource("profile.fxml"));
         Parent root = null;

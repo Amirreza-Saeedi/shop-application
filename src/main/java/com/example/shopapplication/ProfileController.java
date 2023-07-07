@@ -13,79 +13,64 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.channels.AcceptPendingException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class ProfileController implements Initializable {
+public class ProfileController  {
     @FXML
-    private Button btn_basket;
+    private Button basket;
     @FXML
-    private Button btn_deposit;
+    private Button deposit;
     @FXML
-    private Button btn_history;
+    private Button history;
     @FXML
-    private TableColumn<User, String> company;
+    private TableColumn<Person, String> company;
     @FXML
-    private TableColumn<User, String> email;
+    private TableColumn<Person, String> email;
     @FXML
-    private TableColumn<User, String> lastName;
+    private TableColumn<Person, String> lastName;
     @FXML
-    private TableColumn<User, String> name;
+    private TableColumn<Person, String> name;
     @FXML
-    private TableColumn<User, String> numberPhone;
+    private TableColumn<Person, String> numberPhone;
     @FXML
     private AnchorPane pane;
     @FXML
-    private TableColumn<User, String> password;
+    private TableColumn<Person, String> password;
     @FXML
-    private TableView<User> table;
+    private TableView<Person> table;
     @FXML
-    private TableColumn<User, String> userName;
+    private TableColumn<Person, String> userName;
     @FXML
-    private TableColumn<User,String> userType;
+    private TableColumn<Person,String> userType;
     @FXML
     private ListView<String> discountCodesList;
+    @FXML
+    private Label walletCredit;
     private User user;
+    private Person person;
     private String companyName = "";
-    private ObservableList<User> list;
+    private ObservableList<Person> list;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-
-    }
     private void setTable(){
-        list = FXCollections.observableArrayList(user);
-        company.setCellValueFactory(new PropertyValueFactory<User,String>("company"));
-        email.setCellValueFactory(new PropertyValueFactory<User,String>("email"));
-        lastName.setCellValueFactory(new PropertyValueFactory<User,String>("lastname"));
-        name.setCellValueFactory(new PropertyValueFactory<User,String>("firstname"));
-        password.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
-        userName.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
-        if (user instanceof Seller){
-            userType.setCellValueFactory(new PropertyValueFactory("seller"));
-            userType.setCellFactory(column -> new TableCell<User, String>() {
-                @Override
-                protected void updateItem(String type, boolean empty) {
-                    super.updateItem(type, empty);
+        list = FXCollections.observableArrayList(person);
+        company.setCellValueFactory(new PropertyValueFactory<Person,String>("company"));
+        email.setCellValueFactory(new PropertyValueFactory<Person,String>("email"));
+        lastName.setCellValueFactory(new PropertyValueFactory<Person,String>("lastname"));
+        name.setCellValueFactory(new PropertyValueFactory<Person,String>("firstname"));
+        password.setCellValueFactory(new PropertyValueFactory<Person,String>("password"));
+        userName.setCellValueFactory(new PropertyValueFactory<Person,String>("username"));
 
-                        setText(type);
-                }
-            });
-        } else if (user instanceof Customer) {
-            userType.setCellValueFactory(new PropertyValueFactory("customer"));
-        } else if (user instanceof Admin) {
-            userType.setCellValueFactory(new PropertyValueFactory("admin"));
-        }
-//            numberPhone.setCellValueFactory(new PropertyValueFactory<User,String>(user.getName()));
+            numberPhone.setCellValueFactory(new PropertyValueFactory<Person,String>("phone"));
 
         table.setItems(list);
     }
@@ -123,6 +108,23 @@ public class ProfileController implements Initializable {
         stage.setScene(new Scene(root));
 
     }
+    public void increaseCredit(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("walletChargePrice.fxml"));
+        Parent parent = loader.load();
+
+        WalletChargePriceController walletChargePriceController = loader.getController();
+        walletChargePriceController.setLastStage((Stage) deposit.getScene().getWindow());
+        walletChargePriceController.setUser(user);
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+//        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+//        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Charge Price");
+        stage.setResizable(false);
+        stage.showAndWait();
+    }
     public void setUser(User user){
         if (user == null){
             throw new NullPointerException("user is null");
@@ -131,7 +133,9 @@ public class ProfileController implements Initializable {
         if (user instanceof  Seller){
             companyName = ((Seller) user).getCompany();
         }
+        person = new Person(user);
         setTable();
         showDiscountCodes();
+        walletCredit.setText(String.valueOf(user.getCharge()));
     }
 }

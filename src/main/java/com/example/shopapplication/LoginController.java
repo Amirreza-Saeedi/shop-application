@@ -16,6 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -126,6 +128,7 @@ public class LoginController extends Application implements Initializable {
 //                    System.err.println(new Exception("combo box selection does not exist."));
 //            }
 
+
             user = Login.getCompleteUser(user);
 
             // make decision:
@@ -144,6 +147,16 @@ public class LoginController extends Application implements Initializable {
             } else { // 4- sign in successfully
                 loginMessageLabel.setTextFill(Color.GREEN);
                 loginMessageLabel.setText("Returning to home...");
+                try {
+                    Sound.login();
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                }
+
 
                 try {
                     Thread.sleep(1000);

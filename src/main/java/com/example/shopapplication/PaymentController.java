@@ -172,6 +172,7 @@ public class PaymentController implements Initializable {
         portalPageController.setUser(user);
         portalPageController.setDiscountCode(discount);
         portalPageController.setPricePortalPage(currentPrice);
+        portalPageController.isWallet = false;
         portalPageController.setCommoditiesPortalPage(commodities);
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root));
