@@ -125,15 +125,16 @@ public class Login implements Verifiable {
                 String firstname = resultSet.getString("firstname");
                 String lastname = resultSet.getString("lastname");
                 String email = resultSet.getString("email");
+                String phone = resultSet.getString("phone");
 
                 switch (table) {
                     case "Customers":
-                        return new Customer(username, password, firstname, lastname, email);
+                        return new Customer(username, password, firstname, lastname, email, phone);
                     case "Sellers":
                         String company = resultSet.getString("company");
-                        return new Seller(username, password, firstname, lastname, email, company);
+                        return new Seller(username, password, firstname, lastname, email, phone, company);
                     case "Admins":
-                        return new Admin(username, password, firstname, lastname, email);
+                        return new Admin(username, password, firstname, lastname, email, phone);
                 }
             }
 
