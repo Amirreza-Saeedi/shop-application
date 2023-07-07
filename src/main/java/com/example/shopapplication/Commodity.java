@@ -14,16 +14,21 @@ public class Commodity {
     private int commodityId;
     private String sellerId;
 
-    public String getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(String sellerId) {
-        this.sellerId = sellerId;
-    }
-
     public int getAuctionId() {
         return auctionId;
+    }
+
+    public Commodity(String type, String price, String ratio, String brand, String title, String properties, String date, int number, int commodityId, int auctionId) {
+        this.type = type;
+        this.price = price;
+        this.ratio = ratio;
+        this.brand = brand;
+        this.title = title;
+        this.properties = properties;
+        this.date = date;
+        this.number = number;
+        this.commodityId = commodityId;
+        this.auctionId = auctionId;
     }
 
     public void setAuctionId(int auctionId) {
@@ -34,6 +39,15 @@ public class Commodity {
     private int basketId;
     private int auctionId;
 
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
     }
@@ -41,10 +55,10 @@ public class Commodity {
     public int getCommodityId() {
         return commodityId;
     }
-
     public void setDate(String date){
         this.date= date;
     }
+
     public String getDate(){
         return date;
     }
@@ -111,10 +125,6 @@ public class Commodity {
 
     public void setNumber(int number) {
         this.number = number;
-    }
-    public void setBasketId(int basketId){this.basketId = basketId;}
-    public int getBasketId(){
-        return basketId;
     }
 
     public Commodity(){
@@ -192,6 +202,7 @@ public class Commodity {
         this.number = number;
         this.commodityId = commodityId;
     }
+
     @Override
     public String toString() {
         return "Commodity{" +
