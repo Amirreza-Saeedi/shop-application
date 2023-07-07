@@ -103,7 +103,7 @@ public class AuctionController implements Initializable {
     private void loadAuction() {
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()){
             Statement statement = connection.createStatement();
-            String sql = "select * from auction where auctionId='" + commodity.getAuctionId() + "'";
+            String sql = "select * from auction where auctionId='" + commodity.getIsAuction() + "'";
             ResultSet resultSet = statement.executeQuery(sql);
 
             if (resultSet.next()) {

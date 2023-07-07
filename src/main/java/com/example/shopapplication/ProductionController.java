@@ -254,7 +254,7 @@ public class ProductionController implements Initializable {
         if (user == null) { // user has to be singed in
             showError(errorText, "You need to sign in first.", 5, Color.RED);
             return;
-        } else if (commodity.getAuctionId() != 0) {
+        } else if (commodity.getIsAuction() != 0) {
             showError(errorText, "This commodity is on auction.", 5, Color.RED);
         }
 
@@ -682,7 +682,7 @@ public class ProductionController implements Initializable {
                 dateText.setText(c.getDate());
                 detailsTextArea.setText(c.getProperties());
 
-                setAuctionNodes(c.getAuctionId());
+                setAuctionNodes(c.getIsAuction());
 
                 this.commodity = c;
             }

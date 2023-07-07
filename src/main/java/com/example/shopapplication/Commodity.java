@@ -13,12 +13,35 @@ public class Commodity {
     private int number;
     private int commodityId;
     private String sellerId;
+    public int isAuction;
+//    private int auctionId;
+    private int basketId;
 
-    public int getAuctionId() {
-        return auctionId;
+//    public int getAuctionId() {
+//        return auctionId;
+//    }
+//    public void setAuctionId(int auctionId) {
+//        this.auctionId = auctionId;
+//    }
+
+    public int getIsAuction() {
+        return isAuction;
     }
 
-    public Commodity(String type, String price, String ratio, String brand, String title, String properties, String date, int number, int commodityId, int auctionId) {
+    public void setIsAuction(int isAuction) {
+        this.isAuction = isAuction;
+    }
+
+    public int getBasketId() {
+        return basketId;
+    }
+
+    public void setBasketId(int basketId) {
+        this.basketId = basketId;
+    }
+
+    public Commodity(String type, String price, String ratio, String brand, String title,
+                     String properties, String date, int number, int commodityId, int isAuction) {
         this.type = type;
         this.price = price;
         this.ratio = ratio;
@@ -28,16 +51,10 @@ public class Commodity {
         this.date = date;
         this.number = number;
         this.commodityId = commodityId;
-        this.auctionId = auctionId;
+        this.isAuction = isAuction;
     }
 
-    public void setAuctionId(int auctionId) {
-        this.auctionId = auctionId;
-    }
 
-    public int isAuction;
-    private int basketId;
-    private int auctionId;
 
 
     public String getSellerId() {
@@ -165,19 +182,6 @@ public class Commodity {
     }
 
 
-    public Commodity(String type, String price, String ratio, String brand, String title, String properties, String date, int number, int commodityId, int auctionId) {
-        this.type = type;
-        this.price = price;
-        this.ratio = ratio;
-        this.brand = brand;
-        this.title = title;
-        this.properties = properties;
-        this.date = date;
-        this.number = number;
-        this.commodityId = commodityId;
-        this.auctionId = auctionId;
-    }
-
     public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction){
         /* usage in most of program
                 * */
@@ -188,6 +192,7 @@ public class Commodity {
         this.title = title;
         this.number = number;
         this.commodityId = commodityId;
+        this.isAuction = isAuction;
     }
 
     public Commodity(String type, String price, String brand, String title, String date, String sellerId, int number, int commodityId) {
