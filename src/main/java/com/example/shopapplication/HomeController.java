@@ -228,6 +228,8 @@ public class HomeController implements Initializable {
     @FXML
     private Label page;
     @FXML
+    private ImageView basketImageView;
+    @FXML
     private ChoiceBox<String> brandFilter;
     @FXML
     private Label brandName;
@@ -797,9 +799,9 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (user == null) infoButton.setVisible(false);
-        Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
-        ImageView imageView = new ImageView(image);
-        basketButton.setGraphic(imageView);
+//        Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
+//        ImageView imageView = new ImageView(image);
+//        basketButton.setGraphic(imageView);
         inventoryButton.setVisible(false);
         sellersChartButton.setVisible(false);
         goToDiscountCodeRegistrationPageButton.setVisible(false);
@@ -1714,11 +1716,10 @@ public class HomeController implements Initializable {
         stage.centerOnScreen();
     }
 
-    public void setBasketOnAction(ActionEvent event){
+    public void setBasketOnAction(){
         if (user == null){
             System.out.println("can't go there");
         }else {
-            Node node = (Node) event.getSource();
             FXMLLoader loader = new FXMLLoader(Login.class.getResource("basket.fxml"));
             Parent root = null;
             try {
@@ -1729,7 +1730,7 @@ public class HomeController implements Initializable {
 
             BasketController basketController = loader.getController();
             basketController.setUser(user);
-            Stage stage = (Stage) node.getScene().getWindow();
+            Stage stage = (Stage) basketImageView.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
         }
