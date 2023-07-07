@@ -10,16 +10,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 
-import java.net.JarURLConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class StorageChartController implements Initializable {
@@ -31,21 +26,16 @@ public class StorageChartController implements Initializable {
     private CategoryAxis xAxis;
     @FXML
     private NumberAxis yAxis;
-    private XYChart.Series<String, Number> series = new XYChart.Series<>();
     private Storage storage;
     private ObservableList<String> list = FXCollections.observableArrayList();
-    private ArrayList<Number> dataList = new ArrayList<>(30);
-    private XYChart.Data<String, Number>[] dataDaily = new XYChart.Data[30];
-    private XYChart.Data<String, Number>[] dataMonthly = new XYChart.Data[12];
-    private XYChart.Data<String, Number>[] dataYearly = new XYChart.Data[5];
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initComboBox();
 
-        barChart.setTitle("Storage Properties Chart");
+//        barChart.setTitle("Storage Properties Chart");
         xAxis.setLabel("Date");
-        yAxis.setLabel("Amount");
+        yAxis.setLabel("Value (1$)");
     }
 
     public void setAll(Storage storage) {
@@ -69,25 +59,49 @@ public class StorageChartController implements Initializable {
 
     private void loadDaily() {
         System.out.println("StorageChartController.loadDaily");
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Daily Properties");
 
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
-            LocalDate localDate = LocalDate.now();
-            localDate = localDate.minusDays(29);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String date = localDate.format(formatter);
-//            String sql = "select * from StorageProperties where storageId='" + storage.getId() + "' and daily>='" + date +
-//                    "' order by daily asc";
             String sql = "select * from StorageProperties where storageId='" + storage.getId() +
                     "' order by daily asc LIMIT 30";
-
             ResultSet resultSet = statement.executeQuery(sql);
-            for (int i = 0; resultSet.next()); ++i {
+
+            while (resultSet.next()) {
                 double value = resultSet.getDouble("value");
                 int amount = resultSet.getInt("amount");
+                String date = resultSet.getString("daily");
+                series.getData().add(new XYChart.Data<>(date + "(" + amount + ")", value));
+            }
 
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
+        barChart.getData().setAll(series);
+    }
+
+    private void loadMonthly() {
+        System.out.println("StorageChartController.loadMonthly");
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Monthly Properties");
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT MAX(id) AS id, storageid, MAX(daily) AS daily, monthly, " +
+                    "MAX(yearly) AS yearly, MAX(amount) AS amount, MAX(value) AS value " +
+                    "FROM StorageProperties " +
+                    "Where storageId='" + storage.getId() + "' " +
+                    "GROUP BY monthly " +
+                    "ORDER BY daily ASC LIMIT 12";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                double value = resultSet.getDouble("value");
+                int amount = resultSet.getInt("amount");
+                String date = resultSet.getString("monthly");
+                series.getData().add(new XYChart.Data<>(date + "(" + amount + ")", value));
             }
 
 
@@ -96,14 +110,37 @@ public class StorageChartController implements Initializable {
         }
 
 
-        series.getData().setAll(dataDaily);
-    }
-
-    private void loadMonthly() {
-        System.out.println("StorageChartController.loadMonthly");
+        barChart.getData().setAll(series);
     }
 
     private void loadYearly() {
         System.out.println("StorageChartController.loadYearly");
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Yearly Properties");
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT MAX(id) AS id, storageid, MAX(daily) AS daily, MAX(monthly) AS monthly, " +
+                    "yearly, MAX(amount) AS amount, MAX(value) AS value " +
+                    "FROM StorageProperties " +
+                    "Where storageId='" + storage.getId() + "' " +
+                    "GROUP BY yearly " +
+                    "ORDER BY daily ASC LIMIT 10";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                double value = resultSet.getDouble("value");
+                int amount = resultSet.getInt("amount");
+                String date = resultSet.getString("yearly");
+                series.getData().add(new XYChart.Data<>(date + "(" + amount + ")", value));
+            }
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        barChart.getData().setAll(series);
     }
 }
