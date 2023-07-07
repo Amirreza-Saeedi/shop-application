@@ -236,6 +236,8 @@ public class HomeController implements Initializable {
     @FXML
     private CheckBox isAuction;
     @FXML
+    private Label commoditiesNumber;
+    @FXML
     private Button placeAuction;
     @FXML
     private Button productRegistration;
@@ -255,6 +257,7 @@ public class HomeController implements Initializable {
     private String orderBy;
     private boolean isLowToHigh;
     private User user;
+    private String userType;
     private ObservableList<String> choiceBoxOptions =
             FXCollections.observableArrayList("Clear filters","Cheapest to most expensive", "Most expensive to cheapest", "Based on points");
 //     private AnchorPane[] anchorPanes = new AnchorPane[14];
@@ -288,6 +291,7 @@ public class HomeController implements Initializable {
             sellersChartButton.setVisible(false);
             inventoryButton.setVisible(false);
             goToDiscountCodeRegistrationPageButton.setVisible(false);
+            userType = "seller";
 
             typeInfo.setText("you are a seller!");
             loginbutton.setText(user.getUsername());
@@ -298,6 +302,7 @@ public class HomeController implements Initializable {
             placeAuction.setVisible(false);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
+            userType = "admin";
 
             typeInfo.setText("ADMIN");
             loginbutton.setText(user.getUsername());
@@ -310,8 +315,39 @@ public class HomeController implements Initializable {
             goToDiscountCodeRegistrationPageButton.setVisible(false);
             typeInfo.setText("Customer");
             loginbutton.setText(user.getUsername());
+            userType = "customer";
         }
+
+        loadBasket();
     }
+
+    private void loadBasket() {
+        /**
+         * Called after add and user is not null.
+         * Calculate number of commodities in user basket,
+         * and sets basket label.
+         * */
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            // read addition of all commodities user have in Baskets
+            Statement statement = connection.createStatement();
+            String sql = "SELECT sum(number) as sum FROM Baskets where " +
+                    "userId='" + user.getUsername() + "' and " +
+                    "user='" + userType + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) { // if has any basket
+                commoditiesNumber.setText(resultSet.getString("sum"));
+            }
+
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     private void hideAnchorPanes(){
         anchorPane00.setVisible(false);
         anchorPane10.setVisible(false);
@@ -718,6 +754,12 @@ public class HomeController implements Initializable {
                 }
                 }
             }else{
+
+
+
+
+
+
                 while (rs.next()) {
                     int isAuction1 = rs.getInt("isAuction");
                     if (isAuction1 != 0){
