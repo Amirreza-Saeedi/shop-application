@@ -1,13 +1,16 @@
 package com.example.shopapplication;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public class Storage {
-    Integer row;
-    Integer id;
-    String manager;
-    String name;
-    Integer amount;
-    String address;
-    Integer value;
+    private Integer row;
+    private Integer id;
+    private String manager;
+    private String name;
+    private Integer amount;
+    private String address;
+    private BigDecimal value;
 
 
     @Override
@@ -59,11 +62,11 @@ public class Storage {
         return manager;
     }
 
-    public Integer getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 
@@ -71,7 +74,7 @@ public class Storage {
         this.manager = manager;
     }
 
-    public Storage(String name, Integer row, Integer id, Integer amount, Integer value, String address, String manager) {
+    public Storage(String name, Integer row, Integer id, Integer amount, BigDecimal value, String address, String manager) {
         this.name = name;
         this.row = row;
         this.id = id;
