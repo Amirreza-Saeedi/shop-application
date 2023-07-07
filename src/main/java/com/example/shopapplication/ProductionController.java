@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -667,7 +668,10 @@ public class ProductionController implements Initializable {
                 int number = resultSet.getInt("number");
                 String date = resultSet.getString("date");
                 String properties = resultSet.getString("properties");
-                // todo image
+                // todo
+                String imageName = resultSet.getString("imageName");
+                Image image = new Image(imageName);
+                mainImageView.setImage(image);
                 String sellerId = resultSet.getString("userName");
                 int auctionId = resultSet.getInt("isAuction");
 

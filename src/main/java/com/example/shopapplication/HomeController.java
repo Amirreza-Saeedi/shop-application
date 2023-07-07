@@ -1603,6 +1603,7 @@ public class HomeController implements Initializable {
 
             Stage stage = (Stage) loginbutton.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.centerOnScreen();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
