@@ -154,34 +154,36 @@ public class HomeController implements Initializable {
     private TextField search;
     @FXML
     private Button basketButton;
-//    @FXML
-//    private ImageView imageView00;
-//    @FXML
-//    private ImageView imageView10;
-//    @FXML
-//    private ImageView imageView20;
-//    @FXML
-//    private ImageView imageView30;
-//    @FXML
-//    private ImageView imageView40;
-//    @FXML
-//    private ImageView imageView50;
-//    @FXML
-//    private ImageView imageView60;
-//    @FXML
-//    private ImageView imageView01;
-//    @FXML
-//    private ImageView imageView11;
-//    @FXML
-//    private ImageView imageView21;
-//    @FXML
-//    private ImageView imageView31;
-//    @FXML
-//    private ImageView imageView41;
-//    @FXML
-//    private ImageView imageView51;
-//    @FXML
-//    private ImageView imageView61;
+    @FXML
+    private Button infoButton;
+    @FXML
+    private ImageView imageView00;
+    @FXML
+    private ImageView imageView10;
+    @FXML
+    private ImageView imageView20;
+    @FXML
+    private ImageView imageView30;
+    @FXML
+    private ImageView imageView40;
+    @FXML
+    private ImageView imageView50;
+    @FXML
+    private ImageView imageView60;
+    @FXML
+    private ImageView imageView01;
+    @FXML
+    private ImageView imageView11;
+    @FXML
+    private ImageView imageView21;
+    @FXML
+    private ImageView imageView31;
+    @FXML
+    private ImageView imageView41;
+    @FXML
+    private ImageView imageView51;
+    @FXML
+    private ImageView imageView61;
 
     @FXML
     private Button goToDiscountCodeRegistrationPageButton;
@@ -275,6 +277,7 @@ public class HomeController implements Initializable {
             throw new NullPointerException("User is null");
         }
         this.user = user;
+        infoButton.setVisible(true);
 
         if (user instanceof Seller){
             placeAuction.setVisible(true);
@@ -328,7 +331,7 @@ public class HomeController implements Initializable {
         page = (page*14) - 14;
         if (page < commodities.size()){
             anchorPane00.setVisible(true);
-//            imageView00.setImage(images.get(page));
+            imageView00.setImage(commodities.get(page).getImage());
             number00.setText("Number: " + commodities.get(page).getNumber());
             ratio00.setText(commodities.get(page).getRatio());
             price00.setText(commodities.get(page).getPrice());
@@ -337,7 +340,7 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane10.setVisible(true);
-//            imageView10.setImage(images.get(page));
+            imageView10.setImage(commodities.get(page).getImage());
             number10.setText("Number: " + commodities.get(page).getNumber());
             ratio10.setText(commodities.get(page).getRatio());
             price10.setText(commodities.get(page).getPrice());
@@ -346,7 +349,7 @@ public class HomeController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane20.setVisible(true);
-//            imageView20.setImage(images.get(page));
+            imageView20.setImage(commodities.get(page).getImage());
             number20.setText("Number: " + commodities.get(page).getNumber());
             ratio20.setText(commodities.get(page).getRatio());
             price20.setText(commodities.get(page).getPrice());
@@ -355,7 +358,7 @@ public class HomeController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane30.setVisible(true);
-//            imageView30.setImage(images.get(page));
+            imageView30.setImage(commodities.get(page).getImage());
             number30.setText("Number: " + commodities.get(page).getNumber());
             ratio30.setText(commodities.get(page).getRatio());
             price30.setText(commodities.get(page).getPrice());
@@ -364,7 +367,7 @@ public class HomeController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane40.setVisible(true);
-//            imageView40.setImage(images.get(page));
+            imageView40.setImage(commodities.get(page).getImage());
             number40.setText("Number: " + commodities.get(page).getNumber());
             ratio40.setText(commodities.get(page).getRatio());
             price40.setText(commodities.get(page).getPrice());
@@ -373,7 +376,7 @@ public class HomeController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane50.setVisible(true);
-//            imageView50.setImage(images.get(page));
+            imageView50.setImage(commodities.get(page).getImage());
             number50.setText("Number: " + commodities.get(page).getNumber());
             ratio50.setText(commodities.get(page).getRatio());
             price50.setText(commodities.get(page).getPrice());
@@ -382,7 +385,7 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane60.setVisible(true);
-//            imageView60.setImage(images.get(page));
+            imageView60.setImage(commodities.get(page).getImage());
             number60.setText("Number: " + commodities.get(page).getNumber());
             ratio60.setText(commodities.get(page).getRatio());
             price60.setText(commodities.get(page).getPrice());
@@ -391,7 +394,7 @@ public class HomeController implements Initializable {
         }else return;
         if (page < commodities.size()){
             anchorPane01.setVisible(true);
-//            imageView01.setImage(images.get(page));
+            imageView01.setImage(commodities.get(page).getImage());
             number01.setText("Number: " + commodities.get(page).getNumber());
             ratio01.setText(commodities.get(page).getRatio());
             price01.setText(commodities.get(page).getPrice());
@@ -400,7 +403,7 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane11.setVisible(true);
-//            imageView11.setImage(images.get(page));
+            imageView11.setImage(commodities.get(page).getImage());
             number11.setText("Number: " + commodities.get(page).getNumber());
             ratio11.setText(commodities.get(page).getRatio());
             price11.setText(commodities.get(page).getPrice());
@@ -409,7 +412,7 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane21.setVisible(true);
-//            imageView21.setImage(images.get(page));
+            imageView21.setImage(commodities.get(page).getImage());
             number21.setText("Number: " + commodities.get(page).getNumber());
             ratio21.setText(commodities.get(page).getRatio());
             price21.setText(commodities.get(page).getPrice());
@@ -418,7 +421,7 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane31.setVisible(true);
-//            imageView31.setImage(images.get(page));
+            imageView31.setImage(commodities.get(page).getImage());
             number31.setText("Number: " + commodities.get(page).getNumber());
             ratio31.setText(commodities.get(page).getRatio());
             price31.setText(commodities.get(page).getPrice());
@@ -427,7 +430,7 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane41.setVisible(true);
-//            imageView41.setImage(images.get(page));
+            imageView41.setImage(commodities.get(page).getImage());
             number41.setText("Number: " + commodities.get(page).getNumber());
             ratio41.setText(commodities.get(page).getRatio());
             price41.setText(commodities.get(page).getPrice());
@@ -436,7 +439,7 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane51.setVisible(true);
-//            imageView51.setImage(images.get(page));
+            imageView51.setImage(commodities.get(page).getImage());
             number51.setText("Number: " + commodities.get(page).getNumber());
             ratio51.setText(commodities.get(page).getRatio());
             price51.setText(commodities.get(page).getPrice());
@@ -445,14 +448,13 @@ public class HomeController implements Initializable {
         } else return;
         if (page < commodities.size()){
             anchorPane61.setVisible(true);
-//            imageView61.setImage(images.get(page));
+            imageView61.setImage(commodities.get(page).getImage());
             number61.setText("Number: " + commodities.get(page).getNumber());
             ratio61.setText(commodities.get(page).getRatio());
             price61.setText(commodities.get(page).getPrice());
             title61.setText(commodities.get(page).getTitle());
-            page++;
+
         }
-        return;
 
     }
     private void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
@@ -499,9 +501,14 @@ public class HomeController implements Initializable {
                         String title1 = rs.getString("Title");
                         int commodityId =rs.getInt("commodityId");
                         int isAuction1 = rs.getInt("isAuction");
+//                        byte[] imageData = rs.getBytes("image");
+//                        ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+//                        Image image = new Image(inputStream);
 //                        InputStream is = rs.getBinaryStream("image");
 //                        BufferedImage image = ImageIO.read(is);
-                        commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction1));
+                        String imageName = rs.getString("imageName");
+                        Image image = new Image(imageName);
+                        commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction1,image));
 
                         String date = rs.getString("Date");
                         System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
@@ -692,11 +699,17 @@ public class HomeController implements Initializable {
                             String ratio1 = rs.getString("Ratio");
                             String title1 = rs.getString("Title");
                             int commodityId = rs.getInt("commodityId");
+//                            byte[] imageData = rs.getBytes("image");
+//                            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+//                            Image image = new Image(inputStream);
+                            String imageName = rs.getString("imageName");
+                            Image image = new Image(imageName);
+
 //                        int isAuction1 = rs.getInt("isAuction");
-                            commodities.add(new Commodity(type1, brand1, price1, ratio1, title1, number1, commodityId, 0));
+                            commodities.add(new Commodity(type1, brand1, price1, ratio1, title1, number1, commodityId, 0,image));
 
                             String date = rs.getString("Date");
-                            System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
+                            System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date + " image " + image.getUrl());
 
 
                         }
@@ -717,7 +730,13 @@ public class HomeController implements Initializable {
 //                            BufferedImage image = ImageIO.read(is);
                             int commodityId =rs.getInt("commodityId");
                             int isAuction2 = rs.getInt("isAuction");
-                            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction2));
+//                            byte[] imageData = rs.getBytes("image");
+//                            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+//                            Image image = new Image(inputStream);
+
+                            String imageName = rs.getString("imageName");
+                            Image image = new Image(imageName);
+                            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction2,image));
 
                             String date = rs.getString("Date");
                             System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
@@ -777,6 +796,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (user == null) infoButton.setVisible(false);
         Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
         ImageView imageView = new ImageView(image);
         basketButton.setGraphic(imageView);
@@ -1726,6 +1746,22 @@ public class HomeController implements Initializable {
 
         DiscountRegistrationController d = loader.getController();
         d.setUser(user);
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+    }
+    public void goToUserInfo(ActionEvent event){
+        Node node = (Node) event.getSource();
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("profile.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ProfileController p = loader.getController();
+        p.setUser(user);
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.centerOnScreen();

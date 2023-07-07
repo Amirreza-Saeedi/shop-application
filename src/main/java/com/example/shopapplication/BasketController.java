@@ -12,12 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javax.mail.search.IntegerComparisonTerm;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URL;
@@ -204,8 +206,14 @@ public class BasketController implements Initializable {
                 String title = rs.getString("Title");
                 int isAuction = rs.getInt("isAuction");
                 int number = rs.getInt("number");
+//                byte[] imageData = rs.getBytes("image");
+//                ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+//                javafx.scene.image.Image image = new Image(inputStream);
+                String imageName = rs.getString("imageName");
+                Image image = new Image(imageName);
+
                 maxNumbers.add(number);
-                commodities.add(new Commodity(type,brand,price,ratio,title,commodityNumbers.get(i),commodityIds.get(i),isAuction,basketIds.get(i)));
+                commodities.add(new Commodity(type,brand,price,ratio,title,commodityNumbers.get(i),commodityIds.get(i),isAuction,basketIds.get(i),image));
                 rs.next();
 
             }

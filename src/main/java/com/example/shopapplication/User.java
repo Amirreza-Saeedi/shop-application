@@ -1,6 +1,9 @@
 package com.example.shopapplication;
 
 public abstract class User {
+    private String seller = "seller";
+    private String customer = "customer";
+    private String admin = "admin";
     private String username;
     private String password;
     private String firstname;
@@ -17,6 +20,7 @@ public abstract class User {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+
     }
     public String toString(){
         if (this instanceof Customer){
@@ -77,5 +81,8 @@ public abstract class User {
 
     public String getFullName() {
         return firstname + " " + lastname;
+    }
+    public String getName(){
+        return firstname;
     }
 }

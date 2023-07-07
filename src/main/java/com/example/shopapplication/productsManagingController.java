@@ -10,11 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import org.w3c.dom.Text;
 
 import javax.swing.plaf.nimbus.State;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
@@ -933,6 +935,7 @@ public class productsManagingController implements Initializable {
             String title1;
             int commodityId;
             int isAuction;
+            Image image;
             try {
                 number1 = rs.getInt("Number");
                 type1 = rs.getString("Type");
@@ -942,11 +945,16 @@ public class productsManagingController implements Initializable {
                 title1 = rs.getString("Title");
                 commodityId = rs.getInt("commodityId");
                 isAuction = rs.getInt("isAuction");
+//                byte[] imageData = rs.getBytes("image");
+//                ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+//                 image = new Image(inputStream);
+                String imageName = rs.getString("imageName");
+                 image = new Image(imageName);
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction));
+            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction,image));
 
 
         }
