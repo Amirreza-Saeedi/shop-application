@@ -257,6 +257,7 @@ public class ProductionController implements Initializable {
             return;
         } else if (commodity.getIsAuction() != 0) {
             showError(errorText, "This commodity is on auction.", 5, Color.RED);
+            return;
         }
 
         if (commodity.getNumber() > currentCommodityInBasket) {
@@ -334,6 +335,21 @@ public class ProductionController implements Initializable {
 
     public void toBasket() {
         System.out.println("ProductionController.toBasket");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("basket.fxml"));
+            Parent root = loader.load();
+
+            BasketController controller = loader.getController();
+            controller.setUser(user);
+
+            Stage stage = (Stage) auctionButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void toHome() throws IOException {

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -133,5 +134,24 @@ public class ProfileController implements Initializable {
         }
         setTable();
         showDiscountCodes();
+    }
+
+    public void history() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("purchase-history.fxml"));
+        Parent parent;
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        PurchaseHistoryController controller = loader.getController();
+        controller.setAll(user);
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(parent));
+        stage.centerOnScreen();
+        stage.showAndWait();
     }
 }
