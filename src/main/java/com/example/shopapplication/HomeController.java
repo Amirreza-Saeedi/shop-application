@@ -1767,8 +1767,26 @@ public class HomeController implements Initializable {
         stage.centerOnScreen();
     }
 
-    public void goToInventory(ActionEvent event){
 
-    }
+        public void goToInventory(ActionEvent event){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("storage.fxml"));
+                Parent root = loader.load();
+
+                StorageController controller = loader.getController();
+                if (user instanceof Admin)
+                    controller.setAdmin((Admin) user);
+                else
+                    throw new RuntimeException("user is not admin");
+
+                Stage stage = (Stage) goToNextPageButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.centerOnScreen();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
 }

@@ -12,8 +12,27 @@ public class Commodity {
     private String date;
     private int number;
     private int commodityId;
+    private String sellerId;
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public int getAuctionId() {
+        return auctionId;
+    }
+
+    public void setAuctionId(int auctionId) {
+        this.auctionId = auctionId;
+    }
+
     public int isAuction;
     private int basketId;
+    private int auctionId;
 
     public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
@@ -125,6 +144,54 @@ public class Commodity {
         this.image = image;
     }
 
+    public Commodity(String type1, String brand1, String price1, String ratio1, String title1, int number1, int commodityId) {
+        type = type1;
+        brand = brand1;
+        price = price1;
+        ratio = ratio1;
+        title = title1;
+        number = number1;
+        this.commodityId = commodityId;
+    }
+
+
+    public Commodity(String type, String price, String ratio, String brand, String title, String properties, String date, int number, int commodityId, int auctionId) {
+        this.type = type;
+        this.price = price;
+        this.ratio = ratio;
+        this.brand = brand;
+        this.title = title;
+        this.properties = properties;
+        this.date = date;
+        this.number = number;
+        this.commodityId = commodityId;
+        this.auctionId = auctionId;
+    }
+
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction){
+        /* usage in most of program
+                * */
+        this.type = type;
+        this.brand = brand;
+        this.price = price;
+        this.ratio = ratio;
+        this.title = title;
+        this.number = number;
+        this.commodityId = commodityId;
+    }
+
+    public Commodity(String type, String price, String brand, String title, String date, String sellerId, int number, int commodityId) {
+        /* usage in some of tableViews
+                * */
+        this.type = type;
+        this.price = price;
+        this.brand = brand;
+        this.title = title;
+        this.date = date;
+        this.sellerId = sellerId;
+        this.number = number;
+        this.commodityId = commodityId;
+    }
     @Override
     public String toString() {
         return "Commodity{" +

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -86,6 +87,9 @@ public class StorageManagementController implements Initializable {
                 String sellerId = resultSet.getString("userName");
                 int number = resultSet.getInt("number");
                 int commodityId = resultSet.getInt("commodityId");
+
+                String imageName = resultSet.getString("imageName");
+                Image image = new Image(imageName);
 
                 Commodity commodity = new Commodity(type, price, brand, title, date, sellerId, number, commodityId);
 
