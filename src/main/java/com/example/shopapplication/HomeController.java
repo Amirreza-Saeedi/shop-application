@@ -29,6 +29,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class HomeController implements Initializable {
@@ -755,7 +756,7 @@ public class HomeController implements Initializable {
                 }
             }else{
 
-
+                updateAuctions(conn);
 
 
 
@@ -806,6 +807,28 @@ public class HomeController implements Initializable {
             e.printStackTrace();
             System.out.println("Test3 passed");
         }
+    }
+
+    private void updateAuctions(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "select * from auction;";
+        String now = LocalDateTime.now().toString();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            String date = resultSet.getString("date");
+            String buyerUsername = resultSet.getString("buyerUsername");
+            String buyerType = resultSet.getString("buyerType");
+            int auctionId = resultSet.getInt("auctionId");
+            int most = resultSet.getInt("mostPrice");
+            int base = resultSet.getInt("basePrice");
+            Auction auction = new Auction(auctionId, buyerUsername, buyerType, base, most, date);
+
+            if (now.compareToIgnoreCase(date) > 0) {
+                auction.setWinner(connection);
+            }
+        }
+
     }
 //    private void insertImageToDataBase() throws SQLException, IOException {
 //        // Establish a connection to the SQLite database
