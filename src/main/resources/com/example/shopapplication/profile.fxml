@@ -11,8 +11,8 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1141.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ProfileController">
    <children>
-      <Button fx:id="btn_deposit" layoutX="426.0" layoutY="145.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="222.0" text="Deposit" />
-      <Button fx:id="btn_basket" layoutX="169.0" layoutY="145.0" mnemonicParsing="false" onAction="#goToBasket" prefHeight="38.0" prefWidth="222.0" text="Basket" />
+      <Button fx:id="deposit" layoutX="426.0" layoutY="145.0" mnemonicParsing="false" onAction="#increaseCredit" prefHeight="38.0" prefWidth="222.0" text="Increase" />
+      <Button fx:id="basket" layoutX="169.0" layoutY="145.0" mnemonicParsing="false" onAction="#goToBasket" prefHeight="38.0" prefWidth="222.0" text="Basket" />
       <TableView fx:id="table" layoutY="50.0" prefHeight="64.0" prefWidth="1141.0" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <columns>
             <TableColumn fx:id="userName" prefWidth="75.0" text="UserName" />
@@ -25,7 +25,7 @@
             <TableColumn fx:id="company" minWidth="6.4000244140625" prefWidth="188.0" text="Company" />
          </columns>
       </TableView>
-      <Button fx:id="btn_history" layoutX="684.0" layoutY="145.0" mnemonicParsing="false" onAction="#history" prefHeight="38.0" prefWidth="222.0" text="History" />
+      <Button fx:id="history" layoutX="684.0" layoutY="145.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="222.0" onAction="#history" text="History" />
       <Hyperlink layoutX="14.0" layoutY="14.0" onAction="#backToHome" text="Home" />
       <ListView fx:id="discountCodesList" layoutY="145.0" prefHeight="453.0" prefWidth="142.0" />
       <Label alignment="CENTER" layoutY="119.0" prefHeight="18.0" prefWidth="142.0" text="discount codes">
@@ -33,5 +33,7 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <Label layoutX="433.0" layoutY="183.0" prefHeight="26.0" prefWidth="70.0" text="Wallet credit:" />
+      <Label fx:id="walletCredit" layoutX="515.0" layoutY="182.0" prefHeight="24.0" prefWidth="126.0" text="p" />
    </children>
 </AnchorPane>

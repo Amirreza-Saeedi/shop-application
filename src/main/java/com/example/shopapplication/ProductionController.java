@@ -19,6 +19,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -334,6 +336,16 @@ public class ProductionController implements Initializable {
     }
 
     public void toBasket() {
+        try {
+            Sound.basket();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println("ProductionController.toBasket");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("basket.fxml"));

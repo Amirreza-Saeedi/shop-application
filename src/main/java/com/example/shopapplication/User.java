@@ -1,9 +1,7 @@
 package com.example.shopapplication;
 
 public abstract class User {
-    private String seller = "seller";
-    private String customer = "customer";
-    private String admin = "admin";
+
     private String username;
     private String password;
     private String firstname;

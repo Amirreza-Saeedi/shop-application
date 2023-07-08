@@ -18,7 +18,7 @@
       <Text layoutX="226.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
       <Text layoutX="195.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="telephone" />
       <Text layoutX="170.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount Code" />
-      <Button fx:id="payBtn" layoutX="248.0" layoutY="530.0" mnemonicParsing="false" onAction="#setPayBtnOnAction" prefHeight="26.0" prefWidth="150.0" text="Pay" visible="false" />
+      <Button fx:id="payBtn" layoutX="248.0" layoutY="530.0" mnemonicParsing="false" onAction="#setPayBtnOnAction" prefHeight="26.0" prefWidth="150.0" text="Connect to bank portal" visible="false" />
       <TextArea fx:id="address" layoutX="222.0" layoutY="113.0" prefHeight="102.0" prefWidth="200.0" />
       <Label fx:id="priceLabel" alignment="CENTER" layoutX="266.0" layoutY="355.0" prefHeight="36.0" prefWidth="110.0" text="p">
          <font>
