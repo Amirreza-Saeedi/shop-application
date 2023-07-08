@@ -200,6 +200,7 @@ public class StorageController extends Application implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.showAndWait();
 
         loadStorages();
@@ -322,6 +323,7 @@ public class StorageController extends Application implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.showAndWait();
         loadStorages();
     }
@@ -352,6 +354,7 @@ public class StorageController extends Application implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.showAndWait();
         loadStorages();
 

@@ -109,8 +109,6 @@ public class AuctionController implements Initializable {
 
             if (resultSet.next()) {
                 // auction obj & nodes
-                String date = resultSet.getString("date");
-                endDateTextField.setText(date);
                 int id = resultSet.getInt("auctionId");
                 String buyerName = resultSet.getString("buyerUsername");
                 buyerTextField.setText(buyerName);
@@ -283,7 +281,7 @@ public class AuctionController implements Initializable {
     }
 
     private void returnChargeToAccount() {
-        if (auction.getMostPrice() > 0) { // todo if has buyer
+        if (auction.getMostPrice() > 0) {
 
             try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
 

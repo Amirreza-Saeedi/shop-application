@@ -53,8 +53,6 @@ public class StorageManagementController implements Initializable {
     @FXML
     private Label errorLabel;
     @FXML
-    private Button applyButton;
-    @FXML
     private Button closeButton;
     private Storage storage;
 
@@ -87,11 +85,12 @@ public class StorageManagementController implements Initializable {
                 String sellerId = resultSet.getString("userName");
                 int number = resultSet.getInt("number");
                 int commodityId = resultSet.getInt("commodityId");
+                int isAuction = resultSet.getInt("isAuction");
 
                 String imageName = resultSet.getString("imageName");
                 Image image = new Image(imageName);
 
-                Commodity commodity = new Commodity(type, price, brand, title, date, sellerId, number, commodityId);
+                Commodity commodity = new Commodity(type, price, brand, title, date, sellerId, number, commodityId, isAuction);
 
                 list.add(commodity);
             }
@@ -203,13 +202,15 @@ public class StorageManagementController implements Initializable {
             Statement statement = connection.createStatement();
             String str = "where commodityId='" + commodity.getCommodityId() + "'";
 
-            // commodities:
-            String sql = "delete from allCommodities " + str;
+            // auction:
+            returnChargeToAccount(commodity, connection);
+            String sql = "delete from auction " + str;
             int resultSet = statement.executeUpdate(sql);
 
-            // auction:
-            sql = "delete from auction " + str;
+            // commodities:
+            sql = "delete from allCommodities " + str;
             resultSet = statement.executeUpdate(sql);
+
 
             // commodityVotes:
             sql = "delete from commodityVotes " + str;
@@ -234,6 +235,45 @@ public class StorageManagementController implements Initializable {
         }
 
         loadCommodities(storage.getId());
+    }
+
+    private void returnChargeToAccount(Commodity commodity, Connection connection) throws SQLException {
+        if (commodity.getIsAuction() > 0) {
+            Statement statement = connection.createStatement();
+            // find auction
+            String sql = "select * from auction where auctionId='" + commodity.getIsAuction() + "';";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+
+            if (resultSet.next()) {
+
+                String buyerName = resultSet.getString("buyerUsername");
+                String buyerType = resultSet.getString("buyerType");
+                int mostPrice = resultSet.getInt("mostPrice");
+
+                Auction auction = new Auction(buyerName, buyerType, mostPrice);
+
+
+                // find user
+                String table = auction.getBuyerType() + "s";
+                sql = "select * from " + table + " where username='" + auction.getBuyerName() + "'";
+                resultSet = statement.executeQuery(sql);
+
+                if (resultSet.next()) {
+                    // update user
+                    int charge = resultSet.getInt("charge");
+                    int newCharge = (int) (charge + auction.getMostPrice());
+                    sql = "update " + table + " set charge='" + newCharge +
+                            "' where username='" + auction.getBuyerName() + "'";
+                    if (statement.executeUpdate(sql) > 0)
+                        System.out.println("charge returned");
+                    ;
+                }
+            } else {
+                System.err.println("StorageManagementController.returnChargeToAccount");
+                System.err.println("auction not found");
+            }
+        }
     }
 
 

@@ -158,8 +158,6 @@ public class HomeController implements Initializable {
     @FXML
     private TextField search;
     @FXML
-    private Button basketButton;
-    @FXML
     private Button infoButton;
     @FXML
     private ImageView imageView00;
@@ -255,6 +253,8 @@ public class HomeController implements Initializable {
     @FXML
     private Button inventoryButton;
     @FXML
+    private Button waitingListButton;
+    @FXML
     private Button chatButton;
     private final String SELLER = "seller";
     private final String ADMIN = "admin";
@@ -284,6 +284,7 @@ public class HomeController implements Initializable {
         Parent root = loader.load();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.centerOnScreen();
     }
     public void setUser(User user){
         if (user == null){
@@ -297,6 +298,7 @@ public class HomeController implements Initializable {
             manageCommodities.setVisible(true);
             sellersChartButton.setVisible(false);
             inventoryButton.setVisible(false);
+            waitingListButton.setVisible(false);
             goToDiscountCodeRegistrationPageButton.setVisible(false);
             chatButton.setVisible(true);
             userType = SELLER;
@@ -306,6 +308,7 @@ public class HomeController implements Initializable {
         } else if (user instanceof Admin) {
             sellersChartButton.setVisible(true);
             inventoryButton.setVisible(true);
+            waitingListButton.setVisible(true);
             goToDiscountCodeRegistrationPageButton.setVisible(true);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
@@ -319,6 +322,7 @@ public class HomeController implements Initializable {
             manageCommodities.setVisible(false);
             sellersChartButton.setVisible(false);
             inventoryButton.setVisible(false);
+            waitingListButton.setVisible(false);
             goToDiscountCodeRegistrationPageButton.setVisible(false);
             typeInfo.setText("Customer");
             loginbutton.setText(user.getUsername());
@@ -1664,7 +1668,18 @@ public class HomeController implements Initializable {
     }
     @FXML
     private void switchToLoginScene(ActionEvent event) {
-            switchScene(event,"login-scene");
+        if (user != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+            alert.setTitle("Exit");
+            alert.setHeaderText("Want to exit your account?");
+
+            if (alert.showAndWait().get() == ButtonType.YES) {
+                switchScene(event,"login-scene");
+            }
+        }
+
+        switchScene(event,"login-scene");
     }
     @FXML
     private void goToNextPageButtonOnAction(ActionEvent event){
@@ -2043,4 +2058,20 @@ public class HomeController implements Initializable {
         }
 
 
+    public void toWaiting(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("waiting-sellers-list.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
 }

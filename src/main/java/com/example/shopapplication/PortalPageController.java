@@ -147,7 +147,7 @@ public class PortalPageController implements Initializable {
         captcha = new Captcha(60_000_000, 5);
         updateCaptcha();
     }
-    public void updateCaptcha() { // change captcha code and color
+    public void updateCaptcha() { // change captcha CODE and color
         Random random = new Random();
         Color randomColor = new Color(random.nextDouble(), random.nextDouble(), random.nextDouble(), 1.0);
         captchaText.setFill(randomColor);

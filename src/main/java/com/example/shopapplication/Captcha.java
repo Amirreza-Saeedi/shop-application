@@ -8,7 +8,7 @@ public final class Captcha {
     private String code;
     private long startTime;
 
-    public Captcha(long expiredTimeMilli, int characters) { // code must be created
+    public Captcha(long expiredTimeMilli, int characters) { // CODE must be created
         setExpiredTimeNano(expiredTimeMilli);
         setCharacters(characters);
         newCode();
@@ -40,7 +40,7 @@ public final class Captcha {
         return code;
     }
 
-    public void newCode() { // create and set code ,& set startTime
+    public void newCode() { // create and set CODE ,& set startTime
         StringBuilder code = new StringBuilder();
         Random random = new Random();
         int holder;
