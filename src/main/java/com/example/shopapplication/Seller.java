@@ -11,6 +11,13 @@ public class Seller extends User {
         this.company = company;
     }
 
+    public Seller(String username) {
+        /**
+         * for chat list
+         * */
+        super(username);
+    }
+
     public String getCompany() {
         return company;
     }

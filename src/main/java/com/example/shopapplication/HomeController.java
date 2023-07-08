@@ -22,6 +22,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -252,6 +253,11 @@ public class HomeController implements Initializable {
     private Button sellersChartButton;
     @FXML
     private Button inventoryButton;
+    @FXML
+    private Button chatButton;
+    private final String SELLER = "seller";
+    private final String ADMIN = "admin";
+    private final String CUSTOMER = "customer";
     private String choiceBoxOption = "Filter";
     private String groupListItem  = "All Commodities";
     private String brandListItem;
@@ -292,7 +298,8 @@ public class HomeController implements Initializable {
             sellersChartButton.setVisible(false);
             inventoryButton.setVisible(false);
             goToDiscountCodeRegistrationPageButton.setVisible(false);
-            userType = "seller";
+            chatButton.setVisible(true);
+            userType = SELLER;
 
             typeInfo.setText("you are a seller!");
             loginbutton.setText(user.getUsername());
@@ -303,7 +310,8 @@ public class HomeController implements Initializable {
             placeAuction.setVisible(false);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
-            userType = "admin";
+            chatButton.setVisible(true);
+            userType = ADMIN;
 
             typeInfo.setText("ADMIN");
             loginbutton.setText(user.getUsername());
@@ -316,10 +324,44 @@ public class HomeController implements Initializable {
             goToDiscountCodeRegistrationPageButton.setVisible(false);
             typeInfo.setText("Customer");
             loginbutton.setText(user.getUsername());
-            userType = "customer";
+            userType = CUSTOMER;
         }
 
         loadBasket();
+    }
+
+    public void chat() {
+        if (user instanceof Seller) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("chat.fxml"));
+                Parent root = loader.load();
+                ChatController controller = loader.getController();
+                controller.setAll((Seller) user, SELLER);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else if (user instanceof Admin) {
+            // todo new page
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("chat-list.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void loadBasket() {
@@ -870,6 +912,7 @@ public class HomeController implements Initializable {
         inventoryButton.setVisible(false);
         sellersChartButton.setVisible(false);
         goToDiscountCodeRegistrationPageButton.setVisible(false);
+        chatButton.setVisible(false);
 //        setIDs();
 //        Circle circle = new Circle(30);
 //        backToHomeButton.setShape(circle);
