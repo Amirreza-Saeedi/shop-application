@@ -91,6 +91,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price00" layoutY="259.0" onAction="#setPrice00OnTextChanged" />
@@ -113,6 +116,9 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record00" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord00OnAction" text="Record" />
                         <HBox layoutX="1.0" layoutY="76.0" prefHeight="18.0" prefWidth="162.0">
@@ -124,10 +130,6 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove00" layoutX="63.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove00OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font></Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane10" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="1">
@@ -143,6 +145,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price10" layoutX="1.0" layoutY="260.0" onAction="#setPrice10OnTextChanged" />
@@ -165,6 +170,9 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record10" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord10OnAction" text="Record" />
                         <HBox layoutX="4.0" layoutY="80.0" prefHeight="26.0" prefWidth="162.0">
@@ -176,11 +184,6 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove10" layoutX="57.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove10OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane20" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="2">
@@ -196,6 +199,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price20" layoutX="1.0" layoutY="260.0" onAction="#setPrice20OnTextChanged" />
@@ -218,6 +224,9 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record20" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord20OnAction" text="Record" />
                         <HBox layoutX="8.0" layoutY="76.0" prefHeight="26.0" prefWidth="162.0">
@@ -229,11 +238,6 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove20" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove20OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane30" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="3">
@@ -250,6 +254,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price30" layoutX="-1.0" layoutY="259.0" onAction="#setPrice30OnTextChanged" />
@@ -271,6 +278,9 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record30" layoutX="10.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord30OnAction" text="Record" />
                         <HBox layoutX="1.0" layoutY="76.0" prefHeight="26.0" prefWidth="162.0">
@@ -282,11 +292,6 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove30" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove30OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane50" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="5">
@@ -303,6 +308,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price50" layoutX="2.0" layoutY="260.0" onAction="#setPrice50OnTextChanged" />
@@ -327,15 +335,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record50" layoutX="8.0" mnemonicParsing="false" onAction="#setRecord50OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove50" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove50OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane01" prefHeight="250.0" prefWidth="184.0" GridPane.rowIndex="1">
@@ -352,6 +358,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price01" layoutY="259.0" onAction="#setPrice01OnTextChanged" />
@@ -376,15 +385,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record01" layoutX="8.0" layoutY="2.0" mnemonicParsing="false" onAction="#setRecord01OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove01" layoutX="56.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove01OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane11" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -401,6 +408,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price11" layoutY="259.0" onAction="#setPrice11OnTextChanged" />
@@ -425,15 +435,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record11" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord11OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove11" layoutX="56.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove11OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane21" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -450,6 +458,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price21" layoutX="1.0" layoutY="260.0" onAction="#setPrice21OnTextChanged" />
@@ -474,15 +485,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record21" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord21OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove21" layoutX="48.0" layoutY="3.0" mnemonicParsing="false" onAction="#setRemove21OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane41" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
@@ -499,6 +508,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price41" layoutX="1.0" layoutY="260.0" onAction="#setPrice41OnTextChanged" />
@@ -523,15 +535,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record41" layoutX="10.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord41OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove41" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove41OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane51" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
@@ -548,6 +558,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price51" layoutX="1.0" layoutY="260.0" onAction="#setPrice51OnTextChanged" />
@@ -572,15 +585,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record51" layoutX="7.0" mnemonicParsing="false" onAction="#setRecord51OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove51" layoutX="52.0" layoutY="3.0" mnemonicParsing="false" onAction="#setRemove51OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane61" prefHeight="250.0" prefWidth="173.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
@@ -597,6 +608,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price61" layoutX="2.0" layoutY="260.0" onAction="#setPrice61OnTextChanged" />
@@ -621,15 +635,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record61" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord61OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove61" layoutX="56.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove61OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane60" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="6">
@@ -646,6 +658,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField fx:id="price60" layoutX="1.0" layoutY="260.0" onAction="#setPrice60OnTextChanged" />
@@ -670,15 +685,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record60" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord60OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove60" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove60OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane31" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -690,6 +703,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <Label fx:id="title31" alignment="CENTER" layoutY="146.0" prefHeight="38.0" prefWidth="110.0" text="Title">
@@ -719,15 +735,13 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record31" layoutX="10.0" layoutY="-1.0" mnemonicParsing="false" onAction="#setRecord31OnAction" text="Record" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove31" layoutX="48.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove31OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorPane40" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="4">
@@ -744,6 +758,9 @@
                      <image>
                         <Image url="@../../../recycleBin.jpg" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="242.0" text="Price" textFill="#090be8" />
                   <TextField layoutX="1.0" layoutY="260.0" />
@@ -766,6 +783,9 @@
                            <image>
                               <Image url="@../../../cancel.jpg" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <Button fx:id="record40" layoutX="8.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRecord40OnAction" text="Record" />
                         <HBox layoutX="1.0" layoutY="76.0" prefHeight="26.0" prefWidth="162.0">
@@ -777,11 +797,6 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="remove40" layoutX="52.0" layoutY="1.0" mnemonicParsing="false" onAction="#setRemove40OnAction" prefHeight="26.0" prefWidth="103.0" text="Remove from auction">
-                     <font>
-                        <Font size="9.5" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
          </children>
