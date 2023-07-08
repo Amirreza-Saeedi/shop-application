@@ -11,6 +11,48 @@ public class Person {
     private double charge;
     private String phone;
     private String company;
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public double getCharge() {
+        return charge;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+
     public Person(User user){
         this.user = user;
         this.username = user.getUsername();

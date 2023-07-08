@@ -104,4 +104,39 @@ public class Sound {
         clip.open(i);
         clip.start();
     }
+    public static void inventory() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File e = new File("sounds\\inventory.wav");
+        AudioInputStream i= AudioSystem.getAudioInputStream(e);
+        Clip clip =AudioSystem.getClip();
+        clip.open(i);
+        clip.start();
+    }
+    public static void sellersChart() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File e = new File("sounds\\sellersChart.wav");
+        AudioInputStream i= AudioSystem.getAudioInputStream(e);
+        Clip clip =AudioSystem.getClip();
+        clip.open(i);
+        clip.start();
+    }
+    public static void auctionIsCompleted() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File e = new File("sounds\\auctionIsCompleted.wav");
+        AudioInputStream i= AudioSystem.getAudioInputStream(e);
+        Clip clip =AudioSystem.getClip();
+        clip.open(i);
+        clip.start();
+    }
+    public static void productRegistered() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File e = new File("sounds\\productRegistered.wav");
+        AudioInputStream i= AudioSystem.getAudioInputStream(e);
+        Clip clip =AudioSystem.getClip();
+        clip.open(i);
+        clip.start();
+    }
+    public static void discount() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File e = new File("sounds\\discount.wav");
+        AudioInputStream i= AudioSystem.getAudioInputStream(e);
+        Clip clip =AudioSystem.getClip();
+        clip.open(i);
+        clip.start();
+    }
 }

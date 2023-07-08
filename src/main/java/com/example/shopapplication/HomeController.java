@@ -236,8 +236,7 @@ public class HomeController implements Initializable {
     private Label brandName;
     @FXML
     private CheckBox isAuction;
-    @FXML
-    private Button placeAuction;
+
     @FXML
     private Button productRegistration;
     @FXML
@@ -283,7 +282,6 @@ public class HomeController implements Initializable {
         infoButton.setVisible(true);
 
         if (user instanceof Seller){
-            placeAuction.setVisible(true);
             productRegistration.setVisible(true);
             manageCommodities.setVisible(true);
             sellersChartButton.setVisible(false);
@@ -296,14 +294,12 @@ public class HomeController implements Initializable {
             sellersChartButton.setVisible(true);
             inventoryButton.setVisible(true);
             goToDiscountCodeRegistrationPageButton.setVisible(true);
-            placeAuction.setVisible(false);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
 
             typeInfo.setText("ADMIN");
             loginbutton.setText(user.getUsername());
         } else if (user instanceof Customer) {
-            placeAuction.setVisible(false);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
             sellersChartButton.setVisible(false);
@@ -1795,6 +1791,15 @@ public class HomeController implements Initializable {
     }
 
     public void setSellersChartButtonOnAction(ActionEvent event){
+        try {
+            Sound.sellersChart();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
         Node node = (Node) event.getSource();
         FXMLLoader loader = new FXMLLoader(Login.class.getResource("chart.fxml"));
         Parent root = null;
@@ -1857,6 +1862,15 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try {
+            Sound.discount();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
 
         DiscountRegistrationController d = loader.getController();
         d.setUser(user);
@@ -1905,6 +1919,13 @@ public class HomeController implements Initializable {
                 Stage stage = (Stage) goToNextPageButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.centerOnScreen();
+                try {
+                    Sound.inventory();
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                }
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

@@ -42,12 +42,7 @@
                </image>
             </ImageView>
             <Label fx:id="commoditiesNumber" alignment="CENTER" layoutX="1338.0" layoutY="73.0" prefHeight="24.0" prefWidth="46.0" text="0" />
-            <Button fx:id="placeAuction" layoutX="1067.0" layoutY="5.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #ab47bc;" text="Place an auction" visible="false">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="productRegistration" layoutX="1067.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToProductRegistrationPage" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
+            <Button fx:id="productRegistration" layoutX="1067.0" layoutY="18.0" mnemonicParsing="false" onAction="#goToProductRegistrationPage" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
                <font>
                   <Font name="System Bold Italic" size="11.0" />
                </font>
@@ -57,15 +52,15 @@
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="manageCommodities" layoutX="1068.0" layoutY="69.0" mnemonicParsing="false" onAction="#setManageCommoditiesOnAction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #009688;" text="Manage commodities" visible="false">
+            <Button fx:id="manageCommodities" layoutX="1068.0" layoutY="62.0" mnemonicParsing="false" onAction="#setManageCommoditiesOnAction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #009688;" text="Manage commodities" visible="false">
                <font>
                   <Font name="System Bold Italic" size="10.3" />
                </font>
             </Button>
-            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="11.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" />
-            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="42.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" />
+            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="11.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" visible="false" />
+            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="42.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" visible="false" />
             <Button fx:id="basketButton" layoutX="1338.0" layoutY="29.0" mnemonicParsing="false" onAction="#setBasketOnAction" prefHeight="42.0" prefWidth="46.0" />
-            <Button fx:id="goToDiscountCodeRegistrationPageButton" layoutX="1079.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3">
+            <Button fx:id="goToDiscountCodeRegistrationPageButton" layoutX="1079.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3" visible="false">
                <font>
                   <Font size="8.0" />
                </font>

@@ -15,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import org.w3c.dom.Text;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.plaf.nimbus.State;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -1743,8 +1745,17 @@ public class productsManagingController implements Initializable {
                 }catch (SQLException e){
                     throw new RuntimeException(e);
                 }
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
 
-                auction00.setVisible(false);
+            auction00.setVisible(false);
                 remove00.setVisible(true);
                 options00.setVisible(false);
                 image00.setVisible(true);
@@ -1800,6 +1811,16 @@ public class productsManagingController implements Initializable {
             }catch (SQLException e){
                 throw new RuntimeException(e);
             }
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
 
             auction10.setVisible(false);////////////////////////////////////////////////////////////
             remove10.setVisible(true);////////////////////////////////////////////////////////////
@@ -1858,6 +1879,17 @@ public class productsManagingController implements Initializable {
                 throw new RuntimeException(e);
             }
 
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
+
             auction20.setVisible(false);////////////////////////////////////////////////////////////
             remove20.setVisible(true);////////////////////////////////////////////////////////////
             options20.setVisible(false);/////////////////////////////////////////////////////////////
@@ -1914,6 +1946,17 @@ public class productsManagingController implements Initializable {
             }catch (SQLException e){
                 throw new RuntimeException(e);
             }
+
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
 
             auction30.setVisible(false);////////////////////////////////////////////////////////////
             remove30.setVisible(true);////////////////////////////////////////////////////////////
@@ -1972,6 +2015,17 @@ public class productsManagingController implements Initializable {
                 throw new RuntimeException(e);
             }
 
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
+
             auction40.setVisible(false);////////////////////////////////////////////////////////////
             remove40.setVisible(true);////////////////////////////////////////////////////////////
             options40.setVisible(false);/////////////////////////////////////////////////////////////
@@ -2028,6 +2082,17 @@ public class productsManagingController implements Initializable {
             }catch (SQLException e){
                 throw new RuntimeException(e);
             }
+
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
 
             auction50.setVisible(false);////////////////////////////////////////////////////////////
             remove50.setVisible(true);////////////////////////////////////////////////////////////
@@ -2086,6 +2151,17 @@ public class productsManagingController implements Initializable {
                 throw new RuntimeException(e);
             }
 
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
+
             auction60.setVisible(false);////////////////////////////////////////////////////////////
             remove60.setVisible(true);////////////////////////////////////////////////////////////
             options60.setVisible(false);/////////////////////////////////////////////////////////////
@@ -2142,6 +2218,17 @@ public class productsManagingController implements Initializable {
             }catch (SQLException e){
                 throw new RuntimeException(e);
             }
+
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
 
             auction01.setVisible(false);////////////////////////////////////////////////////////////
             remove01.setVisible(true);////////////////////////////////////////////////////////////
@@ -2200,6 +2287,17 @@ public class productsManagingController implements Initializable {
                 throw new RuntimeException(e);
             }
 
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
+
             auction11.setVisible(false);////////////////////////////////////////////////////////////
             remove11.setVisible(true);////////////////////////////////////////////////////////////
             options11.setVisible(false);/////////////////////////////////////////////////////////////
@@ -2256,6 +2354,17 @@ public class productsManagingController implements Initializable {
             }catch (SQLException e){
                 throw new RuntimeException(e);
             }
+
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
 
             auction21.setVisible(false);////////////////////////////////////////////////////////////
             remove21.setVisible(true);////////////////////////////////////////////////////////////
@@ -2314,6 +2423,17 @@ public class productsManagingController implements Initializable {
                 throw new RuntimeException(e);
             }
 
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
+
             auction31.setVisible(false);////////////////////////////////////////////////////////////
             remove31.setVisible(true);////////////////////////////////////////////////////////////
             options31.setVisible(false);/////////////////////////////////////////////////////////////
@@ -2370,6 +2490,17 @@ public class productsManagingController implements Initializable {
             }catch (SQLException e){
                 throw new RuntimeException(e);
             }
+
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
 
             auction41.setVisible(false);////////////////////////////////////////////////////////////
             remove41.setVisible(true);////////////////////////////////////////////////////////////
@@ -2428,6 +2559,16 @@ public class productsManagingController implements Initializable {
                 throw new RuntimeException(e);
             }
 
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+
             auction51.setVisible(false);////////////////////////////////////////////////////////////
             remove51.setVisible(true);////////////////////////////////////////////////////////////
             options51.setVisible(false);/////////////////////////////////////////////////////////////
@@ -2482,6 +2623,16 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(2,commodityId);
                 pstmt.executeUpdate();
             }catch (SQLException e){
+                throw new RuntimeException(e);
+            }
+
+            try {
+                Sound.auctionIsCompleted();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
                 throw new RuntimeException(e);
             }
 
