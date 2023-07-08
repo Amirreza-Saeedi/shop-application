@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="485.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.WaitingSellersListController">
+   <children>
+      <Label layoutX="36.0" layoutY="39.0" text="Waiting Sellers List">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableView" layoutY="96.0" prefHeight="334.0" prefWidth="686.0">
+        <columns>
+          <TableColumn fx:id="usernameColumn" prefWidth="73.60000765323639" text="Username" />
+            <TableColumn fx:id="passwordColumn" prefWidth="75.99999237060547" text="Password" />
+            <TableColumn fx:id="firstnameColumn" prefWidth="78.4000244140625" text="Firstname" />
+            <TableColumn fx:id="lastnameColumn" prefWidth="81.5999755859375" text="Lastname" />
+            <TableColumn fx:id="emailColumn" prefWidth="96.0" text="Email" />
+            <TableColumn fx:id="companyColumn" prefWidth="71.20001220703125" text="Company" />
+            <TableColumn fx:id="phoneColumn" prefWidth="86.39996337890625" text="Phone" />
+            <TableColumn fx:id="actionColumn" prefWidth="120.0" text="Let sign up?" />
+        </columns>
+      </TableView>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="273.0" layoutY="67.0" prefHeight="18.0" prefWidth="345.0" text="Label" textFill="RED" />
+   </children>
+</AnchorPane>
