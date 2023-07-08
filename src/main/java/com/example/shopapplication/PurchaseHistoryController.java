@@ -46,6 +46,7 @@ public class PurchaseHistoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorLabel.setVisible(false);
         initColumns();
         tableView.setItems(purchases);
     }

@@ -60,6 +60,8 @@ public class LoginController extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginMessageLabel.setVisible(false);
+
         // combo box
         String[] roles = {"Customer", "Seller", "Admin"};
         comboBox.setItems(FXCollections.observableArrayList(roles));
@@ -132,16 +134,13 @@ public class LoginController extends Application implements Initializable {
 
             // make decision:
             if (user == null) { // 1- invalid user & pass
-                loginMessageLabel.setTextFill(Color.RED);
-                loginMessageLabel.setText("Username or password is invalid.");
+                ErrorMessage.showError(loginMessageLabel, "Username or password is invalid.", 5, Color.RED);
 
             } else if (captcha.isExpired()) { // 2- captcha expired
-                loginMessageLabel.setTextFill(Color.RED);
-                loginMessageLabel.setText("Captcha expired.");
+                ErrorMessage.showError(loginMessageLabel, "Captcha expired.", 5, Color.RED);
 
             } else if (!captchaTextField.getText().equalsIgnoreCase(captcha.getCode())) { // 3- mismatched captcha
-                loginMessageLabel.setTextFill(Color.RED);
-                loginMessageLabel.setText("Captcha mismatched.");
+                ErrorMessage.showError(loginMessageLabel, "Captcha mismatched.", 5, Color.RED);
 
             } else { // 4- sign in successfully
                 ErrorMessage.showError(loginMessageLabel, "Returning to home...", 5, Color.GREEN);

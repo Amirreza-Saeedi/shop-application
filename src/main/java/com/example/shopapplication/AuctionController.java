@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -357,10 +358,13 @@ public class AuctionController implements Initializable {
 
     public void close() {
         System.out.println("AuctionController.close");
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorLabel.setVisible(false);
         addChangeListener(newTextField);
         addChangeListener(addTextField);
     }

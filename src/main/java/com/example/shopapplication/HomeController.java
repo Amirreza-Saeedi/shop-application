@@ -25,6 +25,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -32,6 +33,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class HomeController implements Initializable {
@@ -536,6 +538,7 @@ public class HomeController implements Initializable {
     }
     private void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
         searchedItem = searchedItem.toLowerCase();
+        brand = brandFilter.getValue();
         hideAnchorPanes();
         page.setText("1");
         String sql;
@@ -1717,6 +1720,7 @@ public class HomeController implements Initializable {
 
             Stage stage = (Stage) loginbutton.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.centerOnScreen();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
