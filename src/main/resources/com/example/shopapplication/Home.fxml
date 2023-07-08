@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="753.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.HomeController">
+<AnchorPane prefHeight="753.0" prefWidth="1000.0" style="-fx-background-color: white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.HomeController">
    <children>
       <AnchorPane layoutX="3.0" prefHeight="107.0" prefWidth="1397.0" style="-fx-background-color: #26c6da;">
          <children>

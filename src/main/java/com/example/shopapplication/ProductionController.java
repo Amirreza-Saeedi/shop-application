@@ -13,8 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -99,6 +101,8 @@ public class ProductionController implements Initializable {
     private ImageView addImageView;
     @FXML
     private Label inBasketLabel;
+    private static final double ZOOM_FACTOR = 1.5;
+    private static final double ORIGINAL_SCALE_FACTOR = 1;
 
     private ObservableList<Comment> comments;
     private Commodity commodity;
@@ -192,6 +196,55 @@ public class ProductionController implements Initializable {
         // basket
         basketImageView.setVisible(false);
         basketLabel.setVisible(false);
+
+        imageViewListener();
+    }
+
+
+    private void imageViewListener() {
+
+        // add scale transform to image view
+        Scale scaleTransform = new Scale(ORIGINAL_SCALE_FACTOR, ORIGINAL_SCALE_FACTOR, 0, 0);
+        mainImageView.getTransforms().add(scaleTransform);
+
+        // listen for MOUSE_ENTERED event
+        mainImageView.setOnMouseEntered(event -> {
+            // calculate the new scale factor based on the mouse pointer's location
+            double scaleFactor = ZOOM_FACTOR;
+            double mouseX = event.getX();
+            double mouseY = event.getY();
+            double pivotX = mouseX / mainImageView.getBoundsInLocal().getWidth();
+            double pivotY = mouseY / mainImageView.getBoundsInLocal().getHeight();
+
+            // update the scale transform
+            scaleTransform.setX(scaleFactor);
+            scaleTransform.setY(scaleFactor);
+            scaleTransform.setPivotX(pivotX * mainImageView.getBoundsInLocal().getWidth());
+            scaleTransform.setPivotY(pivotY * mainImageView.getBoundsInLocal().getHeight());
+        });
+
+        // listen for the MOUSE_EXITED event
+        mainImageView.setOnMouseExited(event -> {
+            // reset the scale transform to its original scale factor
+            scaleTransform.setX(ORIGINAL_SCALE_FACTOR);
+            scaleTransform.setY(ORIGINAL_SCALE_FACTOR);
+            scaleTransform.setPivotX(0);
+            scaleTransform.setPivotY(0);
+        });
+
+        // listen for the MOUSE_MOVED event
+        mainImageView.setOnMouseMoved(event -> {
+            // update the pivot point of the Scale transform based on the mouse pointer's location
+            double mouseX = event.getX();
+            double mouseY = event.getY();
+            double pivotX = mouseX / mainImageView.getBoundsInLocal().getWidth();
+            double pivotY = mouseY / mainImageView.getBoundsInLocal().getHeight();
+
+            // update the pivot point of the Scale transform
+            scaleTransform.setPivotX(pivotX * mainImageView.getBoundsInLocal().getWidth());
+            scaleTransform.setPivotY(pivotY * mainImageView.getBoundsInLocal().getHeight());
+        });
+
     }
 
     public void toNewComment() {
@@ -629,58 +682,6 @@ public class ProductionController implements Initializable {
 
         return false;
     }
-
-//    public void setCommodity(Commodity commodity) { // set commodity and its labels
-//        if (commodity == null) {
-//            throw new NullPointerException("commodity is null");
-//        }
-//
-//        // 1- commodity object
-//        this.commodity = commodity;
-//
-//        productLabel.setText(commodity.getTitle());
-//        productTooltip.setText(commodity.getTitle());
-//        typeText.setText(commodity.getType());
-//        priceText.setText(commodity.getPrice());
-//        brandText.setText(commodity.getBrand());
-//        rateText.setText(commodity.getRatio());
-//        availableText.setText(commodity.getNumber() + "");
-//        if (commodity.getImage() != null) {
-//            mainImageView.setImage(commodity.getImage());
-//        }
-//        if (commodity.getProperties() != null && !commodity.getProperties().equals("")) {
-//            detailsTextArea.setText(commodity.getProperties());
-//        }
-//
-//        System.out.println("ProductionController.setCommodity");
-//        System.out.println(commodity);
-//
-//        try (Connection connection = new DatabaseConnectionJDBC().getConnection()){ // 2- get others from database
-//            Statement statement = connection.createStatement();
-//            String sql = "SELECT * FROM AllCommodities WHERE commodityId='" + commodity.getCommodityId() + "'";
-//            ResultSet resultSet = statement.executeQuery(sql);
-//
-//            if (resultSet.next()) {
-//                System.out.println("isAuction = " + resultSet.getString("isAuction"));
-//                auctionText.setText(resultSet.getString("isAuction").equals("true") ? "Yes" : "No");
-//                dateText.setText(resultSet.getString("date"));
-//
-//            } else {
-//                throw new Exception("commodity not exist");
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            e.printStackTrace();
-//        }
-//
-//
-////        rateText.setText(commodity.getRate());
-////        availableText.setText(commodity.getNumber());
-////        votesText.setText(commodity.getVotes());
-//
-//
-//    }
 
     private void loadCommodity(int commodityId) {
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
