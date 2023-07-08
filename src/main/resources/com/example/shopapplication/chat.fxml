@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="471.0" prefWidth="597.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ChatController">
+<AnchorPane prefHeight="524.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ChatController">
    <children>
-      <AnchorPane layoutY="369.0" prefHeight="102.0" prefWidth="598.0" style="-fx-background-color: gray;">
-         <children>
-            <TextArea fx:id="messageTextArea" layoutX="3.0" layoutY="3.0" prefHeight="90.0" prefWidth="529.0" promptText="Write your message here" />
-            <Button fx:id="sendButton" defaultButton="true" layoutX="537.0" layoutY="58.0" minWidth="47.0" mnemonicParsing="false" onAction="#send" prefHeight="29.0" prefWidth="47.0" text="Send" />
-            <Button fx:id="exitButton" cancelButton="true" layoutX="537.0" layoutY="21.0" minWidth="47.0" mnemonicParsing="false" onAction="#exit" prefHeight="29.0" prefWidth="47.0" text="Exit" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="367.0" prefWidth="598.0">
-         <children>
-            <TableView fx:id="chatTableView" prefHeight="367.0" prefWidth="598.0">
-              <columns>
-                <TableColumn fx:id="rowTableColumn" prefWidth="33.60000687837601" text="Row" />
-                <TableColumn fx:id="senderTableColumn" prefWidth="98.39995956420898" text="Sender" />
-                  <TableColumn fx:id="messageTableColumn" prefWidth="326.3999786376953" text="Message" />
-                  <TableColumn fx:id="dateTimeTableColumn" prefWidth="138.39996337890625" text="Date&amp;Time" />
-              </columns>
-            </TableView>
-         </children>
-      </AnchorPane>
+      <ScrollPane fx:id="scrollPane" layoutX="26.0" layoutY="53.0" prefHeight="403.0" prefWidth="386.0">
+         <content>
+            <VBox fx:id="vBox" prefHeight="399.0" prefWidth="366.0" />
+         </content>
+      </ScrollPane>
+      <TextArea fx:id="textArea" layoutX="26.0" layoutY="470.0" prefHeight="39.0" prefWidth="334.0" promptText="Write something" wrapText="true" />
+      <Button fx:id="sendButton" layoutX="368.0" layoutY="476.0" mnemonicParsing="false" onAction="#send" text="Send" />
+      <Label fx:id="chatLabel" alignment="CENTER" layoutX="27.0" layoutY="14.0" prefHeight="18.0" prefWidth="386.0" text="Chat with...">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

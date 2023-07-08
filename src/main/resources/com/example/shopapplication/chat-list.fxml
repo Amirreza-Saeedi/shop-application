@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="531.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.ChatListController">
+   <children>
+      <ListView fx:id="listView" layoutX="14.0" layoutY="73.0" prefHeight="442.0" prefWidth="466.0" />
+      <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="466.0" text="List of sellers">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

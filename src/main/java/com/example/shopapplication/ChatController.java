@@ -1,300 +1,157 @@
 package com.example.shopapplication;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
-import java.io.*;
-import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
-
     @FXML
-    private TableView<Message> chatTableView;
+    private ScrollPane scrollPane;
     @FXML
-    private TableColumn<Message, String> senderTableColumn;
+    private VBox vBox;
     @FXML
-    private TableColumn<Message, Integer> rowTableColumn;
-    @FXML
-    private TableColumn<Message, LocalDateTime> dateTimeTableColumn;
-    @FXML
-    private TableColumn<Message, String> messageTableColumn;
-    @FXML
-    private TextArea messageTextArea;
+    private TextArea textArea;
     @FXML
     private Button sendButton;
     @FXML
-    private Button exitButton;
-
-    static class FromAndTo {
-        private User from;
-        private User to;
-        private Admin admin;
-        private Seller seller;
-
-        @Override
-        public String toString() {
-            return "{from = " + from.getUsername() + ", to = " + to.getUsername() +
-                    ", admin = " + admin.getUsername() + ", seller = " + seller.getUsername() + "}";
-
+    private Label chatLabel;
+    private String you;
+    private Seller seller;
+    private final String SELLER = "seller";
+    private final String ADMIN = "admin";
+    public void setAll(Seller seller, String you) {
+        if (!you.equalsIgnoreCase(SELLER) && !you.equalsIgnoreCase(ADMIN)) {
+            throw new RuntimeException("not allowed");
         }
+        this.you = you;
+        this.seller = seller;
 
-        public User getFrom() {
-            return from;
-        }
-
-        public void setFrom(User from) {
-            this.from = from;
-        }
-
-        public User getTo() {
-            return to;
-        }
-
-        public void setTo(User to) {
-            this.to = to;
-        }
-
-        public Admin getAdmin() {
-            return admin;
-        }
-
-        public void setAdmin(Admin admin) {
-            this.admin = admin;
-        }
-
-        public Seller getSeller() {
-            return seller;
-        }
-
-        public void setSeller(Seller seller) {
-            this.seller = seller;
-        }
-    }
-
-    FromAndTo fromAndTo = new FromAndTo();
-
-    // server-client
-    private Socket client;
-    private String host = "localhost";
-    private BufferedReader in;
-    private PrintWriter out;
-    private boolean done = false;
-
-
-
-    private ObservableList<Message> messages = FXCollections.observableArrayList();
-
-    public void setAll(User from, User to) throws Exception {
-        /**
-         * just 1 admin and 1 seller is accepted.
-         * */
-        // determine Admin & Seller
-
-        fromAndTo.setFrom(from);
-        fromAndTo.setTo(to);
-
-        if (from instanceof Admin && to instanceof Seller) {
-            fromAndTo.setAdmin((Admin) from);
-            fromAndTo.setSeller((Seller) to);
-        } else if (from instanceof Seller && to instanceof Admin) {
-            fromAndTo.setAdmin((Admin) to);
-            fromAndTo.setSeller((Seller) from);
+        if (you.equalsIgnoreCase(SELLER)) {
+            chatLabel.setText("Chat with admin");
         } else {
-            throw new Exception("just 1 admin and 1 seller is accepted");
+            chatLabel.setText("Chat with seller(" + seller.getUsername() + ")");
         }
 
-        System.out.println("ChatController.ChatController");
-        System.out.println("from = " + from);
-        System.out.println("to = " + to);
-        System.out.println("seller = " + fromAndTo.getSeller());
-        System.out.println("admin = " + fromAndTo.getAdmin());
-
-        // auto-clear chats
-        autoClear();
-
-        // load chats
-        load();
-
-//        connectToServer();
+        loadChats();
     }
-
-//    private void connectToServer() throws IOException {
-//        // connect to server
-//        client = new Socket(host, ChatServer.port);
-//        System.out.println("connected to server.");
-//        out = new PrintWriter(client.getOutputStream(), true);
-//        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-//        out.println("hello server");
-//
-//    }
-
-    public ChatController() {
-        System.out.println("ChatController.ChatController");
-        System.out.println("default constructor");
-
-    }
-
-    public void close() {
-        System.out.println("ChatController.close");
-    }
-
-    private void shutDown() {
-        done = true;
-        try {
-            in.close();
-            out.close();
-            if (!client.isClosed()) {
-                client.close();
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-//    @Override
-//    public void run() {
-//        try {
-//            client = new Socket(host, ChatServer.port); // connect to server
-//            System.out.println("client " + fromAndTo.getFrom() + " connected.");
-//            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-//            out = new PrintWriter(client.getOutputStream(), true);
-//
-//            out.print(fromAndTo); // pass from-and-to to server
-////            in.read(); // temp
-//
-//            // handle in-messages
-//            String message;
-//            while (!done) {
-//
-//            }
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     public void send() {
-        String message = messageTextArea.getText();
+        System.out.println("ChatController.send");
+        String message = textArea.getText().trim();
+        if (!message.isEmpty()) {
 
+            sendMessage(message); // show message
 
+            // insert into Chats
+            try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+                Statement statement = connection.createStatement();
+                String date = LocalDateTime.now().toString();
+                String sql = "insert into Chats " +
+                        "(\"from\",seller,message,\"date\") " +
+                        "values ('" + you + "','" + seller.getUsername() + "','" + message + "','" + date + "')";
+                int resultSet = statement.executeUpdate(sql);
 
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 
-    public void exit() {
-        shutDown();
+    private void loadChats() {
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
 
+            // first delete older than 2 weeks
+            final int DEADLINE_WEEKS = 2;
+            String deadLine = LocalDateTime.now().minusWeeks(DEADLINE_WEEKS).toString();
+            String sql = "delete from chats where date<'" + deadLine + "';";
+            statement.executeUpdate(sql);
 
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-//        stage.getOnCloseRequest().handle(null);
-        stage.close();
+            // read chats
+            sql = "select * from chats where seller='" + seller.getUsername() + "' " +
+                    "order by date asc;";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                String from = resultSet.getString("from");
+                String seller = resultSet.getString("seller");
+                String message = resultSet.getString("message").trim();
+                if (from.equalsIgnoreCase(you)) {
+                    sendMessage(message);
+                } else {
+                    receiveMessage(message);
+                }
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    private void sendMessage(String message) {
+        if (!message.isEmpty()) {
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+
+            Text text = new Text(message);
+            TextFlow textFlow = new TextFlow(text);
+
+            textFlow.setStyle("-fx-color: rgb(239,242,255); " +
+                    "-fx-background-color: rgb(15,125,242); " +
+                    "-fx-background-radius: 20px");
+
+            textFlow.setPadding(new Insets(5, 10, 5, 10));
+            text.setFill(Color.color(.934, .945, .996));
+
+            hBox.getChildren().add(textFlow);
+            vBox.getChildren().add(hBox);
+
+            textArea.clear();
+        }
     }
 
-    public static void main(String[] args) {
+    private void receiveMessage(String message) {
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+        Text text = new Text(message);
+        TextFlow textFlow = new TextFlow(text);
+
+        textFlow.setStyle("-fx-background-color: rgb(233,233,235); " +
+                "-fx-background-radius: 20px");
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+
+        hBox.getChildren().add(textFlow);
+        vBox.getChildren().add(hBox);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("ChatController.initialize");
+        vBox.heightProperty().addListener((observableValue, oldVal, newVal) -> {
+            scrollPane.setVvalue((Double) newVal);
+        });
 
-        senderTableColumn.setCellValueFactory(new PropertyValueFactory<>("from"));
-        senderTableColumn.setSortable(false);
 
-        messageTableColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
-        messageTableColumn.setSortable(false);
-
-        dateTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
-        dateTimeTableColumn.setSortable(false);
-
-        rowTableColumn.setCellValueFactory(new PropertyValueFactory<>("row"));
-        rowTableColumn.setSortable(false);
     }
-
-    private void load() {
-        /**
-         * loads chat history form Chats
-         * */
-
-        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
-            // read form Chats all seller's messages
-            Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM Chats where " +
-                    "sellerId ='" + fromAndTo.getSeller().getUsername() +"' ORDER BY date ASC, time ASC ";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            ArrayList<Message> list = new ArrayList<>();
-
-            for (int i = 1; resultSet.next(); i++) {
-
-                String from = resultSet.getString("from");
-                String sender = (from.equals("admin")) // from
-                        ? "Admin: " + resultSet.getString("adminId")
-                        : "Seller: " + resultSet.getString("sellerId");
-                String messageTxt = resultSet.getString("message"); // message
-                // date and time
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                String dateTime = resultSet.getString("date") + " " + resultSet.getString("time");
-                LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
-
-                // add message to list
-                Message message = new Message(sender, messageTxt, localDateTime, i);
-                list.add(message);
-            }
-
-
-            messages.addAll(list);
-            chatTableView.setItems(messages);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void autoClear() {
-        /**
-         * clears messages sent more than 2 weeks ago.
-         * */
-
-        final int WEEKS = 2;
-        LocalDate weeksAgoDate = LocalDate.now().minusWeeks(WEEKS);
-//        LocalTime nowTime = LocalTime.now();
-        System.out.println("ChatController.autoClear");
-        System.out.println(weeksAgoDate);
-//        System.out.println(nowTime);
-
-        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
-            // delete older than WEEKS history from Chats
-            Statement statement = connection.createStatement(); // todo how to apply date and time conditions together?
-            String sql = "DELETE FROM Chats WHERE date<'" + weeksAgoDate + "'";
-            int resultSet = statement.executeUpdate(sql);
-            System.out.println("resultSet = " + resultSet);
-
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-
 }

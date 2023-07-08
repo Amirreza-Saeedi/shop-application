@@ -4,6 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +25,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -29,6 +33,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class HomeController implements Initializable {
@@ -228,13 +233,15 @@ public class HomeController implements Initializable {
     @FXML
     private Label page;
     @FXML
+    private ImageView basketImageView;
+    @FXML
     private ChoiceBox<String> brandFilter;
     @FXML
     private Label brandName;
     @FXML
     private CheckBox isAuction;
     @FXML
-    private Button placeAuction;
+    private Label commoditiesNumber;
     @FXML
     private Button productRegistration;
     @FXML
@@ -247,12 +254,18 @@ public class HomeController implements Initializable {
     private Button sellersChartButton;
     @FXML
     private Button inventoryButton;
+    @FXML
+    private Button chatButton;
+    private final String SELLER = "seller";
+    private final String ADMIN = "admin";
+    private final String CUSTOMER = "customer";
     private String choiceBoxOption = "Filter";
     private String groupListItem  = "All Commodities";
     private String brandListItem;
     private String orderBy;
     private boolean isLowToHigh;
     private User user;
+    private String userType;
     private ObservableList<String> choiceBoxOptions =
             FXCollections.observableArrayList("Clear filters","Cheapest to most expensive", "Most expensive to cheapest", "Based on points");
 //     private AnchorPane[] anchorPanes = new AnchorPane[14];
@@ -280,12 +293,13 @@ public class HomeController implements Initializable {
         infoButton.setVisible(true);
 
         if (user instanceof Seller){
-            placeAuction.setVisible(true);
             productRegistration.setVisible(true);
             manageCommodities.setVisible(true);
             sellersChartButton.setVisible(false);
             inventoryButton.setVisible(false);
             goToDiscountCodeRegistrationPageButton.setVisible(false);
+            chatButton.setVisible(true);
+            userType = SELLER;
 
             typeInfo.setText("you are a seller!");
             loginbutton.setText(user.getUsername());
@@ -293,14 +307,14 @@ public class HomeController implements Initializable {
             sellersChartButton.setVisible(true);
             inventoryButton.setVisible(true);
             goToDiscountCodeRegistrationPageButton.setVisible(true);
-            placeAuction.setVisible(false);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
+            chatButton.setVisible(true);
+            userType = ADMIN;
 
             typeInfo.setText("ADMIN");
             loginbutton.setText(user.getUsername());
         } else if (user instanceof Customer) {
-            placeAuction.setVisible(false);
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
             sellersChartButton.setVisible(false);
@@ -308,8 +322,73 @@ public class HomeController implements Initializable {
             goToDiscountCodeRegistrationPageButton.setVisible(false);
             typeInfo.setText("Customer");
             loginbutton.setText(user.getUsername());
+            userType = CUSTOMER;
+        }
+
+        loadBasket();
+    }
+
+    public void chat() {
+        if (user instanceof Seller) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("chat.fxml"));
+                Parent root = loader.load();
+                ChatController controller = loader.getController();
+                controller.setAll((Seller) user, SELLER);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else if (user instanceof Admin) {
+            // todo new page
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("chat-list.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
+    private void loadBasket() {
+        /**
+         * Called after add and user is not null.
+         * Calculate number of commodities in user basket,
+         * and sets basket label.
+         * */
+
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            // read addition of all commodities user have in Baskets
+            Statement statement = connection.createStatement();
+            String sql = "SELECT sum(number) as sum FROM Baskets where " +
+                    "userId='" + user.getUsername() + "' and " +
+                    "user='" + userType + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) { // if has any basket
+                commoditiesNumber.setText(resultSet.getString("sum"));
+            }
+
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     private void hideAnchorPanes(){
         anchorPane00.setVisible(false);
         anchorPane10.setVisible(false);
@@ -459,6 +538,7 @@ public class HomeController implements Initializable {
     }
     private void selectCommoditiesBySearch(String group,String orderBy,boolean isLowToHigh, String brand,String searchedItem){
         searchedItem = searchedItem.toLowerCase();
+        brand = brandFilter.getValue();
         hideAnchorPanes();
         page.setText("1");
         String sql;
@@ -641,7 +721,18 @@ public class HomeController implements Initializable {
         }
     }
     public void select(){
-        if (isAuction.isSelected()) System.out.println("isSelected");
+        if (isAuction.isSelected()){
+            try {
+                Sound.auction();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("isSelected");
+        }
         makeGroupCorrect();
         if (choiceFilter.getValue().equals("Filters") || choiceFilter.getValue().equals("Clear filters"))
             selectCommodities(groupListItem,orderBy,isLowToHigh,brandFilter.getSelectionModel().getSelectedItem());
@@ -716,6 +807,12 @@ public class HomeController implements Initializable {
                 }
                 }
             }else{
+
+                updateAuctions(conn);
+
+
+
+
                 while (rs.next()) {
                     int isAuction1 = rs.getInt("isAuction");
                     if (isAuction1 != 0){
@@ -763,6 +860,28 @@ public class HomeController implements Initializable {
             System.out.println("Test3 passed");
         }
     }
+
+    private void updateAuctions(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "select * from auction;";
+        String now = LocalDateTime.now().toString();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            String date = resultSet.getString("date");
+            String buyerUsername = resultSet.getString("buyerUsername");
+            String buyerType = resultSet.getString("buyerType");
+            int auctionId = resultSet.getInt("auctionId");
+            int most = resultSet.getInt("mostPrice");
+            int base = resultSet.getInt("basePrice");
+            Auction auction = new Auction(auctionId, buyerUsername, buyerType, base, most, date);
+
+            if (now.compareToIgnoreCase(date) > 0) {
+                auction.setWinner(connection);
+            }
+        }
+
+    }
 //    private void insertImageToDataBase() throws SQLException, IOException {
 //        // Establish a connection to the SQLite database
 //        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/database.db");
@@ -796,13 +915,15 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        hideAnchorPanes();
         if (user == null) infoButton.setVisible(false);
-        Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
-        ImageView imageView = new ImageView(image);
-        basketButton.setGraphic(imageView);
+//        Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
+//        ImageView imageView = new ImageView(image);
+//        basketButton.setGraphic(imageView);
         inventoryButton.setVisible(false);
         sellersChartButton.setVisible(false);
         goToDiscountCodeRegistrationPageButton.setVisible(false);
+        chatButton.setVisible(false);
 //        setIDs();
 //        Circle circle = new Circle(30);
 //        backToHomeButton.setShape(circle);
@@ -862,6 +983,15 @@ public class HomeController implements Initializable {
                 brandFilter.getSelectionModel().selectFirst();
                 switch (selectedItem){
                     case "All Commodities" :
+                        try {
+                            Sound.allCommodities();
+                        } catch (UnsupportedAudioFileException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        } catch (LineUnavailableException e) {
+                            throw new RuntimeException(e);
+                        }
                         groupListItem = "AllCommodities";
                         switch (choiceBoxOption) {
                             case "Clear filters", "Filters":
@@ -887,6 +1017,15 @@ public class HomeController implements Initializable {
                         }
                         break;
                             case "Grocery" :
+                                try {
+                                    Sound.grocery();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "GroceryCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -912,6 +1051,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Break fast" :
+                                try {
+                                    Sound.breakFast();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "BreakFastCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -937,6 +1085,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case  "Protein" :
+                                try {
+                                    Sound.protein();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "ProteinCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -962,6 +1119,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Dairy" :
+                                try {
+                                    Sound.dairy();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "DairyCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -987,6 +1153,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Fruit and Vegetables" :
+                                try {
+                                    Sound.fruitAndVegetables();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "FruitAndVegetablesCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -1012,6 +1187,15 @@ public class HomeController implements Initializable {
                                 }
                                 break;
                             case "Snacks" :
+                                try {
+                                    Sound.snacks();
+                                } catch (UnsupportedAudioFileException e) {
+                                    throw new RuntimeException(e);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (LineUnavailableException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 groupListItem = "SnackCommodities";
                                 switch (choiceBoxOption) {
                                     case "Clear filters", "Filters":
@@ -1536,6 +1720,7 @@ public class HomeController implements Initializable {
 
             Stage stage = (Stage) loginbutton.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.centerOnScreen();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -1664,6 +1849,15 @@ public class HomeController implements Initializable {
     }
 
     public void goToProductRegistrationPage(ActionEvent event){
+        try {
+            Sound.productRegistration();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
 //        switchScene(event,"ProductRegistrationPage");
         FXMLLoader loader = new FXMLLoader(getClass().getResource( "ProductRegistrationPage.fxml"));
         Parent root = null;
@@ -1683,6 +1877,15 @@ public class HomeController implements Initializable {
     }
     public void setManageCommoditiesOnAction(ActionEvent event){
 //        switchScene(event,"productsManaging");
+        try {
+            Sound.productsManaging();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
         Node node = (Node) event.getSource();
         FXMLLoader loader = new FXMLLoader(Login.class.getResource("productsManaging.fxml"));
         Parent root = null;
@@ -1699,6 +1902,15 @@ public class HomeController implements Initializable {
     }
 
     public void setSellersChartButtonOnAction(ActionEvent event){
+        try {
+            Sound.sellersChart();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
         Node node = (Node) event.getSource();
         FXMLLoader loader = new FXMLLoader(Login.class.getResource("chart.fxml"));
         Parent root = null;
@@ -1714,11 +1926,28 @@ public class HomeController implements Initializable {
         stage.centerOnScreen();
     }
 
-    public void setBasketOnAction(ActionEvent event){
+    public void setBasketOnAction(){
         if (user == null){
+            try {
+                Sound.basketError();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("can't go there");
         }else {
-            Node node = (Node) event.getSource();
+            try {
+                Sound.basket();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
             FXMLLoader loader = new FXMLLoader(Login.class.getResource("basket.fxml"));
             Parent root = null;
             try {
@@ -1729,7 +1958,7 @@ public class HomeController implements Initializable {
 
             BasketController basketController = loader.getController();
             basketController.setUser(user);
-            Stage stage = (Stage) node.getScene().getWindow();
+            Stage stage = (Stage) basketImageView.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
         }
@@ -1743,6 +1972,15 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try {
+            Sound.discount();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
 
         DiscountRegistrationController d = loader.getController();
         d.setUser(user);
@@ -1751,6 +1989,15 @@ public class HomeController implements Initializable {
         stage.centerOnScreen();
     }
     public void goToUserInfo(ActionEvent event){
+        try {
+            Sound.userInfo();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
         Node node = (Node) event.getSource();
         FXMLLoader loader = new FXMLLoader(Login.class.getResource("profile.fxml"));
         Parent root = null;
@@ -1767,8 +2014,33 @@ public class HomeController implements Initializable {
         stage.centerOnScreen();
     }
 
-    public void goToInventory(ActionEvent event){
 
-    }
+        public void goToInventory(ActionEvent event){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("storage.fxml"));
+                Parent root = loader.load();
+
+                StorageController controller = loader.getController();
+                if (user instanceof Admin)
+                    controller.setAdmin((Admin) user);
+                else
+                    throw new RuntimeException("user is not admin");
+
+                Stage stage = (Stage) goToNextPageButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.centerOnScreen();
+                try {
+                    Sound.inventory();
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                } catch (LineUnavailableException e) {
+                    throw new RuntimeException(e);
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
 }

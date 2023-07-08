@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.PurchaseHistoryController">
+   <children>
+      <Label layoutX="57.0" layoutY="47.0" text="Purchase History">
+         <font>
+            <Font name="System Bold Italic" size="22.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableView" layoutY="113.0" prefHeight="226.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="rowColumn" prefWidth="32.79998779296875" text="Row" />
+            <TableColumn fx:id="commodityColumn" prefWidth="95.19998168945312" text="Commodity ID" />
+            <TableColumn fx:id="typeColumn" prefWidth="74.4000244140625" text="Type" />
+            <TableColumn fx:id="numberColumn" prefWidth="56.7999267578125" text="Number" />
+            <TableColumn fx:id="priceColumn" prefWidth="69.60003662109375" text="Price 1x" />
+            <TableColumn fx:id="brandColumn" prefWidth="69.60003662109375" text="Brand" />
+            <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
+            <TableColumn fx:id="discountColumn" prefWidth="96.0001220703125" text="Discount Code" />
+        </columns>
+      </TableView>
+      <Button fx:id="clearButton" layoutX="526.0" layoutY="79.0" mnemonicParsing="false" onAction="#clearAll" text="Clear All" />
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="240.0" layoutY="83.0" prefHeight="18.0" prefWidth="281.0" text="Label" textFill="RED" />
+   </children>
+</AnchorPane>

@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class StorageController extends Application implements Initializable {
     @FXML
     private TableColumn<Storage, Integer> amountColumn;
     @FXML
-    private TableColumn<Storage, Integer> valueColumn;
+    private TableColumn<Storage, BigDecimal> valueColumn;
     @FXML
     private TableColumn<Storage, String> managerColumn;
     @FXML
@@ -101,7 +102,7 @@ public class StorageController extends Application implements Initializable {
                 String name = resultSet1.getString("name");
                 String address = resultSet1.getString("address");
                 int amount = 0;
-                int value  = 0;
+                BigDecimal value  = new BigDecimal(0);
 
                 // calculate from AllCommodities
                 sql = "SELECT sum(number) as amount, sum(number*price) as value from AllCommodities " +
@@ -110,7 +111,7 @@ public class StorageController extends Application implements Initializable {
 
                 if (resultSet2.next()) {
                     amount = resultSet2.getInt("amount");
-                    value = resultSet2.getInt("value");
+                    value = BigDecimal.valueOf(resultSet2.getDouble("value"));
                 }
 
                 // create storage
@@ -122,16 +123,7 @@ public class StorageController extends Application implements Initializable {
             throw new RuntimeException(e);
         }
 
-
         storages.setAll(list); // fill observable list
-
-//        // sample
-//        storages.addAll(
-//                new Storage("asdfl", 1, 1, 3, "alkdf", "lksdf"),
-//                new Storage("asdfl", 2, 2, 3, "alkdf", "lksdf"),
-//                new Storage("asdfl", 3, 3, 3, "alkdf", "lksdf"),
-//                new Storage("asdfl", 4, 4, 3, "alkdf", "lksdf")
-//        );
     }
 
     private void addButtonsToTable() {
@@ -193,6 +185,24 @@ public class StorageController extends Application implements Initializable {
 
     private void chart(Storage storage) {
         System.out.println("StorageManagementController.chart");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("storage-chart.fxml"));
+
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        StorageChartController controller = loader.getController();
+        controller.setAll(storage);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+        loadStorages();
     }
 
     public void add() throws IOException {
@@ -276,12 +286,14 @@ public class StorageController extends Application implements Initializable {
                 resultSet = statement.executeUpdate(sql);
                 System.out.println("resultSet after delete = " + resultSet);
 
-//                // edit observableList
-//                storages.
-//                storages.remove(storage);
-                // reload
-                loadStorages();
 
+                loadStorages(); // reload
+
+                // logs
+                StorageLog.logStorageDeletion(fromId, storage.getAmount(),
+                        storage.getValue().doubleValue(), toId, connection);
+                StorageLog.logStorageMerger(toId, storage.getAmount(),
+                        storage.getValue().doubleValue(), storage.getName(), connection);
                 // showError: successful
                 ErrorMessage.showError(errorLabel, "Deletion is done successfully.", 5, Color.GREEN);
 
@@ -297,7 +309,7 @@ public class StorageController extends Application implements Initializable {
     private void edit(Storage storage)  {
         System.out.println("edit");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("storage-management.fxml"));
-        Parent root = null;
+        Parent root;
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -323,6 +335,26 @@ public class StorageController extends Application implements Initializable {
         Parent root = loader.load();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void logs() {
+        System.out.println("StorageController.logs");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("storage-logs.fxml"));
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        StorageLogsController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        loadStorages();
+
     }
 
     public void setAdmin(Admin admin) {

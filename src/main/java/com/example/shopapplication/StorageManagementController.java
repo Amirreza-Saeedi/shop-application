@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -86,6 +87,9 @@ public class StorageManagementController implements Initializable {
                 String sellerId = resultSet.getString("userName");
                 int number = resultSet.getInt("number");
                 int commodityId = resultSet.getInt("commodityId");
+
+                String imageName = resultSet.getString("imageName");
+                Image image = new Image(imageName);
 
                 Commodity commodity = new Commodity(type, price, brand, title, date, sellerId, number, commodityId);
 
@@ -219,6 +223,10 @@ public class StorageManagementController implements Initializable {
             sql = "delete from baskets " + str;
             resultSet = statement.executeUpdate(sql);
 
+            // logs
+            StorageLog.logCommodityDeletion(storage.getId(), commodity.getNumber(),
+                    Double.parseDouble(commodity.getPrice()), commodity.getTitle(), connection);
+
             ErrorMessage.showError(errorLabel, commodity.getTitle() + " removed successfully.", 5, Color.GREEN);
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -253,6 +261,12 @@ public class StorageManagementController implements Initializable {
             String sql = "update AllCommodities set storageId='" + toStorageId + "' " +
                     "where commodityId='" + commodity.getCommodityId() + "'";
             int resultSet = statement.executeUpdate(sql);
+
+            // logs
+            StorageLog.logCommodityExportation(storage.getId(), commodity.getNumber(),
+                    Double.parseDouble(commodity.getPrice()), commodity.getTitle(), connection);
+            StorageLog.logCommodityImportation(toStorageId, commodity.getNumber(),
+                    Double.parseDouble(commodity.getPrice()), commodity.getTitle(), connection);
 
             // successful
             ErrorMessage.showError(errorLabel, "Successfully transferred.", 5, Color.GREEN);

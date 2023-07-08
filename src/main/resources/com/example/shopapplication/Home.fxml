@@ -42,12 +42,7 @@
                </image>
             </ImageView>
             <Label fx:id="commoditiesNumber" alignment="CENTER" layoutX="1338.0" layoutY="73.0" prefHeight="24.0" prefWidth="46.0" text="0" />
-            <Button fx:id="placeAuction" layoutX="1067.0" layoutY="5.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #ab47bc;" text="Place an auction" visible="false">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="productRegistration" layoutX="1067.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToProductRegistrationPage" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
+            <Button fx:id="productRegistration" layoutX="1067.0" layoutY="18.0" mnemonicParsing="false" onAction="#goToProductRegistrationPage" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #3f51b5;" text="Product registration" visible="false">
                <font>
                   <Font name="System Bold Italic" size="11.0" />
                </font>
@@ -57,20 +52,29 @@
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="manageCommodities" layoutX="1068.0" layoutY="69.0" mnemonicParsing="false" onAction="#setManageCommoditiesOnAction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #009688;" text="Manage commodities" visible="false">
+            <Button fx:id="manageCommodities" layoutX="1068.0" layoutY="62.0" mnemonicParsing="false" onAction="#setManageCommoditiesOnAction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #009688;" text="Manage commodities" visible="false">
                <font>
                   <Font name="System Bold Italic" size="10.3" />
                </font>
             </Button>
-            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="11.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" />
-            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="42.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" />
+            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="11.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" visible="false" />
+            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="42.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" visible="false" />
             <Button fx:id="basketButton" layoutX="1338.0" layoutY="29.0" mnemonicParsing="false" onAction="#setBasketOnAction" prefHeight="42.0" prefWidth="46.0" />
-            <Button fx:id="goToDiscountCodeRegistrationPageButton" layoutX="1079.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3">
+            <Button fx:id="goToDiscountCodeRegistrationPageButton" layoutX="1079.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3" visible="false">
                <font>
                   <Font size="8.0" />
                </font>
             </Button>
             <Button fx:id="infoButton" layoutX="1202.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToUserInfo" text="user information" />
+            <ImageView fx:id="basketImageView" fitHeight="42.0" fitWidth="46.0" layoutX="1338.0" layoutY="31.0" onMouseReleased="#setBasketOnAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../basket.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Button fx:id="chatButton" layoutX="1343.0" layoutY="2.0" mnemonicParsing="false" onAction="#chat" text="Chat" />
          </children>
       </AnchorPane>
       <Line endX="1173.982177734375" endY="-10.171032905578613" fill="#d40a0a" layoutX="226.0" layoutY="116.0" rotate="0.5" startX="-222.00001525878906" startY="7.62939453125E-6" stroke="#666464" />
@@ -89,7 +93,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane fx:id="anchorPane00" prefHeight="250.0" prefWidth="184.0" visible="false">
+            <AnchorPane fx:id="anchorPane00" prefHeight="250.0" prefWidth="184.0">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -109,7 +113,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView00" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct00" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView00" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct00" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -118,14 +122,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" onMouseReleased="#add00" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="145.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -134,7 +130,7 @@
                   <Label fx:id="number00" layoutX="68.0" layoutY="179.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane10" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="1">
+            <AnchorPane fx:id="anchorPane10" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -154,7 +150,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView10" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct10" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView10" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct10" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -163,14 +159,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add10" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -179,7 +167,7 @@
                   <Label fx:id="number10" layoutX="63.0" layoutY="179.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane20" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="2">
+            <AnchorPane fx:id="anchorPane20" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="2">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -199,7 +187,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView20" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct20" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView20" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct20" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -208,14 +196,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add20" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -224,7 +204,7 @@
                   <Label fx:id="number20" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane30" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="3">
+            <AnchorPane fx:id="anchorPane30" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="3">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -244,7 +224,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView30" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct30" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView30" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct30" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -253,14 +233,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add30" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -269,7 +241,7 @@
                   <Label fx:id="number30" layoutX="68.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane40" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="4">
+            <AnchorPane fx:id="anchorPane40" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="4">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -289,7 +261,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView40" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct40" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView40" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct40" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -299,14 +271,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add40" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="146.0" layoutY="202.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -315,7 +279,7 @@
                   <Label fx:id="number40" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane50" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="5">
+            <AnchorPane fx:id="anchorPane50" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="5">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -335,7 +299,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView50" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct50" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView50" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct50" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -345,14 +309,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" onMouseReleased="#add50" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="145.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -361,7 +317,7 @@
                   <Label fx:id="number50" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane60" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="6">
+            <AnchorPane fx:id="anchorPane60" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="6">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -381,7 +337,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView60" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct60" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView60" fitHeight="150.0" fitWidth="175.0" layoutX="-1.0" onMouseReleased="#toProduct60" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -391,14 +347,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" onMouseReleased="#add60" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="146.0" layoutY="202.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -407,7 +355,7 @@
                   <Label fx:id="number60" layoutX="68.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane01" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane01" prefHeight="250.0" prefWidth="184.0" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -427,7 +375,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView01" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct01" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView01" fitHeight="150.0" fitWidth="175.0" onMouseReleased="#toProduct01" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -436,14 +384,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add01" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="146.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -455,7 +395,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane11" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane11" prefHeight="250.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -475,7 +415,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct11" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="175.0" onMouseReleased="#toProduct11" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -484,14 +424,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add11" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="145.0" layoutY="202.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -500,7 +432,7 @@
                   <Label fx:id="number11" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane21" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane21" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -520,7 +452,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView21" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct21" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView21" fitHeight="150.0" fitWidth="175.0" onMouseReleased="#toProduct21" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -529,14 +461,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add21" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="143.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -545,7 +469,7 @@
                   <Label fx:id="number21" layoutX="65.0" layoutY="177.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane31" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane31" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -565,7 +489,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView31" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct31" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView31" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct31" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -574,14 +498,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="141.0" layoutY="173.0" onMouseReleased="#add31" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="144.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -590,7 +506,7 @@
                   <Label fx:id="number31" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane41" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane41" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -610,7 +526,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView41" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct41" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView41" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct41" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -619,14 +535,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" onMouseReleased="#add41" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="145.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -635,7 +543,7 @@
                   <Label fx:id="number41" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane51" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane51" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -655,7 +563,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView51" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct51" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView51" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct51" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -664,14 +572,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" onMouseReleased="#add51" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="144.0" layoutY="203.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />
@@ -680,7 +580,7 @@
                   <Label fx:id="number51" layoutX="65.0" layoutY="178.0" prefHeight="18.0" prefWidth="69.0" text="Number" textFill="#eb1010" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPane61" prefHeight="250.0" prefWidth="184.0" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <AnchorPane fx:id="anchorPane61" prefHeight="250.0" prefWidth="184.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
                   <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="34.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -700,7 +600,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imageView61" fitHeight="150.0" fitWidth="200.0" onMouseReleased="#toProduct61" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView61" fitHeight="150.0" fitWidth="176.0" onMouseReleased="#toProduct61" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ImageView>
@@ -709,14 +609,6 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="140.0" layoutY="173.0" onMouseReleased="#add61" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../add.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <Label layoutX="144.0" layoutY="204.0" prefHeight="38.0" prefWidth="15.0" text="\$">
                      <font>
                         <Font size="22.0" />

@@ -1,26 +1,43 @@
 package com.example.shopapplication;
 
 public abstract class User {
-    private String seller = "seller";
-    private String customer = "customer";
-    private String admin = "admin";
+
     private String username;
     private String password;
     private String firstname;
     private String lastname;
     private String email;
+    private double charge;
+
+    public double getCharge() {
+        return charge;
+    }
+
+    public void setCharge(double charge) {
+        this.charge = charge;
+    }
+
+    private String phone;
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User(String username, String password, String firstname, String lastname, String email) {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public User(String username, String password, String firstname, String lastname, String email, String phone) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-
+        this.phone = phone;
     }
     public String toString(){
         if (this instanceof Customer){

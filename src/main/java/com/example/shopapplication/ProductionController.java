@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -18,6 +19,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -254,8 +257,9 @@ public class ProductionController implements Initializable {
         if (user == null) { // user has to be singed in
             showError(errorText, "You need to sign in first.", 5, Color.RED);
             return;
-        } else if (commodity.getAuctionId() != 0) {
+        } else if (commodity.getIsAuction() != 0) {
             showError(errorText, "This commodity is on auction.", 5, Color.RED);
+            return;
         }
 
         if (commodity.getNumber() > currentCommodityInBasket) {
@@ -332,7 +336,32 @@ public class ProductionController implements Initializable {
     }
 
     public void toBasket() {
+        try {
+            Sound.basket();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println("ProductionController.toBasket");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("basket.fxml"));
+            Parent root = loader.load();
+
+            BasketController controller = loader.getController();
+            controller.setUser(user);
+
+            Stage stage = (Stage) auctionButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void toHome() throws IOException {
@@ -667,7 +696,10 @@ public class ProductionController implements Initializable {
                 int number = resultSet.getInt("number");
                 String date = resultSet.getString("date");
                 String properties = resultSet.getString("properties");
-                // todo image
+                // todo
+                String imageName = resultSet.getString("imageName");
+                Image image = new Image(imageName);
+                mainImageView.setImage(image);
                 String sellerId = resultSet.getString("userName");
                 int auctionId = resultSet.getInt("isAuction");
 
@@ -682,7 +714,7 @@ public class ProductionController implements Initializable {
                 dateText.setText(c.getDate());
                 detailsTextArea.setText(c.getProperties());
 
-                setAuctionNodes(c.getAuctionId());
+                setAuctionNodes(c.getIsAuction());
 
                 this.commodity = c;
             }

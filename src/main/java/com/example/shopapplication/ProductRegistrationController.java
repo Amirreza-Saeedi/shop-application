@@ -18,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -194,6 +196,13 @@ public class ProductRegistrationController implements Initializable {
             }catch (SQLException e){
                 System.err.println(e);
                 e.printStackTrace();
+            }
+            try {
+                Sound.productRegistered();
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
             }
             error.setText("Returning to home...");
             new Login(user).loginToHome((Node) event.getSource());
