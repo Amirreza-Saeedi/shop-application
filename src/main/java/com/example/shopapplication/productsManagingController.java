@@ -1026,6 +1026,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1,numberValueFactory.getValue());
                 pstmt.setInt(2,id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -1040,6 +1043,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory2.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1054,6 +1060,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory3.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1068,6 +1077,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory4.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1082,6 +1094,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory5.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1096,6 +1111,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory6.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1110,6 +1128,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory7.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1124,6 +1145,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory8.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1138,6 +1162,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory9.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1152,6 +1179,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory10.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1166,6 +1196,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory11.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1180,6 +1213,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory12.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1194,6 +1230,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory13.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1208,10 +1247,39 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory14.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                log(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
         });
+    }
+
+    private void log(Integer oldVal, Integer newVal, int id, Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "select * from allCommodities where commodityId='" + id + "';";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if (resultSet.next()) {
+            int storageId = resultSet.getInt("storageId");
+            double price = resultSet.getDouble("price");
+            String title = resultSet.getString("title");
+
+            if (newVal > oldVal) { // added
+                StorageLog.logCommodityAddition(storageId, 1, price, user.getUsername(),
+                       title , connection);
+
+            } else if (oldVal > newVal) { // reduced
+                StorageLog.logCommodityReduction(storageId, 1, price, user.getUsername(),
+                        title, connection);
+            } else
+                System.err.println("new == old");
+
+        } else {
+            throw new RuntimeException("storage not found");
+        }
+
     }
 
     public void setDelete00OnAction() throws SQLException {
