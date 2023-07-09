@@ -482,16 +482,18 @@ public class productsManagingController implements Initializable {
             title00.setText(commodities.get(page).getTitle());
             price00.setText(commodities.get(page).getPrice());
             numberValueFactory.setValue(commodities.get(page).getNumber());
-            if (commodities.get(page).isAuction != 0) {
+            if (commodities.get(page).isAuction != 0) { //it is on auction
                 image00.setVisible(true);
                 number00.setVisible(false);
                 price00.setVisible(false);
                 record00.setVisible(false);
+                auction00.setVisible(false);
             }else {
                 image00.setVisible(true);
                 number00.setVisible(true);
                 price00.setVisible(true);
                 record00.setVisible(true);
+                auction00.setVisible(true);
             }
             page++;
         }else return;
@@ -506,11 +508,13 @@ public class productsManagingController implements Initializable {
                 number10.setVisible(false);
                 price10.setVisible(false);
                 record10.setVisible(false);
+                auction10.setVisible(false);
             }else {
                 image10.setVisible(true);
                 number10.setVisible(true);
                 price10.setVisible(true);
                 record10.setVisible(true);
+                auction10.setVisible(true);
             }
             page++;
         }else return;
@@ -525,11 +529,13 @@ public class productsManagingController implements Initializable {
                 number20.setVisible(false);
                 price20.setVisible(false);
                 record20.setVisible(false);
+                auction20.setVisible(false);
             }else {
                 image20.setVisible(true);
                 number20.setVisible(true);
                 price20.setVisible(true);
                 record20.setVisible(true);
+                auction20.setVisible(true);
             }
             page++;
         }else return;
@@ -544,11 +550,13 @@ public class productsManagingController implements Initializable {
                 number30.setVisible(false);
                 price30.setVisible(false);
                 record30.setVisible(false);
+                auction30.setVisible(false);
             }else {
                 image30.setVisible(true);
                 number30.setVisible(true);
                 price30.setVisible(true);
                 record30.setVisible(true);
+                auction30.setVisible(true);
             }
             page++;
         }else return;
@@ -563,11 +571,13 @@ public class productsManagingController implements Initializable {
                 number40.setVisible(false);
                 price40.setVisible(false);
                 record40.setVisible(false);
+                auction40.setVisible(false);
             }else {
                 image40.setVisible(true);
                 number40.setVisible(true);
                 price40.setVisible(true);
                 record40.setVisible(true);
+                auction40.setVisible(true);
             }
             page++;
         }else return;
@@ -582,11 +592,13 @@ public class productsManagingController implements Initializable {
                 number50.setVisible(false);
                 price50.setVisible(false);
                 record50.setVisible(false);
+                auction50.setVisible(false);
             }else {
                 image50.setVisible(true);
                 number50.setVisible(true);
                 price50.setVisible(true);
                 record50.setVisible(true);
+                auction50.setVisible(true);
             }
 
             page++;
@@ -602,11 +614,13 @@ public class productsManagingController implements Initializable {
                 number60.setVisible(false);
                 price60.setVisible(false);
                 record60.setVisible(false);
+                auction60.setVisible(false);
             }else {
                 image60.setVisible(true);
                 number60.setVisible(true);
                 price60.setVisible(true);
                 record60.setVisible(true);
+                auction60.setVisible(true);
             }
             page++;
         }else return;
@@ -621,11 +635,13 @@ public class productsManagingController implements Initializable {
                 number01.setVisible(false);
                 price01.setVisible(false);
                 record01.setVisible(false);
+                auction01.setVisible(false);
             }else {
                 image01.setVisible(true);
                 number01.setVisible(true);
                 price01.setVisible(true);
                 record01.setVisible(true);
+                auction01.setVisible(true);
             }
             page++;
         }else return;
@@ -640,11 +656,13 @@ public class productsManagingController implements Initializable {
                 number11.setVisible(false);
                 price11.setVisible(false);
                 record11.setVisible(false);
+                auction11.setVisible(false);
             }else {
                 image11.setVisible(true);
                 number11.setVisible(true);
                 price11.setVisible(true);
                 record11.setVisible(true);
+                auction11.setVisible(true);
             }
             page++;
         }else return;
@@ -659,11 +677,13 @@ public class productsManagingController implements Initializable {
                 number21.setVisible(false);
                 price21.setVisible(false);
                 record21.setVisible(false);
+                auction21.setVisible(false);
             }else {
                 image21.setVisible(true);
                 number21.setVisible(true);
                 price21.setVisible(true);
                 record21.setVisible(true);
+                auction21.setVisible(true);
             }
             page++;
         }else  return;
@@ -678,11 +698,13 @@ public class productsManagingController implements Initializable {
                 number31.setVisible(false);
                 price31.setVisible(false);
                 record31.setVisible(false);
+                auction31.setVisible(false);
             }else {
                 image31.setVisible(true);
                 number31.setVisible(true);
                 price31.setVisible(true);
                 record31.setVisible(true);
+                auction31.setVisible(true);
             }
             page++;
         }else  return;
@@ -697,11 +719,13 @@ public class productsManagingController implements Initializable {
                 number41.setVisible(false);
                 price41.setVisible(false);
                 record41.setVisible(false);
+                auction41.setVisible(false);
             }else {
                 image41.setVisible(true);
                 number41.setVisible(true);
                 price41.setVisible(true);
                 record41.setVisible(true);
+                auction41.setVisible(true);
             }
             page++;
         }else  return;
@@ -716,11 +740,13 @@ public class productsManagingController implements Initializable {
                 number51.setVisible(false);
                 price51.setVisible(false);
                 record51.setVisible(false);
+                auction51.setVisible(false);
             }else {
                 image51.setVisible(true);
                 number51.setVisible(true);
                 price51.setVisible(true);
                 record51.setVisible(true);
+                auction51.setVisible(true);
             }
             page++;
         }else  return;
@@ -735,11 +761,13 @@ public class productsManagingController implements Initializable {
                 number61.setVisible(false);
                 price61.setVisible(false);
                 record61.setVisible(false);
+                auction61.setVisible(false);
             }else {
                 image61.setVisible(true);
                 number61.setVisible(true);
                 price61.setVisible(true);
                 record61.setVisible(true);
+                auction61.setVisible(true);
             }
         }
     }
@@ -1233,35 +1261,35 @@ public class productsManagingController implements Initializable {
     }
 
     private void deleteCommodity(Commodity commodity) {
-        try {
-            Statement statement = connection.createStatement();
-            String str = "where commodityId='" + commodity.getCommodityId() + "'";
+       try {
+           Statement statement = connection.createStatement();
+           String str = "where commodityId= '" + commodity.getCommodityId() + "'";
 
-            // auction:
-            String sql = "delete from auction " + str;
-            int resultSet = statement.executeUpdate(sql);
+           // auction:
+           String sql = "delete from auction " + str;
+           int resultSet = statement.executeUpdate(sql);
 
-            // commodities:
-            sql = "delete from allCommodities " + str;
-            resultSet = statement.executeUpdate(sql);
-
-
-            // commodityVotes:
-            sql = "delete from commodityVotes " + str;
-            resultSet = statement.executeUpdate(sql);
-
-            // comments:
-            sql = "delete from comments " + str;
-            resultSet = statement.executeUpdate(sql);
-
-            // baskets:
-            sql = "delete from baskets " + str;
-            resultSet = statement.executeUpdate(sql);
+           // commodities:
+           sql = "delete from allCommodities " + str;
+           resultSet = statement.executeUpdate(sql);
 
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+           // commodityVotes:
+           sql = "delete from commodityVotes " + str;
+           resultSet = statement.executeUpdate(sql);
+
+           // comments:
+           sql = "delete from comments " + str;
+           resultSet = statement.executeUpdate(sql);
+
+           // baskets:
+           sql = "delete from baskets " + str;
+           resultSet = statement.executeUpdate(sql);
+       }catch (SQLException e){
+           throw new RuntimeException(e);
+       }
+
+
 
 
     }
