@@ -1233,7 +1233,7 @@ public class productsManagingController implements Initializable {
     }
 
     private void deleteCommodity(Commodity commodity) {
-        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+        try {
             Statement statement = connection.createStatement();
             String str = "where commodityId='" + commodity.getCommodityId() + "'";
 
@@ -1259,7 +1259,7 @@ public class productsManagingController implements Initializable {
             resultSet = statement.executeUpdate(sql);
 
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
