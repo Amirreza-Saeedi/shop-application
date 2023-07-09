@@ -474,6 +474,7 @@ public class productsManagingController implements Initializable {
     }
 
     private void showAnchorPanes(int page){
+
         hideAnchorPanes();
         page = page*14 - 14;
         if (page < commodities.size()){
@@ -965,6 +966,7 @@ public class productsManagingController implements Initializable {
         }
 
         showAnchorPanes(1);
+        page.setText("1");
         checkToVisibleNextButton();
         checkToVisiblePreviousButton();
         try {

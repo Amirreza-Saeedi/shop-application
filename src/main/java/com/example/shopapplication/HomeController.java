@@ -336,6 +336,13 @@ public class HomeController implements Initializable {
             loginbutton.setText(user.getUsername());
             userType = CUSTOMER;
         }
+        brandFilter.setValue("Brands");
+        brandFilter.getSelectionModel().selectFirst();
+        brandListItem = "Brands";
+        groupListItem = "AllCommodities";
+        orderBy = "Date";
+        isLowToHigh = false;
+        selectCommodities(groupListItem,orderBy,isLowToHigh,brandListItem);
 
         loadBasket();
     }
@@ -933,6 +940,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        isAuction.setSelected(false);
         hideAnchorPanes();
         if (user == null) infoButton.setVisible(false);
 //        Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");

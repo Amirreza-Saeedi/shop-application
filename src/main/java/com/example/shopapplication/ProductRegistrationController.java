@@ -10,8 +10,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -208,12 +211,36 @@ public class ProductRegistrationController implements Initializable {
                 throw new RuntimeException(e);
             }
             error.setText("Returning to home...");
-            new Login(user).loginToHome((Node) event.getSource());
+            Node node = (Node) event.getSource();
+            FXMLLoader loader = new FXMLLoader(Login.class.getResource("Home.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            HomeController homeController = loader.getController();
+            homeController.setUser(user);
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
         }
     }
     public void cancelButtonOnAction(ActionEvent event) throws IOException {
         error.setText("Returning to home...");
-        new Login(user).loginToHome((Node) event.getSource());
+        Node node = (Node) event.getSource();
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("Home.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        HomeController homeController = loader.getController();
+        homeController.setUser(user);
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
     }
     public void setUser(User user) {
         if (user == null) {

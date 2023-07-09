@@ -20,17 +20,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class chartController implements Initializable {
+public class chartController {
     @FXML
     private BarChart chart;
     @FXML
     private TextField userNameTextField;
     private User user;
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
 
-
-    }
     public void showUserChart(){
         chart.getData().clear();
 
