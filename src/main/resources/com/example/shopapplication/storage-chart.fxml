@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="468.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.StorageChartController">
    <children>
-      <BarChart fx:id="barChart" layoutX="14.0" layoutY="14.0" prefHeight="454.0" prefWidth="867.0" title="Storage Properties">
+      <BarChart fx:id="barChart" layoutX="14.0" layoutY="14.0" prefHeight="454.0" prefWidth="867.0" title="Average Storage Properties">
         <xAxis>
           <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
@@ -16,6 +16,6 @@
           <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </BarChart>
-      <ComboBox fx:id="comboBox" layoutX="534.0" layoutY="18.0" onAction="#load" prefWidth="150.0" />
+      <ComboBox fx:id="comboBox" layoutX="565.0" layoutY="18.0" onAction="#load" prefWidth="150.0" />
    </children>
 </AnchorPane>
