@@ -16,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -106,6 +108,15 @@ public class ProfileController  {
         basketController.setUser(user);
         Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(root));
+        try {
+            Sound.basket();
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     public void increaseCredit(ActionEvent event) throws IOException {

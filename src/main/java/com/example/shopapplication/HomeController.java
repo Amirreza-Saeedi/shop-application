@@ -602,7 +602,9 @@ public class HomeController implements Initializable {
 //                        BufferedImage image = ImageIO.read(is);
                         String imageName = rs.getString("imageName");
                         Image image = new Image(imageName);
-                        commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction1,image));
+
+                        String sellerId = rs.getString("userName");
+                        commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction1,image,sellerId));
 
                         String date = rs.getString("Date");
                         System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);
@@ -810,8 +812,9 @@ public class HomeController implements Initializable {
                             String imageName = rs.getString("imageName");
                             Image image = new Image(imageName);
 
+                            String sellerId = rs.getString("userName");
 //                        int isAuction1 = rs.getInt("isAuction");
-                            commodities.add(new Commodity(type1, brand1, price1, ratio1, title1, number1, commodityId, 0,image));
+                            commodities.add(new Commodity(type1, brand1, price1, ratio1, title1, number1, commodityId, 0,image,sellerId));
 
                             String date = rs.getString("Date");
                             System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date + " image " + image.getUrl());
@@ -847,7 +850,8 @@ public class HomeController implements Initializable {
 
                             String imageName = rs.getString("imageName");
                             Image image = new Image(imageName);
-                            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction2,image));
+                            String sellerId = rs.getString("userName");
+                            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction2,image,sellerId));
 
                             String date = rs.getString("Date");
                             System.out.println("Type = " + type1 + ", Brand = " + brand1 + ", Price = " + price1 + " Ratio = " + ratio1 + " Title = " + title1 + " Num = " + number1 + " Date = " + date);

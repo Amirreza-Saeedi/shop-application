@@ -939,6 +939,7 @@ public class productsManagingController implements Initializable {
             int commodityId;
             int isAuction;
             Image image;
+            String sellerId;
             try {
                 number1 = rs.getInt("Number");
                 type1 = rs.getString("Type");
@@ -954,10 +955,11 @@ public class productsManagingController implements Initializable {
                 String imageName = rs.getString("imageName");
                  image = new Image(imageName);
 
+                 sellerId = rs.getString("userName");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction,image));
+            commodities.add(new Commodity(type1,brand1,price1,ratio1,title1,number1,commodityId,isAuction,image,sellerId));
 
 
         }

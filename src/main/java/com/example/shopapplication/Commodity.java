@@ -159,7 +159,7 @@ public class Commodity {
     public Commodity(){
 
     }
-    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction,Image image){
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction,Image image,String sellerId){
         this.type = type;
         this.brand = brand;
         this.price = price;
@@ -169,8 +169,9 @@ public class Commodity {
         this.commodityId = commodityId;
         this.isAuction = isAuction;
         this.image = image;
+        this.sellerId = sellerId;
     }
-    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction,int basketId,Image image){
+    public Commodity(String type,String brand,String price,String ratio,String title,int number,int commodityId,int isAuction,int basketId,Image image,String sellerId){
         this.type = type;
         this.brand = brand;
         this.price = price;
@@ -181,6 +182,7 @@ public class Commodity {
         this.isAuction = isAuction;
         this.basketId = basketId;
         this.image = image;
+        this.sellerId = sellerId;
     }
 
     public Commodity(String type1, String brand1, String price1, String ratio1, String title1, int number1, int commodityId) {

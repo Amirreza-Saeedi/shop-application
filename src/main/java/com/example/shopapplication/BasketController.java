@@ -212,8 +212,9 @@ public class BasketController implements Initializable {
                 String imageName = rs.getString("imageName");
                 Image image = new Image(imageName);
 
+                String sellerId = rs.getString("userName");
                 maxNumbers.add(number);
-                commodities.add(new Commodity(type,brand,price,ratio,title,commodityNumbers.get(i),commodityIds.get(i),isAuction,basketIds.get(i),image));
+                commodities.add(new Commodity(type,brand,price,ratio,title,commodityNumbers.get(i),commodityIds.get(i),isAuction,basketIds.get(i),image,sellerId));
                 rs.next();
 
             }

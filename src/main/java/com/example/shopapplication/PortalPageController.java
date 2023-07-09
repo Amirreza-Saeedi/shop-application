@@ -206,7 +206,7 @@ public class PortalPageController implements Initializable {
                             //update or insert price in sellersChart table
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
                             String date = formatter.format(LocalDate.now());
-                            sql = "SELECT * FROM sellersChart WHERE date = '" + date + "' AND userName = '" + user.getUsername() + "'";
+                            sql = "SELECT * FROM sellersChart WHERE date = '" + date + "' AND userName = '" + basketCommodities.get(i).getSellerId() + "'";
                             rs = stmt.executeQuery(sql);
                             String dateTest = "";
                             String price;
@@ -214,16 +214,20 @@ public class PortalPageController implements Initializable {
                             while (rs.next()) {
                                 dateTest = rs.getString("date");
                                 if (dateTest.equals(date)) {
-                                    //update const
-                                    lastPrice = rs.getString("cost");
+                                    //update cost
+                                    if (user instanceof Seller) {
+                                        lastPrice = rs.getString("cost");
+                                    }else{
+                                        lastPrice = rs.getString("income");
+                                    }
                                     double p = Double.parseDouble(basketCommodities.get(i).getPrice()) + Double.parseDouble(lastPrice);
                                     price = String.valueOf(p);
                                     if (user instanceof Seller) {
                                         sql = "UPDATE sellersChart SET cost = '" + price + "' WHERE date = '" + date
                                                 + "' AND userName = '" + user.getUsername() + "';";
-                                    } else if (user instanceof Customer) {
+                                    } else  {
                                         sql = "UPDATE sellersChart SET income = '" + price + "' WHERE date = '" + date
-                                                + "' AND userName = '" + user.getUsername() + "';";
+                                                + "' AND userName = '" + basketCommodities.get(i).getSellerId() + "'";
                                     }
                                     pstmt = connection.prepareStatement(sql);
                                     pstmt.executeUpdate();
@@ -231,12 +235,12 @@ public class PortalPageController implements Initializable {
                                 }
                             }
                             if (!dateTest.equals(date)) {
-                                //insert const
+                                //insert cost
                                 if (user instanceof Seller) {
                                     sql = "INSERT INTO sellersChart (userName, cost, date) VALUES ('" + user.getUsername()
                                             + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
-                                } else if (user instanceof Customer) {
-                                    sql = "INSERT INTO sellersChart (userName, income, date) VALUES ('" + user.getUsername()
+                                } else {
+                                    sql = "INSERT INTO sellersChart (userName, income, date) VALUES ('" + basketCommodities.get(i).getSellerId()
                                             + "', '" + basketCommodities.get(i).getPrice() + "', '" + date + "')";
                                 }
                                 stmt.executeUpdate(sql);
@@ -269,7 +273,7 @@ public class PortalPageController implements Initializable {
                          pstmt.executeUpdate();
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException();
+                    throw new RuntimeException(e.getMessage());
                 }
 
                 info1.setVisible(false);
@@ -299,7 +303,7 @@ public class PortalPageController implements Initializable {
 
     private void logPurchase(Commodity commodity, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
-        String sql = "select storageId from allcommodities where commodityId='" + commodity.getCommodityId() + "'";
+        String sql = "select storageId from allcommodities where commodityId = '" + commodity.getCommodityId() + "'";
         ResultSet resultSet = statement.executeQuery(sql);
         if (resultSet.next()) {
             int storageId = resultSet.getInt("storageId");
