@@ -99,7 +99,7 @@ public class RequestForSignUpController implements Initializable {
                     if (alert.showAndWait().get() == ButtonType.OK) { // ok
                         message = "Returning to home...";
                         ErrorMessage.showError(messageLabel, message ,5, Color.RED);
-                        sleep();
+//                        sleep();
                         // log in to account
                         Login login = new Login(signUp.getUser());
                         login.loginToHome((Node) event.getSource());
@@ -107,7 +107,7 @@ public class RequestForSignUpController implements Initializable {
                     } else { // cancel
                         message = "back to home page...";
                         ErrorMessage.showError(messageLabel, message ,5, Color.RED);
-                        sleep();
+//                        sleep();
                         HomeController.toHome((Node) event.getSource());
                     }
 
@@ -135,7 +135,7 @@ public class RequestForSignUpController implements Initializable {
                 alert.show();
                 message = "back to home page...";
                 ErrorMessage.showError(messageLabel, message ,5, Color.RED);
-                sleep();
+//                sleep();
                 HomeController.toHome((Node) event.getSource());
             }
 
@@ -143,8 +143,6 @@ public class RequestForSignUpController implements Initializable {
             System.err.println(e);
             e.printStackTrace();
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
