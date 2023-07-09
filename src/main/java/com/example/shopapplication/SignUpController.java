@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -76,6 +77,9 @@ public class SignUpController extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        signUpMessageLabel.setVisible(false);
+
+
         // combo box
         String[] items = {"Customer", "Seller"};
         comboBox.getItems().addAll(items);
@@ -87,7 +91,7 @@ public class SignUpController extends Application implements Initializable {
         };
         textFields = new TextField[]{usernameTextField, firstnameTextField, lastnameTextField, passwordTextField,
                 passwordConfirmationTextField, passwordPasswordField, passwordConfirmationPasswordField,
-                emailTextField, companyTextField};
+                emailTextField, companyTextField, phoneTextField};
         for (TextField textField : textFields) {
             textField.textProperty().addListener(changeListener);
         }
@@ -143,6 +147,7 @@ public class SignUpController extends Application implements Initializable {
         Parent root = loader.load();
         Stage stage = (Stage) nextButton.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.centerOnScreen();
     }
 
     public void next(ActionEvent event) {
@@ -196,7 +201,8 @@ public class SignUpController extends Application implements Initializable {
             System.err.println(e);
         }
 
-        signUpMessageLabel.setText(signUpMessage);
+//        signUpMessageLabel.setText(signUpMessage);
+        ErrorMessage.showError(signUpMessageLabel, signUpMessage, 5, Color.RED);
 
     }
 
