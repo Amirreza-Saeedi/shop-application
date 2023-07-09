@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -1231,6 +1232,40 @@ public class productsManagingController implements Initializable {
         }
     }
 
+    private void deleteCommodity(Commodity commodity) {
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+            Statement statement = connection.createStatement();
+            String str = "where commodityId='" + commodity.getCommodityId() + "'";
+
+            // auction:
+            String sql = "delete from auction " + str;
+            int resultSet = statement.executeUpdate(sql);
+
+            // commodities:
+            sql = "delete from allCommodities " + str;
+            resultSet = statement.executeUpdate(sql);
+
+
+            // commodityVotes:
+            sql = "delete from commodityVotes " + str;
+            resultSet = statement.executeUpdate(sql);
+
+            // comments:
+            sql = "delete from comments " + str;
+            resultSet = statement.executeUpdate(sql);
+
+            // baskets:
+            sql = "delete from baskets " + str;
+            resultSet = statement.executeUpdate(sql);
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
     public void setDelete00OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14;
@@ -1238,10 +1273,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
 
@@ -1252,10 +1284,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete20OnAction() throws SQLException{
@@ -1264,10 +1293,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete30OnAction() throws SQLException {
@@ -1276,10 +1302,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete40OnAction() throws SQLException {
@@ -1288,10 +1311,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete50OnAction() throws SQLException {
@@ -1300,10 +1320,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " +commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete60OnAction() throws SQLException {
@@ -1312,10 +1329,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete01OnAction() throws SQLException {
@@ -1324,10 +1338,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete11OnAction() throws SQLException {
@@ -1336,10 +1347,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete21OnAction() throws SQLException {
@@ -1348,19 +1356,14 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete31OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 10;
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        logDel(commodities.get(page).getCommodityId(), connection);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete41OnAction() throws SQLException {
@@ -1369,10 +1372,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete51OnAction() throws SQLException {
@@ -1381,10 +1381,7 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
     public void setDelete61OnAction() throws SQLException {
@@ -1393,16 +1390,10 @@ public class productsManagingController implements Initializable {
 
         logDel(commodities.get(page).getCommodityId(), connection);
 
-        String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
+        deleteCommodity(commodities.get(page));
         selectCommodities();
     }
 
-    public void setBackToHomeButtonOnAction(ActionEvent event) throws IOException {
-        new Login(user).loginToHome((Node) event.getSource());
-    }
 
     public void setRecordButtonOnAction(ActionEvent event) throws IOException {
 //        int page = Integer.parseInt(this.page.getText());
