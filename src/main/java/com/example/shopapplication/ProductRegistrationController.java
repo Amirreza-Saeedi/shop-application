@@ -189,6 +189,9 @@ public class ProductRegistrationController implements Initializable {
                 statement.executeUpdate(sql);
 
 
+                StorageLog.logCommodityRegistration(storageId, number, Double.parseDouble(price),
+                        user.getUsername(), title, connection);
+
 
 // Close the PreparedStatement object and the database connection
 //                pstmt.close();

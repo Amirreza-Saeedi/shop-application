@@ -9,6 +9,13 @@ import java.time.LocalDateTime;
 
 public class Auction {
 
+
+    public Auction(String buyerName, String buyerType, int mostPrice) {
+        this.buyerName = buyerName;
+        this.buyerType = buyerType;
+        this.mostPrice = mostPrice;
+    }
+
     public void setWinner(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         String sql = "select * from allcommodities where isAuction='" + id + "'";

@@ -14,10 +14,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="753.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.HomeController">
+<AnchorPane prefHeight="753.0" prefWidth="1000.0" style="-fx-background-color: white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shopapplication.HomeController">
    <children>
       <AnchorPane layoutX="3.0" prefHeight="107.0" prefWidth="1397.0" style="-fx-background-color: #26c6da;">
          <children>
@@ -46,6 +47,9 @@
                <font>
                   <Font name="System Bold Italic" size="11.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Label fx:id="typeInfo" alignment="CENTER" layoutX="1191.0" layoutY="15.0" prefHeight="18.0" prefWidth="126.0" text="Not registered">
                <font>
@@ -56,15 +60,46 @@
                <font>
                   <Font name="System Bold Italic" size="10.3" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="sellersChartButton" layoutX="1080.0" layoutY="11.0" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" visible="false" />
-            <Button fx:id="inventoryButton" layoutX="1080.0" layoutY="42.0" mnemonicParsing="false" onAction="#goToInventory" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" visible="false" />
-            <Button fx:id="basketButton" layoutX="1338.0" layoutY="29.0" mnemonicParsing="false" onAction="#setBasketOnAction" prefHeight="42.0" prefWidth="46.0" />
-            <Button fx:id="goToDiscountCodeRegistrationPageButton" layoutX="1079.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3" visible="false">
-               <font>
-                  <Font size="8.0" />
-               </font>
-            </Button>
+            <VBox layoutX="1067.0" layoutY="2.0" spacing="5.0">
+               <children>
+                  <Button fx:id="waitingListButton" mnemonicParsing="false" onAction="#toWaiting" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Waiting List" textFill="WHITE" visible="false">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="sellersChartButton" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" visible="false">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="inventoryButton" mnemonicParsing="false" onAction="#goToInventory" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" visible="false">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="goToDiscountCodeRegistrationPageButton" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="7.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3" visible="false">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </VBox>
             <Button fx:id="infoButton" layoutX="1202.0" layoutY="72.0" mnemonicParsing="false" onAction="#goToUserInfo" text="user information" />
             <ImageView fx:id="basketImageView" fitHeight="42.0" fitWidth="46.0" layoutX="1338.0" layoutY="31.0" onMouseReleased="#setBasketOnAction" pickOnBounds="true" preserveRatio="true">
                <image>

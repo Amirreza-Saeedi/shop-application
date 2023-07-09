@@ -89,7 +89,7 @@ public class PaymentController implements Initializable {
                 ResultSet rs = stmt.executeQuery(sql);
                 boolean isCorrect = false;
                 outerLoop:while(rs.next()){
-                    code = rs.getString("code");
+                    code = rs.getString("CODE");
                     if (code.equals(discountCode.getText())){
                         String sql2 = "SELECT * FROM Purchases WHERE userId = '" + user.getUsername()
                                 + "' AND user = '" + user.toString() + "'";
@@ -121,7 +121,7 @@ public class PaymentController implements Initializable {
                     payBtn.setVisible(false);
                     submit.setVisible(true);
                     edit.setVisible(false);
-                    errorLabel.setText("Wrong discount code!");
+                    errorLabel.setText("Wrong discount CODE!");
                     discountCode.setStyle("-fx-border-color: red;");
                 }
             }catch (SQLException | ClassNotFoundException e){

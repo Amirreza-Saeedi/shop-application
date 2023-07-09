@@ -1,6 +1,5 @@
 package com.example.shopapplication;
 
-import com.example.shopapplication.exceptions.UsernameAlreadyExistsException;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,14 +29,14 @@ public class EmailConfirmationController implements Initializable {
     private Label messageLabel;
 
     SignUp signUp;
-    int code;
+    final int CODE = 123456;
 
     public void setSignUp(SignUp signUp) { // only a valid signUp will be set
         try {
             if (signUp == null)
                 throw new NullPointerException();
             this.signUp = signUp;
-            codeLabel.setText("Enter 6-digit code sent to '" + signUp.getUser().getEmail() + "':");
+            codeLabel.setText("Enter 6-digit CODE sent to '" + signUp.getUser().getEmail() + "':");
         } catch (NullPointerException e) {
             System.err.println(e);
             e.printStackTrace();
@@ -62,19 +62,20 @@ public class EmailConfirmationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        messageLabel.setVisible(false);
+
         // add change listener
         ChangeListener<String> changeListener = (observableValue, s, t1) -> listenToCodeTextFieldChange();
         codeTextField.textProperty().addListener(changeListener);
 
-        // todo send code to email
-        code = 123456;
     }
 
     public void next() {
 
         try {
             int input = Integer.parseInt(codeTextField.getText());
-            if (code == input) {
+            if (CODE == input) {
                 messageLabel.setText("Continue...");
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("request-for-sign-up.fxml"));
@@ -89,7 +90,7 @@ public class EmailConfirmationController implements Initializable {
                 stage.setScene(scene);
                 System.out.println("EmailConfirmationController.next");
             } else {
-                messageLabel.setText("Wrong!");
+                ErrorMessage.showError(messageLabel, "Wrong!", 5, Color.RED);
             }
 
         } catch (IOException e) {

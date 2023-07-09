@@ -1,34 +1,22 @@
 package com.example.shopapplication;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import org.w3c.dom.Text;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.plaf.nimbus.State;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Timer;
 
 public class productsManagingController implements Initializable {
     @FXML
@@ -292,35 +280,6 @@ public class productsManagingController implements Initializable {
     private SpinnerValueFactory<Integer> minuteValueFactory14  = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,60);
 
     @FXML
-    private Button remove00;
-    @FXML
-    private Button remove10;
-    @FXML
-    private Button remove20;
-    @FXML
-    private Button remove30;
-    @FXML
-    private Button remove40;
-    @FXML
-    private Button remove50;
-    @FXML
-    private Button remove60;
-    @FXML
-    private Button remove01;
-    @FXML
-    private Button remove11;
-    @FXML
-    private Button remove21;
-    @FXML
-    private Button remove31;
-    @FXML
-    private Button remove41;
-    @FXML
-    private Button remove51;
-    @FXML
-    private Button remove61;
-
-    @FXML
     private Button record00;
     @FXML
     private Button record10;
@@ -523,13 +482,11 @@ public class productsManagingController implements Initializable {
             price00.setText(commodities.get(page).getPrice());
             numberValueFactory.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove00.setVisible(true);
                 image00.setVisible(true);
                 number00.setVisible(false);
                 price00.setVisible(false);
                 record00.setVisible(false);
             }else {
-                remove00.setVisible(false);
                 image00.setVisible(true);
                 number00.setVisible(true);
                 price00.setVisible(true);
@@ -544,13 +501,11 @@ public class productsManagingController implements Initializable {
             price10.setText(commodities.get(page).getPrice());
             numberValueFactory2.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove10.setVisible(true);
                 image10.setVisible(true);
                 number10.setVisible(false);
                 price10.setVisible(false);
                 record10.setVisible(false);
             }else {
-                remove10.setVisible(false);
                 image10.setVisible(true);
                 number10.setVisible(true);
                 price10.setVisible(true);
@@ -565,13 +520,11 @@ public class productsManagingController implements Initializable {
             price20.setText(commodities.get(page).getPrice());
             numberValueFactory3.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove20.setVisible(true);
                 image20.setVisible(true);
                 number20.setVisible(false);
                 price20.setVisible(false);
                 record20.setVisible(false);
             }else {
-                remove20.setVisible(false);
                 image20.setVisible(true);
                 number20.setVisible(true);
                 price20.setVisible(true);
@@ -586,13 +539,11 @@ public class productsManagingController implements Initializable {
             price30.setText(commodities.get(page).getPrice());
             numberValueFactory4.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove30.setVisible(true);
                 image30.setVisible(true);
                 number30.setVisible(false);
                 price30.setVisible(false);
                 record30.setVisible(false);
             }else {
-                remove30.setVisible(false);
                 image30.setVisible(true);
                 number30.setVisible(true);
                 price30.setVisible(true);
@@ -607,13 +558,11 @@ public class productsManagingController implements Initializable {
             price40.setText(commodities.get(page).getPrice());
             numberValueFactory5.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove40.setVisible(true);
                 image40.setVisible(true);
                 number40.setVisible(false);
                 price40.setVisible(false);
                 record40.setVisible(false);
             }else {
-                remove40.setVisible(false);
                 image40.setVisible(true);
                 number40.setVisible(true);
                 price40.setVisible(true);
@@ -628,13 +577,11 @@ public class productsManagingController implements Initializable {
             price50.setText(commodities.get(page).getPrice());
             numberValueFactory6.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove50.setVisible(true);
                 image50.setVisible(true);
                 number50.setVisible(false);
                 price50.setVisible(false);
                 record50.setVisible(false);
             }else {
-                remove50.setVisible(false);
                 image50.setVisible(true);
                 number50.setVisible(true);
                 price50.setVisible(true);
@@ -650,13 +597,11 @@ public class productsManagingController implements Initializable {
             price60.setText(commodities.get(page).getPrice());
             numberValueFactory7.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove60.setVisible(true);
                 image60.setVisible(true);
                 number60.setVisible(false);
                 price60.setVisible(false);
                 record60.setVisible(false);
             }else {
-                remove60.setVisible(false);
                 image60.setVisible(true);
                 number60.setVisible(true);
                 price60.setVisible(true);
@@ -671,13 +616,11 @@ public class productsManagingController implements Initializable {
             price01.setText(commodities.get(page).getPrice());
             numberValueFactory8.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove01.setVisible(true);
                 image01.setVisible(true);
                 number01.setVisible(false);
                 price01.setVisible(false);
                 record01.setVisible(false);
             }else {
-                remove01.setVisible(false);
                 image01.setVisible(true);
                 number01.setVisible(true);
                 price01.setVisible(true);
@@ -692,13 +635,11 @@ public class productsManagingController implements Initializable {
             price11.setText(commodities.get(page).getPrice());
             numberValueFactory9.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove11.setVisible(true);
                 image11.setVisible(true);
                 number11.setVisible(false);
                 price11.setVisible(false);
                 record11.setVisible(false);
             }else {
-                remove11.setVisible(false);
                 image11.setVisible(true);
                 number11.setVisible(true);
                 price11.setVisible(true);
@@ -713,13 +654,11 @@ public class productsManagingController implements Initializable {
             price21.setText(commodities.get(page).getPrice());
             numberValueFactory10.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove21.setVisible(true);
                 image21.setVisible(true);
                 number21.setVisible(false);
                 price21.setVisible(false);
                 record21.setVisible(false);
             }else {
-                remove21.setVisible(false);
                 image21.setVisible(true);
                 number21.setVisible(true);
                 price21.setVisible(true);
@@ -734,13 +673,11 @@ public class productsManagingController implements Initializable {
             price31.setText(commodities.get(page).getPrice());
             numberValueFactory11.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove31.setVisible(true);
                 image31.setVisible(true);
                 number31.setVisible(false);
                 price31.setVisible(false);
                 record31.setVisible(false);
             }else {
-                remove31.setVisible(false);
                 image31.setVisible(true);
                 number31.setVisible(true);
                 price31.setVisible(true);
@@ -755,13 +692,11 @@ public class productsManagingController implements Initializable {
             price41.setText(commodities.get(page).getPrice());
             numberValueFactory12.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove41.setVisible(true);
                 image41.setVisible(true);
                 number41.setVisible(false);
                 price41.setVisible(false);
                 record41.setVisible(false);
             }else {
-                remove41.setVisible(false);
                 image41.setVisible(true);
                 number41.setVisible(true);
                 price41.setVisible(true);
@@ -776,13 +711,11 @@ public class productsManagingController implements Initializable {
             price51.setText(commodities.get(page).getPrice());
             numberValueFactory13.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove51.setVisible(true);
                 image51.setVisible(true);
                 number51.setVisible(false);
                 price51.setVisible(false);
                 record51.setVisible(false);
             }else {
-                remove51.setVisible(false);
                 image51.setVisible(true);
                 number51.setVisible(true);
                 price51.setVisible(true);
@@ -797,13 +730,11 @@ public class productsManagingController implements Initializable {
             price61.setText(commodities.get(page).getPrice());
             numberValueFactory14.setValue(commodities.get(page).getNumber());
             if (commodities.get(page).isAuction != 0) {
-                remove61.setVisible(true);
                 image61.setVisible(true);
                 number61.setVisible(false);
                 price61.setVisible(false);
                 record61.setVisible(false);
             }else {
-                remove61.setVisible(false);
                 image61.setVisible(true);
                 number61.setVisible(true);
                 price61.setVisible(true);
@@ -1026,6 +957,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1,numberValueFactory.getValue());
                 pstmt.setInt(2,id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -1040,6 +974,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory2.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1054,6 +991,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory3.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1068,6 +1008,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory4.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1082,6 +1025,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory5.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1096,6 +1042,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory6.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1110,6 +1059,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory7.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1124,6 +1076,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory8.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1138,6 +1093,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory9.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1152,6 +1110,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory10.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1166,6 +1127,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory11.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1180,6 +1144,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory12.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1194,6 +1161,9 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory13.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
@@ -1208,25 +1178,80 @@ public class productsManagingController implements Initializable {
                 pstmt.setInt(1, numberValueFactory14.getValue());
                 pstmt.setInt(2, id);
                 pstmt.executeUpdate();
+
+                logChange(integer, t1, id, connection);
+
             }catch (SQLException e){
                 throw new RuntimeException();
             }
         });
     }
 
+    private void logChange(Integer oldVal, Integer newVal, int id, Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "select * from allCommodities where commodityId='" + id + "';";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if (resultSet.next()) {
+            int storageId = resultSet.getInt("storageId");
+            double price = resultSet.getDouble("price");
+            String title = resultSet.getString("title");
+
+            if (newVal > oldVal) { // added
+                StorageLog.logCommodityAddition(storageId, 1, price, user.getUsername(),
+                       title , connection);
+
+            } else if (oldVal > newVal) { // reduced
+                StorageLog.logCommodityReduction(storageId, 1, price, user.getUsername(),
+                        title, connection);
+            } else
+                System.err.println("new == old");
+
+        } else {
+            throw new RuntimeException("storage not found");
+        }
+
+    }
+
+    private void logDel(int commodityId, Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "select * from allCommodities where commodityId='" + commodityId + "';";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if (resultSet.next()) {
+            int storageId = resultSet.getInt("storageId");
+            double price = resultSet.getDouble("price");
+            String title = resultSet.getString("title");
+            int number = resultSet.getInt("number");
+
+            StorageLog.logCommodityDeletion(storageId, number, price, title, connection);
+
+        } else {
+            throw new RuntimeException("storage not found");
+        }
+    }
+
     public void setDelete00OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14;
 //        String sql = "DELETE FROM AllCommodities WHERE Type = " + "'"+commodities.get(page).getType() + "'";
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         selectCommodities();
     }
+
+
     public void setDelete10OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 1;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1236,6 +1261,9 @@ public class productsManagingController implements Initializable {
     public void setDelete20OnAction() throws SQLException{
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 2;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1245,6 +1273,9 @@ public class productsManagingController implements Initializable {
     public void setDelete30OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14+3;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1254,6 +1285,9 @@ public class productsManagingController implements Initializable {
     public void setDelete40OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 4;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1263,6 +1297,9 @@ public class productsManagingController implements Initializable {
     public void setDelete50OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 5;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " +commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1272,6 +1309,9 @@ public class productsManagingController implements Initializable {
     public void setDelete60OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 6;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1281,6 +1321,9 @@ public class productsManagingController implements Initializable {
     public void setDelete01OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 7;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1290,6 +1333,9 @@ public class productsManagingController implements Initializable {
     public void setDelete11OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 8;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1299,6 +1345,9 @@ public class productsManagingController implements Initializable {
     public void setDelete21OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 9;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1317,6 +1366,9 @@ public class productsManagingController implements Initializable {
     public void setDelete41OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 11;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1326,6 +1378,9 @@ public class productsManagingController implements Initializable {
     public void setDelete51OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 12;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1335,6 +1390,9 @@ public class productsManagingController implements Initializable {
     public void setDelete61OnAction() throws SQLException {
         int page = Integer.parseInt(this.page.getText());
         page = (page*14) - 14 + 13;
+
+        logDel(commodities.get(page).getCommodityId(), connection);
+
         String sql = "DELETE FROM AllCommodities WHERE commodityId = " + commodities.get(page).getCommodityId();
         stmt.executeUpdate(sql);
         sql = "DELETE FROM Auction WHERE commodityId = " + commodities.get(page).getCommodityId();
@@ -1615,85 +1673,71 @@ public class productsManagingController implements Initializable {
 
     public void setCancel00OnAction(){
         options00.setVisible(false);
-        remove00.setVisible(false);
         auction00.setVisible(true);
         image00.setVisible(true);
     }
     public void setCancel10OnAction(){
         options10.setVisible(false);
-        remove10.setVisible(false);
         auction10.setVisible(true);
         image10.setVisible(true);
     }
     public void setCancel20OnAction(){
         options20.setVisible(false);
-        remove20.setVisible(false);
         auction20.setVisible(true);
         image20.setVisible(true);
     }
     public void setCancel30OnAction(){
         options30.setVisible(false);
-        remove30.setVisible(false);
         auction30.setVisible(true);
         image30.setVisible(true);
     }
     public void setCancel40OnAction(){
         options40.setVisible(false);
-        remove40.setVisible(false);
         auction40.setVisible(true);
         image40.setVisible(true);
     }
     public void setCancel50OnAction(){
         options50.setVisible(false);
-        remove50.setVisible(false);
         auction50.setVisible(true);
         image50.setVisible(true);
     }
     public void setCancel60OnAction(){
         options60.setVisible(false);
-        remove60.setVisible(false);
         auction60.setVisible(true);
         image60.setVisible(true);
     }
     public void setCancel01OnAction(){
         options01.setVisible(false);
-        remove01.setVisible(false);
         auction01.setVisible(true);
         image01.setVisible(true);
     }
     public void setCancel11OnAction(){
         options11.setVisible(false);
-        remove11.setVisible(false);
         auction11.setVisible(true);
         image11.setVisible(true);
     }
     public void setCancel21OnAction(){
         options21.setVisible(false);
-        remove21.setVisible(false);
         auction21.setVisible(true);
         image21.setVisible(true);
     }
     public void setCancel31OnAction(){
         options31.setVisible(false);
-        remove31.setVisible(false);
         auction31.setVisible(true);
         image31.setVisible(true);
     }
     public void setCancel41OnAction(){
         options41.setVisible(false);
-        remove41.setVisible(false);
         auction41.setVisible(true);
         image41.setVisible(true);
     }
     public void setCancel51OnAction(){
         options51.setVisible(false);
-        remove51.setVisible(false);
         auction51.setVisible(true);
         image51.setVisible(true);
     }
     public void setCancel61OnAction(){
         options61.setVisible(false);
-        remove61.setVisible(false);
         auction61.setVisible(true);
         image61.setVisible(true);
     }
@@ -1756,7 +1800,6 @@ public class productsManagingController implements Initializable {
             }
 
             auction00.setVisible(false);
-                remove00.setVisible(true);
                 options00.setVisible(false);
                 image00.setVisible(true);
                 number00.setVisible(false);
@@ -1823,7 +1866,6 @@ public class productsManagingController implements Initializable {
 
 
             auction10.setVisible(false);////////////////////////////////////////////////////////////
-            remove10.setVisible(true);////////////////////////////////////////////////////////////
             options10.setVisible(false);/////////////////////////////////////////////////////////////
             image10.setVisible(true);//////////////////////////////////////////////////////////////
             number10.setVisible(false);////////////////////////////////////////////////////////////
@@ -1891,7 +1933,6 @@ public class productsManagingController implements Initializable {
 
 
             auction20.setVisible(false);////////////////////////////////////////////////////////////
-            remove20.setVisible(true);////////////////////////////////////////////////////////////
             options20.setVisible(false);/////////////////////////////////////////////////////////////
             image20.setVisible(true);//////////////////////////////////////////////////////////////
             number20.setVisible(false);////////////////////////////////////////////////////////////
@@ -1959,7 +2000,6 @@ public class productsManagingController implements Initializable {
 
 
             auction30.setVisible(false);////////////////////////////////////////////////////////////
-            remove30.setVisible(true);////////////////////////////////////////////////////////////
             options30.setVisible(false);/////////////////////////////////////////////////////////////
             image30.setVisible(true);//////////////////////////////////////////////////////////////
             number30.setVisible(false);////////////////////////////////////////////////////////////
@@ -2027,7 +2067,6 @@ public class productsManagingController implements Initializable {
 
 
             auction40.setVisible(false);////////////////////////////////////////////////////////////
-            remove40.setVisible(true);////////////////////////////////////////////////////////////
             options40.setVisible(false);/////////////////////////////////////////////////////////////
             image40.setVisible(true);//////////////////////////////////////////////////////////////
             number40.setVisible(false);////////////////////////////////////////////////////////////
@@ -2095,7 +2134,6 @@ public class productsManagingController implements Initializable {
 
 
             auction50.setVisible(false);////////////////////////////////////////////////////////////
-            remove50.setVisible(true);////////////////////////////////////////////////////////////
             options50.setVisible(false);/////////////////////////////////////////////////////////////
             image50.setVisible(true);//////////////////////////////////////////////////////////////
             number50.setVisible(false);////////////////////////////////////////////////////////////
@@ -2163,7 +2201,6 @@ public class productsManagingController implements Initializable {
 
 
             auction60.setVisible(false);////////////////////////////////////////////////////////////
-            remove60.setVisible(true);////////////////////////////////////////////////////////////
             options60.setVisible(false);/////////////////////////////////////////////////////////////
             image60.setVisible(true);//////////////////////////////////////////////////////////////
             number60.setVisible(false);////////////////////////////////////////////////////////////
@@ -2231,7 +2268,6 @@ public class productsManagingController implements Initializable {
 
 
             auction01.setVisible(false);////////////////////////////////////////////////////////////
-            remove01.setVisible(true);////////////////////////////////////////////////////////////
             options01.setVisible(false);/////////////////////////////////////////////////////////////
             image01.setVisible(true);//////////////////////////////////////////////////////////////
             number01.setVisible(false);////////////////////////////////////////////////////////////
@@ -2299,7 +2335,6 @@ public class productsManagingController implements Initializable {
 
 
             auction11.setVisible(false);////////////////////////////////////////////////////////////
-            remove11.setVisible(true);////////////////////////////////////////////////////////////
             options11.setVisible(false);/////////////////////////////////////////////////////////////
             image11.setVisible(true);//////////////////////////////////////////////////////////////
             number11.setVisible(false);////////////////////////////////////////////////////////////
@@ -2367,7 +2402,6 @@ public class productsManagingController implements Initializable {
 
 
             auction21.setVisible(false);////////////////////////////////////////////////////////////
-            remove21.setVisible(true);////////////////////////////////////////////////////////////
             options21.setVisible(false);/////////////////////////////////////////////////////////////
             image21.setVisible(true);//////////////////////////////////////////////////////////////
             number21.setVisible(false);////////////////////////////////////////////////////////////
@@ -2435,7 +2469,6 @@ public class productsManagingController implements Initializable {
 
 
             auction31.setVisible(false);////////////////////////////////////////////////////////////
-            remove31.setVisible(true);////////////////////////////////////////////////////////////
             options31.setVisible(false);/////////////////////////////////////////////////////////////
             image31.setVisible(true);//////////////////////////////////////////////////////////////
             number31.setVisible(false);////////////////////////////////////////////////////////////
@@ -2503,7 +2536,6 @@ public class productsManagingController implements Initializable {
 
 
             auction41.setVisible(false);////////////////////////////////////////////////////////////
-            remove41.setVisible(true);////////////////////////////////////////////////////////////
             options41.setVisible(false);/////////////////////////////////////////////////////////////
             image41.setVisible(true);//////////////////////////////////////////////////////////////
             number41.setVisible(false);////////////////////////////////////////////////////////////
@@ -2570,7 +2602,6 @@ public class productsManagingController implements Initializable {
             }
 
             auction51.setVisible(false);////////////////////////////////////////////////////////////
-            remove51.setVisible(true);////////////////////////////////////////////////////////////
             options51.setVisible(false);/////////////////////////////////////////////////////////////
             image51.setVisible(true);//////////////////////////////////////////////////////////////
             number51.setVisible(false);////////////////////////////////////////////////////////////
@@ -2637,7 +2668,6 @@ public class productsManagingController implements Initializable {
             }
 
             auction61.setVisible(false);////////////////////////////////////////////////////////////
-            remove61.setVisible(true);////////////////////////////////////////////////////////////
             options61.setVisible(false);/////////////////////////////////////////////////////////////
             image61.setVisible(true);//////////////////////////////////////////////////////////////
             number61.setVisible(false);////////////////////////////////////////////////////////////
@@ -2646,342 +2676,5 @@ public class productsManagingController implements Initializable {
         }
     }
 
-    public void setRemove00OnAction() throws SQLException {
-        remove00.setVisible(false);
-        auction00.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction00.setVisible(true);
-        number00.setVisible(true);
-        price00.setVisible(true);
-
-    }
-    public void setRemove10OnAction() throws SQLException {
-        remove10.setVisible(false);
-        auction10.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14 +1 ;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction10.setVisible(true);
-        number10.setVisible(true);
-        price10.setVisible(true);
-    }
-    public void setRemove20OnAction() throws SQLException {
-        remove20.setVisible(false);
-        auction20.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14 +2 ;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction20.setVisible(true);
-        number20.setVisible(true);
-        price20.setVisible(true);
-    }
-    public void setRemove30OnAction() throws SQLException {
-        remove30.setVisible(false);
-        auction30.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14 + 3;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction30.setVisible(true);
-        number30.setVisible(true);
-        price30.setVisible(true);
-    }
-    public void setRemove40OnAction() throws SQLException {
-        remove40.setVisible(false);
-        auction40.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14 + 4;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction40.setVisible(true);
-        number40.setVisible(true);
-        price40.setVisible(true);
-    }
-    public void setRemove50OnAction() throws SQLException {
-        remove50.setVisible(false);
-        auction50.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+5;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction50.setVisible(true);
-        number50.setVisible(true);
-        price50.setVisible(true);
-    }
-    public void setRemove60OnAction() throws SQLException {
-        remove60.setVisible(false);
-        auction60.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+6;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction60.setVisible(true);
-        number60.setVisible(true);
-        price60.setVisible(true);
-    }
-    public void setRemove01OnAction() throws SQLException {
-        remove01.setVisible(false);
-        auction01.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+7;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction01.setVisible(true);
-        number01.setVisible(true);
-        price01.setVisible(true);
-    }
-    public void setRemove11OnAction() throws SQLException {
-        remove11.setVisible(false);
-        auction11.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+7;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction11.setVisible(true);
-        number11.setVisible(true);
-        price11.setVisible(true);
-    }
-    public void setRemove21OnAction() throws SQLException {
-        remove21.setVisible(false);
-        auction21.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+7;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction21.setVisible(true);
-        number21.setVisible(true);
-        price21.setVisible(true);
-    }
-    public void setRemove31OnAction() throws SQLException {
-        remove31.setVisible(false);
-        auction31.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+7;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction31.setVisible(true);
-        number31.setVisible(true);
-        price31.setVisible(true);
-    }
-    public void setRemove41OnAction() throws SQLException {
-        remove41.setVisible(false);
-        auction41.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+7;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction41.setVisible(true);
-        number41.setVisible(true);
-        price41.setVisible(true);
-    }
-    public void setRemove51OnAction() throws SQLException {
-        remove51.setVisible(false);
-        auction51.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+7;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction51.setVisible(true);
-        number51.setVisible(true);
-        price51.setVisible(true);
-    }
-    public void setRemove61OnAction() throws SQLException {
-        remove61.setVisible(false);
-        auction61.setVisible(true);
-        int page = Integer.parseInt(this.page.getText());
-        page = (page*14) -14+7;
-
-        String sql = "UPDATE AllCommodities SET isAuction = ? WHERE isAuction = ?";
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1,0);
-            pstmt.setInt(2,commodities.get(page).isAuction);
-            pstmt.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        sql = "DELETE FROM Auction WHERE commodityId = "  + commodities.get(page).getCommodityId();
-        stmt.executeUpdate(sql);
-
-        auction61.setVisible(true);
-        number61.setVisible(true);
-        price61.setVisible(true);
-    }
 
 }

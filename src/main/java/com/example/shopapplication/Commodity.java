@@ -17,6 +17,18 @@ public class Commodity {
 //    private int auctionId;
     private int basketId;
 
+    public Commodity(String type, String price, String brand, String title, String date, String sellerId, int number, int commodityId, int isAuction) {
+        this.type = type;
+        this.price = price;
+        this.brand = brand;
+        this.title = title;
+        this.date = date;
+        this.sellerId = sellerId;
+        this.number = number;
+        this.commodityId = commodityId;
+        this.isAuction = isAuction;
+    }
+
 //    public int getAuctionId() {
 //        return auctionId;
 //    }

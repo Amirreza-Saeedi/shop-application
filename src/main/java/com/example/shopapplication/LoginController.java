@@ -219,7 +219,7 @@ public class LoginController extends Application implements Initializable {
         stage.centerOnScreen();
     }
 
-    public void updateCaptcha() { // change captcha code and color
+    public void updateCaptcha() { // change captcha CODE and color
         Random random = new Random();
         Color randomColor = new Color(random.nextDouble(), random.nextDouble(), random.nextDouble(), 1.0);
         captchaText.setFill(randomColor);

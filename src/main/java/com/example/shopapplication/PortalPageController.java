@@ -82,6 +82,7 @@ public class PortalPageController implements Initializable {
     private  Captcha captcha;
     private double price;
     private Pattern emailPattern = Pattern.compile(MyRegex.emailRegex);
+    private String userType;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Pattern numberPattern = Pattern.compile(MyRegex.numberRegex);
@@ -146,7 +147,7 @@ public class PortalPageController implements Initializable {
         captcha = new Captcha(60_000_000, 5);
         updateCaptcha();
     }
-    public void updateCaptcha() { // change captcha code and color
+    public void updateCaptcha() { // change captcha CODE and color
         Random random = new Random();
         Color randomColor = new Color(random.nextDouble(), random.nextDouble(), random.nextDouble(), 1.0);
         captchaText.setFill(randomColor);
@@ -252,7 +253,11 @@ public class PortalPageController implements Initializable {
                                     + "', " + basketCommodities.get(i).getNumber() + ", '" + basketCommodities.get(i).getPrice()
                                     + "', '" + basketCommodities.get(i).getBrand() + "')";
                             stmt.executeUpdate(sql);
+
+
+                            logPurchase(basketCommodities.get(i), connection);
                         }
+
 
                 }else {
                         double newPrice = price + user.getCharge();
@@ -291,6 +296,22 @@ public class PortalPageController implements Initializable {
 
         }
     }
+
+    private void logPurchase(Commodity commodity, Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "select storageId from allcommodities where commodityId='" + commodity.getCommodityId() + "'";
+        ResultSet resultSet = statement.executeQuery(sql);
+        if (resultSet.next()) {
+            int storageId = resultSet.getInt("storageId");
+            String sellerId = resultSet.getString("userName");
+            StorageLog.logPurchase(storageId, commodity.getNumber(),
+                    Double.parseDouble(commodity.getPrice()) * commodity.getNumber(),
+                    sellerId, user.getUsername(), userType, connection);
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
     public void setBackToHomeButtonOnAction(ActionEvent event) throws IOException {
         new Login(user).loginToHome((Node) event.getSource());
     }
@@ -302,10 +323,13 @@ public class PortalPageController implements Initializable {
         }
         this.user = user;
         if (user instanceof Admin){
+            userType = "admin";
             table = "Admins";
         } else if (user instanceof Seller) {
+            userType = "seller";
             table = "Sellers";
         } else if (user instanceof Customer) {
+            userType = "customer";
             table = "Customers";
         }
     }

@@ -43,7 +43,7 @@ public class DiscountRegistrationController implements Initializable {
     public void setSubmitOnAction(ActionEvent event){
         if (code.getText().length() == 0){
             code.setStyle("-fx-border-color: red;");
-            error.setText("Enter a discount code");
+            error.setText("Enter a discount CODE");
         } else if (percent.getText().length() == 0) {
             percent.setStyle("-fx-border-color: red;");
             error.setText("Enter the discount percent");
