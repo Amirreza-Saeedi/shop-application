@@ -932,9 +932,9 @@ public class HomeController implements Initializable {
 //        Image image = new Image("C:\\Users\\Sony\\Desktop\\ShopProject\\src\\main\\resources\\basket2.png");
 //        ImageView imageView = new ImageView(image);
 //        basketButton.setGraphic(imageView);
-        inventoryButton.setVisible(false);
-        sellersChartButton.setVisible(false);
-        goToDiscountCodeRegistrationPageButton.setVisible(false);
+//        inventoryButton.setVisible(false);
+//        sellersChartButton.setVisible(false);
+//        goToDiscountCodeRegistrationPageButton.setVisible(false);
         chatButton.setVisible(false);
 //        setIDs();
 //        Circle circle = new Circle(30);

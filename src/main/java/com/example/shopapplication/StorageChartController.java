@@ -90,7 +90,7 @@ public class StorageChartController implements Initializable {
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
             String sql = "SELECT MAX(id) AS id, storageid, MAX(daily) AS daily, monthly, " +
-                    "MAX(yearly) AS yearly, MAX(amount) AS amount, MAX(value) AS value " +
+                    "MAX(yearly) AS yearly, AVG(amount) AS amount, AVG(value) AS value " +
                     "FROM StorageProperties " +
                     "Where storageId='" + storage.getId() + "' " +
                     "GROUP BY monthly " +
@@ -121,7 +121,7 @@ public class StorageChartController implements Initializable {
         try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
             Statement statement = connection.createStatement();
             String sql = "SELECT MAX(id) AS id, storageid, MAX(daily) AS daily, MAX(monthly) AS monthly, " +
-                    "yearly, MAX(amount) AS amount, MAX(value) AS value " +
+                    "yearly, AVG(amount) AS amount, AVG(value) AS value " +
                     "FROM StorageProperties " +
                     "Where storageId='" + storage.getId() + "' " +
                     "GROUP BY yearly " +

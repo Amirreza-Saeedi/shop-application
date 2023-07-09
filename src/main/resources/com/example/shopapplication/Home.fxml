@@ -64,9 +64,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <VBox fx:id="adminVBox" layoutX="1067.0" layoutY="2.0" spacing="5.0">
+            <VBox fx:id="adminVBox" layoutX="1067.0" layoutY="2.0" spacing="5.0" visible="false">
                <children>
-                  <Button fx:id="waitingListButton" mnemonicParsing="false" onAction="#toWaiting" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Waiting List" textFill="WHITE" visible="false">
+                  <Button fx:id="waitingListButton" mnemonicParsing="false" onAction="#toWaiting" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Waiting List" textFill="WHITE" visible="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -74,7 +74,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="sellersChartButton" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" visible="false">
+                  <Button fx:id="sellersChartButton" mnemonicParsing="false" onAction="#setSellersChartButtonOnAction" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Sellers chart" textFill="#f2eded" visible="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -82,7 +82,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="inventoryButton" mnemonicParsing="false" onAction="#goToInventory" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" visible="false">
+                  <Button fx:id="inventoryButton" mnemonicParsing="false" onAction="#goToInventory" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Inventory" textFill="WHITE" visible="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -90,7 +90,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="goToDiscountCodeRegistrationPageButton" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="7.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3" visible="false">
+                  <Button fx:id="goToDiscountCodeRegistrationPageButton" mnemonicParsing="false" onAction="#goToDiscountCodeRegistrationPage" prefHeight="7.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Register discount code" textFill="#faf3f3" visible="true">
                      <font>
                         <Font size="10.0" />
                      </font>
