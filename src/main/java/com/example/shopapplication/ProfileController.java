@@ -68,6 +68,7 @@ public class ProfileController  {
         name.setCellValueFactory(new PropertyValueFactory<Person,String>("firstname"));
         password.setCellValueFactory(new PropertyValueFactory<Person,String>("password"));
         userName.setCellValueFactory(new PropertyValueFactory<Person,String>("username"));
+        userType.setCellValueFactory(new PropertyValueFactory<>("userType"));
 
             numberPhone.setCellValueFactory(new PropertyValueFactory<Person,String>("phone"));
 

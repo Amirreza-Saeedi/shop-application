@@ -64,7 +64,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <VBox layoutX="1067.0" layoutY="2.0" spacing="5.0">
+            <VBox fx:id="adminVBox" layoutX="1067.0" layoutY="2.0" spacing="5.0">
                <children>
                   <Button fx:id="waitingListButton" mnemonicParsing="false" onAction="#toWaiting" prefHeight="0.0" prefWidth="118.0" style="-fx-background-color: BLACK;" text="Waiting List" textFill="WHITE" visible="false">
                      <cursor>

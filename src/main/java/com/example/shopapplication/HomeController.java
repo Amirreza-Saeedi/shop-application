@@ -19,10 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
@@ -253,6 +250,8 @@ public class HomeController implements Initializable {
     @FXML
     private Button inventoryButton;
     @FXML
+    private VBox adminVBox;
+    @FXML
     private Button waitingListButton;
     @FXML
     private Button chatButton;
@@ -296,20 +295,26 @@ public class HomeController implements Initializable {
         if (user instanceof Seller){
             productRegistration.setVisible(true);
             manageCommodities.setVisible(true);
-            sellersChartButton.setVisible(false);
-            inventoryButton.setVisible(false);
-            waitingListButton.setVisible(false);
-            goToDiscountCodeRegistrationPageButton.setVisible(false);
+
+            adminVBox.setVisible(false);
+//            sellersChartButton.setVisible(false);
+//            inventoryButton.setVisible(false);
+//            waitingListButton.setVisible(false);
+//            goToDiscountCodeRegistrationPageButton.setVisible(false);
+
             chatButton.setVisible(true);
             userType = SELLER;
 
             typeInfo.setText("you are a seller!");
             loginbutton.setText(user.getUsername());
         } else if (user instanceof Admin) {
-            sellersChartButton.setVisible(true);
-            inventoryButton.setVisible(true);
-            waitingListButton.setVisible(true);
-            goToDiscountCodeRegistrationPageButton.setVisible(true);
+
+            adminVBox.setVisible(true);
+//            sellersChartButton.setVisible(true);
+//            inventoryButton.setVisible(true);
+//            waitingListButton.setVisible(true);
+//            goToDiscountCodeRegistrationPageButton.setVisible(true);
+
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
             chatButton.setVisible(true);
@@ -320,10 +325,13 @@ public class HomeController implements Initializable {
         } else if (user instanceof Customer) {
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
-            sellersChartButton.setVisible(false);
-            inventoryButton.setVisible(false);
-            waitingListButton.setVisible(false);
-            goToDiscountCodeRegistrationPageButton.setVisible(false);
+
+            adminVBox.setVisible(false);
+//            sellersChartButton.setVisible(false);
+//            inventoryButton.setVisible(false);
+//            waitingListButton.setVisible(false);
+//            goToDiscountCodeRegistrationPageButton.setVisible(false);
+
             typeInfo.setText("Customer");
             loginbutton.setText(user.getUsername());
             userType = CUSTOMER;
@@ -1677,9 +1685,8 @@ public class HomeController implements Initializable {
             if (alert.showAndWait().get() == ButtonType.YES) {
                 switchScene(event,"login-scene");
             }
-        }
-
-        switchScene(event,"login-scene");
+        } else
+            switchScene(event,"login-scene");
     }
     @FXML
     private void goToNextPageButtonOnAction(ActionEvent event){
