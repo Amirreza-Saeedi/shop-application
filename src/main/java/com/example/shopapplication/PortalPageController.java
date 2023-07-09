@@ -301,18 +301,26 @@ public class PortalPageController implements Initializable {
         }
     }
 
-    private void logPurchase(Commodity commodity, Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-        String sql = "select storageId from allcommodities where commodityId = '" + commodity.getCommodityId() + "'";
-        ResultSet resultSet = statement.executeQuery(sql);
-        if (resultSet.next()) {
-            int storageId = resultSet.getInt("storageId");
-            String sellerId = resultSet.getString("userName");
-            StorageLog.logPurchase(storageId, commodity.getNumber(),
-                    Double.parseDouble(commodity.getPrice()) * commodity.getNumber(),
-                    sellerId, user.getUsername(), userType, connection);
-        } else {
-            throw new RuntimeException();
+    private void logPurchase(Commodity commodity, Connection connection)  {
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            String sql = "select storageId,userName from allcommodities where commodityId = '" + commodity.getCommodityId() + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                int storageId = resultSet.getInt("storageId");
+                String sellerId = resultSet.getString("userName");
+                StorageLog.logPurchase(storageId, commodity.getNumber(),
+                        Double.parseDouble(commodity.getPrice()) * commodity.getNumber(),
+                        sellerId, user.getUsername(), userType, connection);
+            } else {
+
+                    throw new Exception("log error");
+
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
