@@ -59,7 +59,7 @@ public class Validator {
     }
 
     private boolean validateName(String name) {
-        Pattern pattern = Pattern.compile(MyRegex.usernameRegex);
+        Pattern pattern = Pattern.compile(MyRegex.nameRegex);
         Matcher matcher = pattern.matcher(name);
         return matcher.find();
     }
