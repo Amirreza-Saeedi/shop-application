@@ -276,7 +276,7 @@ public class HomeController implements Initializable {
     ArrayList<Commodity> commodities = new ArrayList<>();
     int arraySizeCounter = 0;
 
-    private Connection connection = null;
+//    private Connection connection = null;
 
     public static void toHome(Node node) throws IOException {
         FXMLLoader loader = new FXMLLoader(HomeController.class.getResource("home.fxml"));
@@ -310,10 +310,10 @@ public class HomeController implements Initializable {
         } else if (user instanceof Admin) {
 
             adminVBox.setVisible(true);
-//            sellersChartButton.setVisible(true);
-//            inventoryButton.setVisible(true);
-//            waitingListButton.setVisible(true);
-//            goToDiscountCodeRegistrationPageButton.setVisible(true);
+            sellersChartButton.setVisible(true);
+            inventoryButton.setVisible(true);
+            waitingListButton.setVisible(true);
+            goToDiscountCodeRegistrationPageButton.setVisible(true);
 
             productRegistration.setVisible(false);
             manageCommodities.setVisible(false);
@@ -381,7 +381,7 @@ public class HomeController implements Initializable {
          * and sets basket label.
          * */
 
-        try (Connection connection = new DatabaseConnectionJDBC().getConnection()) {
+        try (Connection connection = new DatabaseConnectionJDBC().getConnection()){
             // read addition of all commodities user have in Baskets
             Statement statement = connection.createStatement();
             String sql = "SELECT sum(number) as sum FROM Baskets where " +
@@ -395,7 +395,9 @@ public class HomeController implements Initializable {
 
 
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
