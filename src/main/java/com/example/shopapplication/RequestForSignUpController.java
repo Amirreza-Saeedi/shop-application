@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Node;
@@ -41,6 +42,7 @@ public class RequestForSignUpController implements Initializable {
     private SignUp signUp;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        messageLabel.setVisible(false);
         titleLabel.setText("Customer identities:");
         companyLabel.setVisible(false);
         companyTextField.setVisible(false);
@@ -67,6 +69,7 @@ public class RequestForSignUpController implements Initializable {
             phoneTextField.setText(user.getPhone());
             if (user instanceof Seller) {
                 titleLabel.setText("Seller identities:");
+                companyTextField.setText(((Seller) user).getCompany());
                 companyLabel.setVisible(true);
                 companyTextField.setVisible(true);
             }
@@ -95,7 +98,7 @@ public class RequestForSignUpController implements Initializable {
 
                     if (alert.showAndWait().get() == ButtonType.OK) { // ok
                         message = "Returning to home...";
-                        messageLabel.setText(message);
+                        ErrorMessage.showError(messageLabel, message ,5, Color.RED);
                         sleep();
                         // log in to account
                         Login login = new Login(signUp.getUser());
@@ -103,7 +106,7 @@ public class RequestForSignUpController implements Initializable {
 
                     } else { // cancel
                         message = "back to home page...";
-                        messageLabel.setText(message);
+                        ErrorMessage.showError(messageLabel, message ,5, Color.RED);
                         sleep();
                         HomeController.toHome((Node) event.getSource());
                     }
@@ -117,7 +120,7 @@ public class RequestForSignUpController implements Initializable {
                     alert.setHeaderText(headerText);
                     alert.show();
                     message = "back to home page...";
-                    messageLabel.setText(message);
+                    ErrorMessage.showError(messageLabel, message ,5, Color.RED);
                     HomeController.toHome((Node) event.getSource());
                 }
 
@@ -131,7 +134,7 @@ public class RequestForSignUpController implements Initializable {
 //                }
                 alert.show();
                 message = "back to home page...";
-                messageLabel.setText(message);
+                ErrorMessage.showError(messageLabel, message ,5, Color.RED);
                 sleep();
                 HomeController.toHome((Node) event.getSource());
             }
@@ -145,7 +148,7 @@ public class RequestForSignUpController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        messageLabel.setText(message);
+        ErrorMessage.showError(messageLabel, message ,5, Color.RED);
     }
 
 
