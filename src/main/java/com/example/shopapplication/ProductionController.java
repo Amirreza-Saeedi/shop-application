@@ -659,17 +659,16 @@ public class ProductionController implements Initializable {
                 System.out.println("rate = " + rate);
 
                 // Update ratio AllCommodities table
-                if (rate != 0) {
-                    String rateString  = new BigDecimal(rate).setScale(1, BigDecimal.ROUND_HALF_UP).toString();
-                    sql = "UPDATE AllCommodities SET ratio='" + rateString + "' " +
-                            "WHERE commodityId='" + commodity.getCommodityId() + "'";
-                    int resultSet2 = statement.executeUpdate(sql);
-                    if (resultSet2 != 1) {
-                        throw new Exception("resultSet2 = " + resultSet2);
-                    }
-
-                    return true;
+                String rateString  = new BigDecimal(rate).setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+                sql = "UPDATE AllCommodities SET ratio='" + rateString + "' " +
+                        "WHERE commodityId='" + commodity.getCommodityId() + "'";
+                int resultSet2 = statement.executeUpdate(sql);
+                if (resultSet2 != 1) {
+                    throw new Exception("resultSet2 = " + resultSet2);
                 }
+
+                return true;
+
             }
 
         } catch (SQLException e) {
