@@ -1395,6 +1395,7 @@ public class productsManagingController implements Initializable {
     }
 
 
+
     public void setRecordButtonOnAction(ActionEvent event) throws IOException {
 //        int page = Integer.parseInt(this.page.getText());
 //        page = (page*14) - 14;
